@@ -1,15 +1,15 @@
 //
-//  BookAction.h
+//  XiaoShuo7788Engine.h
 //  BookCity
 //
-//  Created by 冯璇 on 16/1/2.
+//  Created by apple on 16/1/5.
 //  Copyright © 2016年 FS. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import "BMFramework.h"
+#import "BookEngine.h"
 
-@interface BookAction : NSObject
+@interface XiaoShuo7788Engine : BookEngine
 
 -(void)getSearchBookResult:(BMBaseParam*)baseParam;
 

@@ -7,10 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BMFramework.h"
 
-@interface SearchEngine : NSObject
+@interface BookEngine : NSObject
 
 
-
+-(void)getSearchBookResult:(BMBaseParam*)baseParam;
 
 @end

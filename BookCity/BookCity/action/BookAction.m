@@ -7,7 +7,13 @@
 //
 
 #import "BookAction.h"
+#import "EngineManager.h"
 
 @implementation BookAction
+
+-(void)getSearchBookResult:(BMBaseParam*)baseParam
+{
+    [[EngineManager sharedInstance]getSearchBookResult:baseParam];
+}
 
 @end

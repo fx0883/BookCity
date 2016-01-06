@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="s6S-Oo-6e6">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="s6S-Oo-6e6">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
     </dependencies>
     <scenes>
         <!--BookCity-->
@@ -41,10 +41,10 @@
             </objects>
             <point key="canvasLocation" x="76" y="255"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Search-->
         <scene sceneID="j4C-un-apE">
             <objects>
-                <tableViewController id="ua2-WD-Tq2" sceneMemberID="viewController">
+                <tableViewController id="ua2-WD-Tq2" customClass="SearchTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="GNa-gs-24f">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -72,7 +72,7 @@
                             <outlet property="delegate" destination="ua2-WD-Tq2" id="woK-Ae-jZw"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="tYg-dJ-Zbi"/>
+                    <navigationItem key="navigationItem" title="Search" id="tYg-dJ-Zbi"/>
                     <connections>
                         <outlet property="searchDisplayController" destination="PY4-wJ-yzF" id="cgK-5K-Ubl"/>
                     </connections>

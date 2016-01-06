@@ -6,8 +6,13 @@
 //  Copyright © 2016年 FS. All rights reserved.
 //
 
-#import "DuanTianSearchEngine.h"
+#import "DuanTianEngine.h"
 
-@implementation DuanTianSearchEngine
+@implementation DuanTianEngine
+
+-(void)getSearchBookResult:(BMBaseParam*)baseParam
+{
+
+}
 
 @end
