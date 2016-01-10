@@ -62,6 +62,10 @@ typedef void (^WithResultObjectBlock)(int,NSString*,id);
 @property (readwrite) BOOL paramBool;
 
 
+@property (nonatomic,strong) NSMutableArray* resultArray;
+
+@property (nonatomic,strong) NSObject* resultObject;
+
 /*!
  *  方法调用完成
  */

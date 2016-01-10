@@ -8,7 +8,7 @@
 
 #import "XiaoShuo7788SessionManager.h"
 
-static NSString * const BaseURLString = @"http://www.duantian.com/";
+static NSString * const BaseURLString = @"http://www.7788xiaoshuo.com/";
 
 
 

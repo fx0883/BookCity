@@ -8,13 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		18019BDE1C3B5D9700F6F679 /* EngineManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18019BDD1C3B5D9700F6F679 /* EngineManager.m */; };
+		18151BB41C428AD9003279EA /* BookCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18151BB21C428AD9003279EA /* BookCell.m */; };
+		18151BB51C428AD9003279EA /* BookCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18151BB31C428AD9003279EA /* BookCell.xib */; };
 		183A04CC1C3A09C400DE7CDA /* DuanTianEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 183A04CB1C3A09C400DE7CDA /* DuanTianEngine.m */; };
 		183A04CF1C3A0A0200DE7CDA /* BookEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 183A04CE1C3A0A0200DE7CDA /* BookEngine.m */; };
+		18B2C61E1C3D516A00506A84 /* NSString+OAURLEncodingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B2C61D1C3D516A00506A84 /* NSString+OAURLEncodingAdditions.m */; };
 		18C0FD381C3BFADC002A7D45 /* BMActionManager+BookCity.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C0FD371C3BFADC002A7D45 /* BMActionManager+BookCity.m */; };
 		18C0FD3D1C3C005E002A7D45 /* DuanTianSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C0FD3C1C3C005E002A7D45 /* DuanTianSessionManager.m */; };
 		18C0FD401C3C0537002A7D45 /* XiaoShuo7788Engine.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C0FD3F1C3C0537002A7D45 /* XiaoShuo7788Engine.m */; };
 		18C0FD431C3C062C002A7D45 /* XiaoShuo7788SessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C0FD421C3C062C002A7D45 /* XiaoShuo7788SessionManager.m */; };
 		18C0FD481C3C0A98002A7D45 /* SearchTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C0FD471C3C0A98002A7D45 /* SearchTableViewController.m */; };
+		18DEABD51C3E13C600739E7F /* BookModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DEABD41C3E13C600739E7F /* BookModel.m */; };
 		834D80031C36AC21003A5366 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 834D80021C36AC21003A5366 /* main.m */; };
 		834D80061C36AC21003A5366 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 834D80051C36AC21003A5366 /* AppDelegate.m */; };
 		834D800C1C36AC21003A5366 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 834D800A1C36AC21003A5366 /* Main.storyboard */; };
@@ -79,10 +83,15 @@
 /* Begin PBXFileReference section */
 		18019BDC1C3B5D9700F6F679 /* EngineManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EngineManager.h; sourceTree = "<group>"; };
 		18019BDD1C3B5D9700F6F679 /* EngineManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EngineManager.m; sourceTree = "<group>"; };
+		18151BB11C428AD9003279EA /* BookCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookCell.h; sourceTree = "<group>"; };
+		18151BB21C428AD9003279EA /* BookCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookCell.m; sourceTree = "<group>"; };
+		18151BB31C428AD9003279EA /* BookCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookCell.xib; sourceTree = "<group>"; };
 		183A04CA1C3A09C400DE7CDA /* DuanTianEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DuanTianEngine.h; sourceTree = "<group>"; };
 		183A04CB1C3A09C400DE7CDA /* DuanTianEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DuanTianEngine.m; sourceTree = "<group>"; };
 		183A04CD1C3A0A0200DE7CDA /* BookEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookEngine.h; sourceTree = "<group>"; };
 		183A04CE1C3A0A0200DE7CDA /* BookEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookEngine.m; sourceTree = "<group>"; };
+		18B2C61C1C3D516A00506A84 /* NSString+OAURLEncodingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+OAURLEncodingAdditions.h"; sourceTree = "<group>"; };
+		18B2C61D1C3D516A00506A84 /* NSString+OAURLEncodingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+OAURLEncodingAdditions.m"; sourceTree = "<group>"; };
 		18C0FD361C3BFADC002A7D45 /* BMActionManager+BookCity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BMActionManager+BookCity.h"; sourceTree = "<group>"; };
 		18C0FD371C3BFADC002A7D45 /* BMActionManager+BookCity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BMActionManager+BookCity.m"; sourceTree = "<group>"; };
 		18C0FD391C3BFC60002A7D45 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
@@ -95,6 +104,8 @@
 		18C0FD421C3C062C002A7D45 /* XiaoShuo7788SessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XiaoShuo7788SessionManager.m; sourceTree = "<group>"; };
 		18C0FD461C3C0A98002A7D45 /* SearchTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchTableViewController.h; sourceTree = "<group>"; };
 		18C0FD471C3C0A98002A7D45 /* SearchTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchTableViewController.m; sourceTree = "<group>"; };
+		18DEABD31C3E13C600739E7F /* BookModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookModel.h; sourceTree = "<group>"; };
+		18DEABD41C3E13C600739E7F /* BookModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookModel.m; sourceTree = "<group>"; };
 		834D7FFE1C36AC21003A5366 /* BookCity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookCity.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		834D80021C36AC21003A5366 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		834D80041C36AC21003A5366 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -229,6 +240,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		18151BB01C428A8C003279EA /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				18151BB11C428AD9003279EA /* BookCell.h */,
+				18151BB21C428AD9003279EA /* BookCell.m */,
+				18151BB31C428AD9003279EA /* BookCell.xib */,
+			);
+			path = cell;
+			sourceTree = "<group>";
+		};
 		183A04C91C3A083300DE7CDA /* engine */ = {
 			isa = PBXGroup;
 			children = (
@@ -251,6 +272,8 @@
 		18C0FD441C3C0A80002A7D45 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				18DEABD31C3E13C600739E7F /* BookModel.h */,
+				18DEABD41C3E13C600739E7F /* BookModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -258,6 +281,7 @@
 		18C0FD451C3C0A80002A7D45 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				18151BB01C428A8C003279EA /* cell */,
 				18C0FD461C3C0A98002A7D45 /* SearchTableViewController.h */,
 				18C0FD471C3C0A98002A7D45 /* SearchTableViewController.m */,
 			);
@@ -496,6 +520,8 @@
 				83A0DD911C37707F00F7C663 /* NSMutableDictionary+XSDic.h */,
 				83A0DD921C37707F00F7C663 /* NSMutableDictionary+XSDic.m */,
 				83A0DD931C37707F00F7C663 /* NSObject */,
+				18B2C61C1C3D516A00506A84 /* NSString+OAURLEncodingAdditions.h */,
+				18B2C61D1C3D516A00506A84 /* NSString+OAURLEncodingAdditions.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -649,6 +675,7 @@
 			files = (
 				834D80111C36AC21003A5366 /* LaunchScreen.storyboard in Resources */,
 				834D800E1C36AC21003A5366 /* Assets.xcassets in Resources */,
+				18151BB51C428AD9003279EA /* BookCell.xib in Resources */,
 				83981A791C37F02A0053B102 /* LICENSE in Resources */,
 				834D800C1C36AC21003A5366 /* Main.storyboard in Resources */,
 				83981A841C37F02A0053B102 /* LICENSE in Resources */,
@@ -685,6 +712,7 @@
 				18C0FD381C3BFADC002A7D45 /* BMActionManager+BookCity.m in Sources */,
 				83A0DDB51C37707F00F7C663 /* BMBaseAction.m in Sources */,
 				83A0DDC11C377EDF00F7C663 /* ServiceInspector_WindowHook.m in Sources */,
+				18151BB41C428AD9003279EA /* BookCell.m in Sources */,
 				83981A7A1C37F02A0053B102 /* README.md in Sources */,
 				83981A7D1C37F02A0053B102 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				83981A821C37F02A0053B102 /* UIRefreshControl+AFNetworking.m in Sources */,
@@ -696,6 +724,7 @@
 				83981A8D1C37F02A0053B102 /* SDWebImageManager.m in Sources */,
 				83981A881C37F02A0053B102 /* SDImageCache.m in Sources */,
 				83A0DDB41C37707F00F7C663 /* BMAppManager.m in Sources */,
+				18DEABD51C3E13C600739E7F /* BookModel.m in Sources */,
 				83981A8E1C37F02A0053B102 /* SDWebImagePrefetcher.m in Sources */,
 				18C0FD3D1C3C005E002A7D45 /* DuanTianSessionManager.m in Sources */,
 				83981A261C37CFB00053B102 /* BMBaseViewController.m in Sources */,
@@ -720,6 +749,7 @@
 				83981A221C37CFB00053B102 /* BMBaseTabBarController.m in Sources */,
 				83A0DDAF1C37707F00F7C663 /* NSObject+BMNotification.m in Sources */,
 				83A0DDB21C37707F00F7C663 /* BMActionManager.m in Sources */,
+				18B2C61E1C3D516A00506A84 /* NSString+OAURLEncodingAdditions.m in Sources */,
 				183A04CF1C3A0A0200DE7CDA /* BookEngine.m in Sources */,
 				83981A7E1C37F02A0053B102 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				83981A231C37CFB00053B102 /* BMBaseTableViewCell.m in Sources */,

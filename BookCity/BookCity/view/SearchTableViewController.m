@@ -8,10 +8,16 @@
 
 #import "SearchTableViewController.h"
 #import "MBProgressHUD.h"
+
+#import "BookCell.h"
+#import "BookModel.h"
+
+
 @interface SearchTableViewController ()
 {
     MBProgressHUD* progressTest;
     __weak NSURLSessionTask* _task;
+    NSMutableArray *_aryBook;
 }
 @end
 
@@ -25,7 +31,33 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    [self searchBook:@"校花"];
+    _aryBook = [NSMutableArray new];
+    [self registCell];
+
+        [self searchBook:@"花千骨"];
+}
+
+-(void)registCell
+{
+//    self.collectionView?.registerNib(UINib(nibName: "IDeasCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: IDEASCELLIDENTIFY);
+   
+    UINib *nib = [UINib nibWithNibName:@"BookCell" bundle:nil];
+    
+    [self.tableView registerNib:nib forCellReuseIdentifier:BOOKCELLID];
+}
+
+//点击键盘上的search按钮时调用
+
+- (void) searchBarSearchButtonClicked:(UISearchBar *)searchBar
+
+{
+    
+    NSString *searchTerm = searchBar.text;
+    
+    [self searchBook:searchTerm];
+    
+//    [searchBar resignFirstResponder];
+    
 }
 
 -(void)searchBook:(NSString*)strKey
@@ -52,6 +84,9 @@
 //            if (weatherresultmodel) {
 //                [weakSelf refreshExampleVC:weatherresultmodel];
 //            }
+            
+            [_aryBook addObjectsFromArray:baseparam.resultArray];
+            [weakSelf.tableView reloadData];
         }
         else
         {
@@ -81,23 +116,31 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 #warning Incomplete implementation, return the number of sections
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete implementation, return the number of rows
-    return 0;
+    return [_aryBook count];
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    BookCell *cell = (BookCell*)[tableView dequeueReusableCellWithIdentifier:BOOKCELLID forIndexPath:indexPath];
+//
+//     Configure the cell...
+//
+    BookModel *bookmodel = [_aryBook objectAtIndex:indexPath.row];
     
-    // Configure the cell...
-    
+    [cell setBookModel:bookmodel];
     return cell;
 }
-*/
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 150;
+}
+
 
 /*
 // Override to support conditional editing of the table view.

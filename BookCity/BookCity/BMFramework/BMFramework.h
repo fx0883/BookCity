@@ -26,6 +26,8 @@
 #import "BMBaseView.h"
 #import "BMUIApplication.h"
 #import "BMBaseTabBarController.h"
+
+#import "NSString+OAURLEncodingAdditions.h"
 //
 //
 //

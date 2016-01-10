@@ -57,16 +57,6 @@
                                 <outlet property="delegate" destination="ua2-WD-Tq2" id="BGZ-py-JOT"/>
                             </connections>
                         </searchBar>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="J4r-tQ-fiH">
-                                <rect key="frame" x="0.0" y="136" width="600" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="J4r-tQ-fiH" id="sEE-4b-BOY">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="ua2-WD-Tq2" id="R3s-Al-7uq"/>
                             <outlet property="delegate" destination="ua2-WD-Tq2" id="woK-Ae-jZw"/>

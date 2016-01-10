@@ -31,7 +31,7 @@ DEF_SINGLETON(EngineManager)
 
 -(void)loadData
 {
-    if (_aryEngine) {
+    if (_aryEngine == nil) {
         _aryEngine = [[NSMutableArray alloc]initWithCapacity:5];
         
         [self registerEngine: [XiaoShuo7788Engine new]];
@@ -41,7 +41,7 @@ DEF_SINGLETON(EngineManager)
 -(void)registerEngine:(BookEngine*)bookEngine
 {
     
-    if (_aryEngine && [_aryEngine containsObject:bookEngine])
+    if (_aryEngine != nil && ![_aryEngine containsObject:bookEngine])
     {
         [_aryEngine addObject:bookEngine];
     }
@@ -51,7 +51,7 @@ DEF_SINGLETON(EngineManager)
 
 -(void)getSearchBookResult:(BMBaseParam*)baseParam
 {
-    if (_aryEngine == NULL) {
+    if (_aryEngine == nil) {
         return;
     }
     for (BookEngine* bookengine in _aryEngine)
