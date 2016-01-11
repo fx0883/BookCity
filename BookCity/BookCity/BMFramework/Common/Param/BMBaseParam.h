@@ -54,7 +54,7 @@ typedef void (^WithResultObjectBlock)(int,NSString*,id);
 /*!
  *  int 参数
  */
-@property (nonatomic,strong) NSObject* paramInt;
+@property (readwrite) NSInteger paramInt;
 
 /*!
  *  Bool 参数

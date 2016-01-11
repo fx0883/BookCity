@@ -12,6 +12,8 @@
 		18151BB51C428AD9003279EA /* BookCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18151BB31C428AD9003279EA /* BookCell.xib */; };
 		183A04CC1C3A09C400DE7CDA /* DuanTianEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 183A04CB1C3A09C400DE7CDA /* DuanTianEngine.m */; };
 		183A04CF1C3A0A0200DE7CDA /* BookEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 183A04CE1C3A0A0200DE7CDA /* BookEngine.m */; };
+		185B39C11C438F130059FDC8 /* UIScrollView+SVInfiniteScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = 185B39BE1C438F130059FDC8 /* UIScrollView+SVInfiniteScrolling.m */; };
+		185B39C21C438F130059FDC8 /* UIScrollView+SVPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 185B39C01C438F130059FDC8 /* UIScrollView+SVPullToRefresh.m */; };
 		18B2C61E1C3D516A00506A84 /* NSString+OAURLEncodingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B2C61D1C3D516A00506A84 /* NSString+OAURLEncodingAdditions.m */; };
 		18C0FD381C3BFADC002A7D45 /* BMActionManager+BookCity.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C0FD371C3BFADC002A7D45 /* BMActionManager+BookCity.m */; };
 		18C0FD3D1C3C005E002A7D45 /* DuanTianSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C0FD3C1C3C005E002A7D45 /* DuanTianSessionManager.m */; };
@@ -90,6 +92,11 @@
 		183A04CB1C3A09C400DE7CDA /* DuanTianEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DuanTianEngine.m; sourceTree = "<group>"; };
 		183A04CD1C3A0A0200DE7CDA /* BookEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookEngine.h; sourceTree = "<group>"; };
 		183A04CE1C3A0A0200DE7CDA /* BookEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookEngine.m; sourceTree = "<group>"; };
+		185B39BC1C438F130059FDC8 /* SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVPullToRefresh.h; sourceTree = "<group>"; };
+		185B39BD1C438F130059FDC8 /* UIScrollView+SVInfiniteScrolling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVInfiniteScrolling.h"; sourceTree = "<group>"; };
+		185B39BE1C438F130059FDC8 /* UIScrollView+SVInfiniteScrolling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVInfiniteScrolling.m"; sourceTree = "<group>"; };
+		185B39BF1C438F130059FDC8 /* UIScrollView+SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVPullToRefresh.h"; sourceTree = "<group>"; };
+		185B39C01C438F130059FDC8 /* UIScrollView+SVPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVPullToRefresh.m"; sourceTree = "<group>"; };
 		18B2C61C1C3D516A00506A84 /* NSString+OAURLEncodingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+OAURLEncodingAdditions.h"; sourceTree = "<group>"; };
 		18B2C61D1C3D516A00506A84 /* NSString+OAURLEncodingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+OAURLEncodingAdditions.m"; sourceTree = "<group>"; };
 		18C0FD361C3BFADC002A7D45 /* BMActionManager+BookCity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BMActionManager+BookCity.h"; sourceTree = "<group>"; };
@@ -269,6 +276,18 @@
 			path = engine;
 			sourceTree = "<group>";
 		};
+		185B39BB1C438F130059FDC8 /* SVPullToRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				185B39BC1C438F130059FDC8 /* SVPullToRefresh.h */,
+				185B39BD1C438F130059FDC8 /* UIScrollView+SVInfiniteScrolling.h */,
+				185B39BE1C438F130059FDC8 /* UIScrollView+SVInfiniteScrolling.m */,
+				185B39BF1C438F130059FDC8 /* UIScrollView+SVPullToRefresh.h */,
+				185B39C01C438F130059FDC8 /* UIScrollView+SVPullToRefresh.m */,
+			);
+			path = SVPullToRefresh;
+			sourceTree = "<group>";
+		};
 		18C0FD441C3C0A80002A7D45 /* model */ = {
 			isa = PBXGroup;
 			children = (
@@ -366,6 +385,7 @@
 		83981A291C37F02A0053B102 /* vender */ = {
 			isa = PBXGroup;
 			children = (
+				185B39BB1C438F130059FDC8 /* SVPullToRefresh */,
 				83981A2A1C37F02A0053B102 /* AFNetworking */,
 				83981A501C37F02A0053B102 /* MBProgressHUD */,
 				83981A551C37F02A0053B102 /* SDWebImage */,
@@ -703,6 +723,7 @@
 				83981A7F1C37F02A0053B102 /* UIButton+AFNetworking.m in Sources */,
 				18C0FD431C3C062C002A7D45 /* XiaoShuo7788SessionManager.m in Sources */,
 				83981A851C37F02A0053B102 /* MBProgressHUD.m in Sources */,
+				185B39C11C438F130059FDC8 /* UIScrollView+SVInfiniteScrolling.m in Sources */,
 				834D80031C36AC21003A5366 /* main.m in Sources */,
 				83981A871C37F02A0053B102 /* NSData+ImageContentType.m in Sources */,
 				83981A931C37F02A0053B102 /* UIImageView+WebCache.m in Sources */,
@@ -727,6 +748,7 @@
 				18DEABD51C3E13C600739E7F /* BookModel.m in Sources */,
 				83981A8E1C37F02A0053B102 /* SDWebImagePrefetcher.m in Sources */,
 				18C0FD3D1C3C005E002A7D45 /* DuanTianSessionManager.m in Sources */,
+				185B39C21C438F130059FDC8 /* UIScrollView+SVPullToRefresh.m in Sources */,
 				83981A261C37CFB00053B102 /* BMBaseViewController.m in Sources */,
 				83A0DDC01C377EDF00F7C663 /* ServiceInspector_Indicator.m in Sources */,
 				83A0DDB61C37707F00F7C663 /* BMControl.m in Sources */,
@@ -869,7 +891,7 @@
 				GCC_PREFIX_HEADER = BookCity/PrefixHeader.pch;
 				INFOPLIST_FILE = BookCity/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.demo.app.BookCity;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fs.bookCity;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -882,7 +904,7 @@
 				GCC_PREFIX_HEADER = BookCity/PrefixHeader.pch;
 				INFOPLIST_FILE = BookCity/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.demo.app.BookCity;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fs.bookCity;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

@@ -22,7 +22,9 @@
 
     NSDictionary *dict = @{ @"Search":strKeyWord};
     
-    [[XiaoShuo7788SessionManager sharedClient] GET:@"/list/0/1.html" parameters:dict progress:nil success:^(NSURLSessionDataTask * __unused task, id responseObject) {
+    NSString *strUrl = [NSString stringWithFormat:@"/list/0/%ld.html" ,(long)baseParam.paramInt];
+    
+    [[XiaoShuo7788SessionManager sharedClient] GET:strUrl parameters:dict progress:nil success:^(NSURLSessionDataTask * __unused task, id responseObject) {
         
         //NSString *string = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
         

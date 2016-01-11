@@ -12,18 +12,24 @@
 #import "BookCell.h"
 #import "BookModel.h"
 
+#import "SVPullToRefresh.h"
+
 
 @interface SearchTableViewController ()
 {
     MBProgressHUD* progressTest;
     __weak NSURLSessionTask* _task;
     NSMutableArray *_aryBook;
+    NSInteger _pageIndex;
+    NSString *_searchKey;
 }
 @end
 
 @implementation SearchTableViewController
 
 - (void)viewDidLoad {
+    _pageIndex = 1;
+    _searchKey = @"";
     [super viewDidLoad];
     
     // Uncomment the following line to preserve selection between presentations.
@@ -33,8 +39,44 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     _aryBook = [NSMutableArray new];
     [self registCell];
+    [self addPullRefresh];
 
-        [self searchBook:@"花千骨"];
+}
+
+
+-(void)addPullRefresh
+{
+    __weak SearchTableViewController *weakSelf = self;
+    // setup infinite scrolling
+    [self.tableView addInfiniteScrollingWithActionHandler:^{
+        [weakSelf insertRowAtBottom];
+    }];
+}
+
+
+- (void)insertRowAtBottom {
+    __weak SearchTableViewController *weakSelf = self;
+    
+    
+    
+    if ([_searchKey length] > 0) {
+        _pageIndex++;
+        [self searchBook:_searchKey];
+        
+        
+    }
+//    int64_t delayInSeconds = 2.0;
+//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+//    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+//        [weakSelf.tableView beginUpdates];
+//        [weakSelf.dataSource addObject:[weakSelf.dataSource.lastObject dateByAddingTimeInterval:-90]];
+//        [weakSelf.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:weakSelf.dataSource.count-1 inSection:0]] withRowAnimation:UITableViewRowAnimationTop];
+//        [weakSelf.tableView endUpdates];
+//        
+//        [weakSelf.tableView.infiniteScrollingView stopAnimating];
+//    });
+    
+    
 }
 
 -(void)registCell
@@ -54,10 +96,15 @@
     
     NSString *searchTerm = searchBar.text;
     
-    [self searchBook:searchTerm];
+    _searchKey = searchTerm;
+    _pageIndex = 1;
     
-//    [searchBar resignFirstResponder];
+    [self searchBook:_searchKey];
     
+
+    
+
+    [self.searchDisplayController setActive:NO animated:YES];
 }
 
 -(void)searchBook:(NSString*)strKey
@@ -71,22 +118,24 @@
     
     //参数
     baseparam.paramString=strKey;
+    baseparam.paramInt = _pageIndex;
     
-    [baseparam.paramDic setObject:@"id" forKey:@"234"];
+//    [baseparam.paramDic setObject:@"id" forKey:@"234"];
     
     __weak SearchTableViewController *weakSelf=self;
+    __weak BMBaseParam *weakBaseParam = baseparam;
     baseparam.withresultobjectblock=^(int intError,NSString* strMsg,id obj)
     {
         if (intError == 0)
         {
-            //服务器返回数据
-//            WeatherResultModel *weatherresultmodel = (WeatherResultModel*)obj;
-//            if (weatherresultmodel) {
-//                [weakSelf refreshExampleVC:weatherresultmodel];
-//            }
-            
-            [_aryBook addObjectsFromArray:baseparam.resultArray];
+            if (weakBaseParam.paramInt == 1) {
+                [_aryBook removeAllObjects];
+            }
+            [_aryBook addObjectsFromArray:weakBaseParam.resultArray];
             [weakSelf.tableView reloadData];
+            
+            
+            [weakSelf.tableView.infiniteScrollingView stopAnimating];
         }
         else
         {
@@ -121,19 +170,30 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete implementation, return the number of rows
-    return [_aryBook count];
+    if(tableView == self.searchDisplayController.searchResultsTableView) {
+        return 0;
+    }
+    else if(tableView == self.tableView)
+    {
+        return [_aryBook count];
+    }
+    return 0;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if(tableView == self.searchDisplayController.searchResultsTableView) {
+        return nil;
+    }
+    else if(tableView == self.tableView)
+    {
     BookCell *cell = (BookCell*)[tableView dequeueReusableCellWithIdentifier:BOOKCELLID forIndexPath:indexPath];
-//
-//     Configure the cell...
-//
     BookModel *bookmodel = [_aryBook objectAtIndex:indexPath.row];
     
     [cell setBookModel:bookmodel];
     return cell;
+    }
+    return nil;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
