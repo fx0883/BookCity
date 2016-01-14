@@ -16,6 +16,8 @@ AS_SINGLETON(EngineManager)
 
 -(void)getSearchBookResult:(BMBaseParam*)baseParam;
 
+-(void)getCategoryBooksResult:(BMBaseParam*)baseParam;
+
 
 -(void)registerEngine:(BookEngine*)bookEngine;
 @end

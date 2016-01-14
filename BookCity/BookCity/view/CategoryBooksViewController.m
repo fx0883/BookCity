@@ -8,21 +8,47 @@
 
 #import "CategoryBooksViewController.h"
 
-@interface CategoryBooksViewController ()
+#import "BookCell.h"
+#import "BookModel.h"
+#import "DataManager.h"
 
+#import "SVPullToRefresh.h"
+
+@interface CategoryBooksViewController ()
+{
+    NSMutableArray *_aryBook;
+    __weak NSURLSessionTask* _task;
+}
 @end
 
 @implementation CategoryBooksViewController
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+//    [self.tableView triggerPullToRefresh];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     NSLog(@"%@",_bookCategoryModel);
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    _aryBook = [[DataManager sharedInstance] getBookArybyCategoryname:_bookCategoryModel.name];
+    [self registCell];
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self addPullRefresh];
+    
+
+    if ([_aryBook count]==0) {
+            [self insertRowAtBottom];
+    }
+
+}
+
+-(void)registCell
+{
+    UINib *nib = [UINib nibWithNibName:@"BookCell" bundle:nil];
+    [self.tableView registerNib:nib forCellReuseIdentifier:BOOKCELLID];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -30,17 +56,106 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+-(void)addPullRefresh
+{
+    __weak CategoryBooksViewController *weakSelf = self;
+    // setup infinite scrolling
+    [self.tableView addInfiniteScrollingWithActionHandler:^{
+        [weakSelf insertRowAtBottom];
+    }];
+}
+
+
+- (void)insertRowAtBottom {
+    __weak CategoryBooksViewController *weakSelf = self;
+    
+    [self getCategoryBooks];
+    weakSelf.bookCategoryModel.curIndex++;
+    
+//    if ([_searchKey length] > 0) {
+//        _pageIndex++;
+//        [self searchBook:_searchKey];
+//        
+//        
+//    }
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 #warning Incomplete implementation, return the number of sections
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete implementation, return the number of rows
-    return 0;
+    return [_aryBook count];
 }
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+
+        BookCell *cell = (BookCell*)[tableView dequeueReusableCellWithIdentifier:BOOKCELLID forIndexPath:indexPath];
+        BookModel *bookmodel = [_aryBook objectAtIndex:indexPath.row];
+        
+        [cell setBookModel:bookmodel];
+        return cell;
+
+}
+
+
+-(void)getCategoryBooks
+{
+    if (!_task) {
+        [_task cancel];
+    }
+    
+    //实例化一个传入传出参数
+    BMBaseParam* baseparam=[BMBaseParam new];
+    
+    //参数
+    baseparam.paramString=_bookCategoryModel.strUrl;
+    baseparam.paramInt = _bookCategoryModel.curIndex;
+    
+    //    [baseparam.paramDic setObject:@"id" forKey:@"234"];
+    
+    __weak CategoryBooksViewController *weakSelf=self;
+    __weak BMBaseParam *weakBaseParam = baseparam;
+    baseparam.withresultobjectblock=^(int intError,NSString* strMsg,id obj)
+    {
+        if (intError == 0)
+        {
+            if (weakBaseParam.paramInt == 1) {
+                [_aryBook removeAllObjects];
+            }
+            [_aryBook addObjectsFromArray:weakBaseParam.resultArray];
+            [weakSelf.tableView reloadData];
+            
+            
+
+        }
+        else
+        {
+            NSLog(@"获取数据失败");
+        }
+        [weakSelf.tableView.infiniteScrollingView stopAnimating];
+    };
+    NSMutableDictionary* dicParam=[NSMutableDictionary createParamDic];
+    [dicParam setActionID:DEF_ACTIONID_BOOKACTION strcmd:DEF_ACTIONIDCMD_GETCATEGORYBOOKSRESULT];
+    [dicParam setParam:baseparam];
+    
+    [SharedControl excute:dicParam];
+    //    progressTest = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //    progressTest.labelText = @"加载中...";
+    //    progressTest.mode = MBProgressHUDModeIndeterminate;//可以显示不同风格的进度；
+    //
+    //    _task = (NSURLSessionTask*)baseparam.paramObject;
+    //
+    //    [progressTest setAnimatingWithStateOfTask:_task];
+}
+
+
 
 /*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

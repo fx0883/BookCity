@@ -13,7 +13,7 @@
 
 //---所有命令的调用
 #define DEF_ACTIONIDCMD_GETSEARCHBOOKRESULT @"getSearchBookResult:"
-
+#define DEF_ACTIONIDCMD_GETCATEGORYBOOKSRESULT @"getCategoryBooksResult:"
 
 
 //所有命令

@@ -8,11 +8,11 @@
 
 #import "XiaoShuo7788SessionManager.h"
 
+
+
+
+
 static NSString * const BaseURLString = @"http://www.7788xiaoshuo.com/";
-
-
-
-
 
 
 @implementation XiaoShuo7788SessionManager
@@ -32,6 +32,11 @@ static NSString * const BaseURLString = @"http://www.7788xiaoshuo.com/";
     });
     
     return _sharedClient;
+}
+
++ (NSString*)getBaseUrl
+{
+    return BaseURLString;
 }
 
 @end

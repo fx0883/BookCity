@@ -65,18 +65,6 @@
         
         
     }
-//    int64_t delayInSeconds = 2.0;
-//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-//    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-//        [weakSelf.tableView beginUpdates];
-//        [weakSelf.dataSource addObject:[weakSelf.dataSource.lastObject dateByAddingTimeInterval:-90]];
-//        [weakSelf.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:weakSelf.dataSource.count-1 inSection:0]] withRowAnimation:UITableViewRowAnimationTop];
-//        [weakSelf.tableView endUpdates];
-//        
-//        [weakSelf.tableView.infiniteScrollingView stopAnimating];
-//    });
-    
-    
 }
 
 -(void)registCell
@@ -133,14 +121,13 @@
             }
             [_aryBook addObjectsFromArray:weakBaseParam.resultArray];
             [weakSelf.tableView reloadData];
-            
-            
-            [weakSelf.tableView.infiniteScrollingView stopAnimating];
+
         }
         else
         {
             NSLog(@"获取数据失败");
         }
+        [weakSelf.tableView.infiniteScrollingView stopAnimating];
     };
     NSMutableDictionary* dicParam=[NSMutableDictionary createParamDic];
     [dicParam setActionID:DEF_ACTIONID_BOOKACTION strcmd:DEF_ACTIONIDCMD_GETSEARCHBOOKRESULT];
@@ -196,10 +183,10 @@
     return nil;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 150;
-}
+//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    return 150;
+//}
 
 
 /*

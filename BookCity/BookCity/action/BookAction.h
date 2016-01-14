@@ -12,5 +12,5 @@
 @interface BookAction : NSObject
 
 -(void)getSearchBookResult:(BMBaseParam*)baseParam;
-
+-(void)getCategoryBooksResult:(BMBaseParam*)baseParam;
 @end

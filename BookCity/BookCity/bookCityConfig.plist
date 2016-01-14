@@ -22,7 +22,7 @@
 			<key>description</key>
 			<string>描述分类</string>
 			<key>url</key>
-			<string>http://www.7788xiaoshuo.com/list/510/1.html</string>
+			<string>http://www.7788xiaoshuo.com/list/510/%d.html</string>
 		</dict>
 		<dict>
 			<key>categoryname</key>
@@ -32,7 +32,7 @@
 			<key>description</key>
 			<string>描述分类</string>
 			<key>url</key>
-			<string>http://www.7788xiaoshuo.com/list/105/1.html</string>
+			<string>http://www.7788xiaoshuo.com/list/105/%d.html</string>
 		</dict>
 		<dict>
 			<key>order</key>
@@ -42,7 +42,7 @@
 			<key>description</key>
 			<string>描述分类</string>
 			<key>url</key>
-			<string>http://www.7788xiaoshuo.com/list/511/1.html</string>
+			<string>http://www.7788xiaoshuo.com/list/511/%d.html</string>
 		</dict>
 		<dict>
 			<key>order</key>
@@ -52,7 +52,7 @@
 			<key>description</key>
 			<string>描述分类</string>
 			<key>url</key>
-			<string>http://www.7788xiaoshuo.com/list/109/1.html</string>
+			<string>http://www.7788xiaoshuo.com/list/109/%d.html</string>
 		</dict>
 		<dict>
 			<key>order</key>
@@ -62,7 +62,7 @@
 			<key>description</key>
 			<string>描述分类</string>
 			<key>url</key>
-			<string>http://www.7788xiaoshuo.com/list/513/1.html</string>
+			<string>http://www.7788xiaoshuo.com/list/513/%d.html</string>
 		</dict>
 		<dict>
 			<key>order</key>
@@ -72,7 +72,7 @@
 			<key>description</key>
 			<string>描述分类</string>
 			<key>url</key>
-			<string>http://www.7788xiaoshuo.com/list/144/1.html</string>
+			<string>http://www.7788xiaoshuo.com/list/144/%d.html</string>
 		</dict>
 		<dict>
 			<key>order</key>
@@ -82,7 +82,7 @@
 			<key>description</key>
 			<string>描述分类</string>
 			<key>url</key>
-			<string>http://www.7788xiaoshuo.com/list/108/1.html</string>
+			<string>http://www.7788xiaoshuo.com/list/108/%d.html</string>
 		</dict>
 		<dict>
 			<key>order</key>
@@ -92,7 +92,7 @@
 			<key>description</key>
 			<string>描述分类</string>
 			<key>url</key>
-			<string>http://www.7788xiaoshuo.com/list/447/1.html</string>
+			<string>http://www.7788xiaoshuo.com/list/447/%d.html</string>
 		</dict>
 		<dict>
 			<key>order</key>
@@ -102,7 +102,7 @@
 			<key>description</key>
 			<string>描述分类</string>
 			<key>url</key>
-			<string>http://www.7788xiaoshuo.com/list/110/1.html</string>
+			<string>http://www.7788xiaoshuo.com/list/110/%d.html</string>
 		</dict>
 		<dict>
 			<key>order</key>
@@ -112,7 +112,7 @@
 			<key>description</key>
 			<string>描述分类</string>
 			<key>url</key>
-			<string>http://www.7788xiaoshuo.com/list/107/1.html</string>
+			<string>http://www.7788xiaoshuo.com/list/107/%d.html</string>
 		</dict>
 		<dict>
 			<key>order</key>
@@ -122,7 +122,7 @@
 			<key>description</key>
 			<string>描述分类</string>
 			<key>url</key>
-			<string>http://www.7788xiaoshuo.com/list/512/1.html</string>
+			<string>http://www.7788xiaoshuo.com/list/512/%d.html</string>
 		</dict>
 		<dict>
 			<key>order</key>
@@ -132,7 +132,7 @@
 			<key>description</key>
 			<string>描述分类</string>
 			<key>url</key>
-			<string>http://www.7788xiaoshuo.com/list/515/1.html</string>
+			<string>http://www.7788xiaoshuo.com/list/515/%d.html</string>
 		</dict>
 		<dict>
 			<key>order</key>
@@ -142,7 +142,7 @@
 			<key>description</key>
 			<string>描述分类</string>
 			<key>url</key>
-			<string>http://www.7788xiaoshuo.com/list/448/1.html</string>
+			<string>http://www.7788xiaoshuo.com/list/448/%d.html</string>
 		</dict>
 		<dict>
 			<key>order</key>
@@ -152,7 +152,7 @@
 			<key>description</key>
 			<string>描述分类</string>
 			<key>url</key>
-			<string>http://www.7788xiaoshuo.com/list/449/1.html</string>
+			<string>http://www.7788xiaoshuo.com/list/449/%d.html</string>
 		</dict>
 		<dict>
 			<key>order</key>
@@ -162,7 +162,7 @@
 			<key>description</key>
 			<string>描述分类</string>
 			<key>url</key>
-			<string>http://www.7788xiaoshuo.com/list/111/1.html</string>
+			<string>http://www.7788xiaoshuo.com/list/111/%d.html</string>
 		</dict>
 		<dict>
 			<key>order</key>
@@ -172,7 +172,7 @@
 			<key>description</key>
 			<string>描述分类</string>
 			<key>url</key>
-			<string>http://www.7788xiaoshuo.com/list/516/1.html</string>
+			<string>http://www.7788xiaoshuo.com/list/516/%d.html</string>
 		</dict>
 		<dict>
 			<key>order</key>
@@ -182,7 +182,7 @@
 			<key>categoryname</key>
 			<string>其他</string>
 			<key>url</key>
-			<string>http://www.7788xiaoshuo.com/list/112/1.html</string>
+			<string>http://www.7788xiaoshuo.com/list/112/%d.html</string>
 		</dict>
 	</array>
 </dict>

@@ -25,8 +25,9 @@ DEF_SINGLETON(DataManager)
 
 -(void)loadData
 {
-    
+    _dicBooksCategoryAry = [NSMutableDictionary new];
     _bookCategory = [NSMutableArray new];
+
     
     BookCityConfig *bookCityConfig = [BookCityConfig sharedInstance];
     
@@ -41,20 +42,23 @@ DEF_SINGLETON(DataManager)
         bookcategorymodel.curIndex = 1;
         bookcategorymodel.name = dicItem[CATEGORYNAME];
         bookcategorymodel.strUrl = dicItem[URL];
-        bookcategorymodel.categoryDescription = dicItem[DESCRIPTION];
-//        bookcategorymodel.strUrl = ;
-        
-        
-//#define DESCRIPTION @"description"
-//#define ORDER @"order"
-//#define CATEGORYNAME @"categoryname"
-//#define URL @"url"
-        
+        bookcategorymodel.categoryDescription = dicItem[DESCRIPTION];        
         [_bookCategory addObject:bookcategorymodel];
 
     }
     
     
+}
+
+
+-(NSMutableArray*)getBookArybyCategoryname:(NSString*)strCategoryname
+{
+    NSMutableArray* retArray = _dicBooksCategoryAry[strCategoryname];
+    if (retArray == nil) {
+        retArray = [NSMutableArray new];
+        [_dicBooksCategoryAry setObject:retArray forKey:strCategoryname];
+    }
+    return retArray;
 }
 
 @end

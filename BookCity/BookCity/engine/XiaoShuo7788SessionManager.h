@@ -9,5 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface XiaoShuo7788SessionManager : AFHTTPSessionManager
+
 + (instancetype)sharedClient;
+
++ (NSString*)getBaseUrl;
 @end

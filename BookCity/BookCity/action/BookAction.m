@@ -16,4 +16,10 @@
     [[EngineManager sharedInstance]getSearchBookResult:baseParam];
 }
 
+
+-(void)getCategoryBooksResult:(BMBaseParam*)baseParam
+{
+    [[EngineManager sharedInstance]getCategoryBooksResult:baseParam];
+}
+
 @end

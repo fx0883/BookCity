@@ -11,8 +11,12 @@
 @interface DataManager : NSObject
 AS_SINGLETON(DataManager)
 
+
+
 @property (nonatomic,strong) NSMutableArray *bookCategory;
 
+@property (nonatomic,strong) NSMutableDictionary *dicBooksCategoryAry;
 
+-(NSMutableArray*)getBookArybyCategoryname:(NSString*)strCategoryname;
 
 @end

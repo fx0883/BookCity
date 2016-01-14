@@ -12,6 +12,80 @@
 
 @implementation XiaoShuo7788Engine
 
+
+-(void)getCategoryBooksResult:(BMBaseParam*)baseParam
+{
+//    NSString *strUrl = baseParam.paramString;
+////    NSString *strKeyWord = [strSource ConvertUTF16Big];
+//    
+//    
+//    NSDictionary *dict = @{ @"Search":strKeyWord};
+    
+//    XiaoShuo7788SessionManager BaseURLString
+    
+    NSString *strUrl = [NSString stringWithFormat:baseParam.paramString ,(long)baseParam.paramInt];
+    
+    strUrl = [strUrl stringByReplacingOccurrencesOfString:[XiaoShuo7788SessionManager getBaseUrl] withString:@""];
+    
+    [[XiaoShuo7788SessionManager sharedClient] GET:strUrl parameters:nil progress:nil success:^(NSURLSessionDataTask * __unused task, id responseObject) {
+        
+        //NSString *string = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        
+        NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:0x80000632];
+        
+        NSArray *ary = [self getBookList:responseStr];
+        
+        NSMutableArray *bookList = [[NSMutableArray alloc]init];
+        
+        for (NSTextCheckingResult *match in ary) {
+            NSString* substringForMatch = [responseStr substringWithRange:match.range];
+            NSLog(@"Extracted URL: %@",substringForMatch);
+            //            [arrayOfURLs addObject:substringForMatch];
+            BookModel *bookModel = [self getBookModel:substringForMatch];
+            [bookList addObject:bookModel];
+            
+            NSLog(@"========================================");
+            NSLog(@"%@",bookModel.title);
+            NSLog(@"%@",bookModel.imgSrc);
+            NSLog(@"%@",bookModel.bookLink);
+            NSLog(@"%@",bookModel.memo);
+        }
+        
+        NSArray *ary7788 = [self getBookList7788:responseStr];
+        
+        
+        for (NSTextCheckingResult *match in ary7788) {
+            NSString* substringForMatch = [responseStr substringWithRange:match.range];
+            NSLog(@"Extracted URL: %@",substringForMatch);
+            //            [arrayOfURLs addObject:substringForMatch];
+            BookModel *bookModel = [self getBookModel7788:substringForMatch];
+            [bookList addObject:bookModel];
+            
+            NSLog(@"========================================");
+            NSLog(@"%@",bookModel.title);
+            NSLog(@"%@",bookModel.imgSrc);
+            NSLog(@"%@",bookModel.bookLink);
+            NSLog(@"%@",bookModel.memo);
+        }
+        
+        
+        baseParam.resultArray = bookList;
+        if (baseParam.withresultobjectblock) {
+            baseParam.withresultobjectblock(0,@"",nil);
+        }
+        //
+        //        NSLog(ary);
+        //        NSLog(responseStr);
+        //        NSLog(string);
+    } failure:^(NSURLSessionDataTask *__unused task, NSError *error)
+     {
+         NSLog(@"%@",[error userInfo]);
+         
+         
+     }];
+}
+
+
 -(void)getSearchBookResult:(BMBaseParam*)baseParam
 {
     
