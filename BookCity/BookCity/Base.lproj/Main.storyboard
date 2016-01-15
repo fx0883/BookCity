@@ -34,7 +34,7 @@
                     <navigationItem key="navigationItem" title="BookCity" id="JHJ-sW-uxe">
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="search" id="x13-ay-YWH">
                             <connections>
-                                <segue destination="ua2-WD-Tq2" kind="push" id="TIG-rE-MFp"/>
+                                <segue destination="ua2-WD-Tq2" kind="push" id="Rot-Du-mxy"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

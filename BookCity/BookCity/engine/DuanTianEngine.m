@@ -14,28 +14,28 @@
 
 -(void)getSearchBookResult:(BMBaseParam*)baseParam
 {
-    NSString *strUrl = [NSString stringWithFormat:baseParam.paramString ,(long)baseParam.paramInt];
-    
-    strUrl = [strUrl stringByReplacingOccurrencesOfString:[DuanTianSessionManager getBaseUrl] withString:@""];
-    
-    [[DuanTianSessionManager sharedClient] GET:strUrl parameters:nil progress:nil success:^(NSURLSessionDataTask * __unused task, id responseObject) {
-        
-        NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:0x80000632];
-        
-        
-        
-        if (baseParam.withresultobjectblock) {
-            baseParam.withresultobjectblock(0,@"",nil);
-        }
-        
-    } failure:^(NSURLSessionDataTask *__unused task, NSError *error)
-     {
-         NSLog(@"%@",[error userInfo]);
-         if (baseParam.withresultobjectblock) {
-             baseParam.withresultobjectblock(-1,@"",nil);
-         }
-         
-     }];
+//    NSString *strUrl = [NSString stringWithFormat:baseParam.paramString ,(long)baseParam.paramInt];
+//    
+//    strUrl = [strUrl stringByReplacingOccurrencesOfString:[DuanTianSessionManager getBaseUrl] withString:@""];
+//    
+//    [[DuanTianSessionManager sharedClient] GET:strUrl parameters:nil progress:nil success:^(NSURLSessionDataTask * __unused task, id responseObject) {
+//        
+//        NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:0x80000632];
+//        
+//        
+//        
+//        if (baseParam.withresultobjectblock) {
+//            baseParam.withresultobjectblock(0,@"",nil);
+//        }
+//        
+//    } failure:^(NSURLSessionDataTask *__unused task, NSError *error)
+//     {
+//         NSLog(@"%@",[error userInfo]);
+//         if (baseParam.withresultobjectblock) {
+//             baseParam.withresultobjectblock(-1,@"",nil);
+//         }
+//         
+//     }];
 }
 
 -(void)getBookChapterList:(BMBaseParam*)baseParam
