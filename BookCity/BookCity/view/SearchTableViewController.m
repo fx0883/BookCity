@@ -191,7 +191,7 @@
 {
     BookModel* bookmodel = [_aryBook objectAtIndex:indexPath.row];
     
-    [self performSegueWithIdentifier:@"categorybookToDetail" sender:bookmodel];
+    [self performSegueWithIdentifier:@"searchBookToChapterList" sender:bookmodel];
 }
 
 
