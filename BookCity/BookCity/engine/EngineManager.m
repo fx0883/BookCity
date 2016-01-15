@@ -8,6 +8,11 @@
 
 #import "EngineManager.h"
 #import "XiaoShuo7788Engine.h"
+#import "DuanTianEngine.h"
+
+
+#define E7788 @"7788"
+#define EDUANTIAN @"DuanTian"
 
 @interface EngineManager()
 {
@@ -34,7 +39,8 @@ DEF_SINGLETON(EngineManager)
 {
     if (_dicEngine == nil) {
         _dicEngine = [[NSMutableDictionary alloc]initWithCapacity:2];
-        [self registerEngine:[XiaoShuo7788Engine new] key:@"7788"];
+        [self registerEngine:[XiaoShuo7788Engine new] key:E7788];
+        [self registerEngine:[DuanTianEngine new] key:EDUANTIAN];
     }
     
 //    if (_aryEngine == nil) {
@@ -110,6 +116,22 @@ DEF_SINGLETON(EngineManager)
         strResult = [strSource substringWithRange:match1.range];
     }
     return strResult;
+}
+
+-(void)getBookChapterList:(BMBaseParam*)baseParam
+{
+    //利用正则判断是哪个网站，
+    NSString* strResult = [self getStr:baseParam.paramString pattern:@"^http://www.7788xiaoshuo.com/"];
+    if (strResult.length > 0) {
+        [_dicEngine[E7788] getBookChapterList:baseParam];
+    }
+    else if([self getStr:baseParam.paramString pattern:@"^http://www.duantian.com/"].length>0)
+    {
+        [_dicEngine[EDUANTIAN] getBookChapterList:baseParam];
+    }
+    
+    
+    
 }
 
 @end

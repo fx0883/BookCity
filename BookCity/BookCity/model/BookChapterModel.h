@@ -1,0 +1,18 @@
+//
+//  BookChapterModel.h
+//  BookCity
+//
+//  Created by apple on 16/1/14.
+//  Copyright © 2016年 FS. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface BookChapterModel : NSObject
+
+
+@property (nonatomic,strong) NSString *title;
+@property (nonatomic,strong) NSString *url;
+@property (nonatomic,strong) NSString *content;
+
+@end

@@ -18,6 +18,7 @@ AS_SINGLETON(EngineManager)
 
 -(void)getCategoryBooksResult:(BMBaseParam*)baseParam;
 
+-(void)getBookChapterList:(BMBaseParam*)baseParam;
 
 -(void)registerEngine:(BookEngine*)bookEngine;
 @end

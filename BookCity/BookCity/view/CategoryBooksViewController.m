@@ -42,7 +42,7 @@
     if ([_aryBook count]==0) {
             [self insertRowAtBottom];
     }
-
+    self.navigationItem.title = _bookCategoryModel.name;
 }
 
 -(void)registCell
@@ -80,6 +80,34 @@
 //        
 //    }
 }
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+
+{
+
+    UIViewController *destination = [segue destinationViewController];
+    
+    if ([destination respondsToSelector:@selector(setBookModel:)]) {
+        
+        [destination setValue:sender forKey:@"bookModel"];
+        
+    }
+    
+    //    UIViewController *vc = segue.destinationViewController;
+    
+    //    [vc.navigationItem setTitle:[NSString stringWithFormat:@"%@的联系人",self.textfieldName.text]];
+    
+    
+    
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+        BookModel* bookmodel = [_aryBook objectAtIndex:indexPath.row];
+
+        [self performSegueWithIdentifier:@"categorybookToDetail" sender:bookmodel];
+}
+
 
 #pragma mark - Table view data source
 

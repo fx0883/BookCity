@@ -22,4 +22,12 @@
     [[EngineManager sharedInstance]getCategoryBooksResult:baseParam];
 }
 
+-(void)getBookChapterList:(BMBaseParam*)baseParam
+{
+    [[EngineManager sharedInstance]getBookChapterList:baseParam];
+}
+
+
+
+
 @end

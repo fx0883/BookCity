@@ -30,6 +30,8 @@
 
 @property (nonatomic, strong) NSString *chapterList;
 
+@property (nonatomic, strong) NSMutableArray *aryChapterList;
+
 
 
 @end

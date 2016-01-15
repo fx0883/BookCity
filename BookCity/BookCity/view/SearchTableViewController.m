@@ -167,6 +167,36 @@
     return 0;
 }
 
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+
+{
+    
+    UIViewController *destination = [segue destinationViewController];
+    
+    if ([destination respondsToSelector:@selector(setBookModel:)]) {
+        
+        [destination setValue:sender forKey:@"bookModel"];
+        
+    }
+    
+    //    UIViewController *vc = segue.destinationViewController;
+    
+    //    [vc.navigationItem setTitle:[NSString stringWithFormat:@"%@的联系人",self.textfieldName.text]];
+    
+    
+    
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    BookModel* bookmodel = [_aryBook objectAtIndex:indexPath.row];
+    
+    [self performSegueWithIdentifier:@"categorybookToDetail" sender:bookmodel];
+}
+
+
+
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if(tableView == self.searchDisplayController.searchResultsTableView) {

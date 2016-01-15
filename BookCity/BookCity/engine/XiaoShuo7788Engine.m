@@ -9,8 +9,16 @@
 #import "XiaoShuo7788Engine.h"
 #import "XiaoShuo7788SessionManager.h"
 #import "BookModel.h"
+#import "BookChapterModel.h"
 
 @implementation XiaoShuo7788Engine
+
+
+
+
+
+
+
 
 
 -(void)getCategoryBooksResult:(BMBaseParam*)baseParam
@@ -80,7 +88,9 @@
     } failure:^(NSURLSessionDataTask *__unused task, NSError *error)
      {
          NSLog(@"%@",[error userInfo]);
-         
+         if (baseParam.withresultobjectblock) {
+             baseParam.withresultobjectblock(-1,@"",nil);
+         }
          
      }];
 }
@@ -96,8 +106,10 @@
 
     NSDictionary *dict = @{ @"Search":strKeyWord};
     
-    NSString *strUrl = [NSString stringWithFormat:@"/list/0/%ld.html" ,(long)baseParam.paramInt];
+//    NSDictionary *dict = nil;
     
+    NSString *strUrl = [NSString stringWithFormat:@"/list/0/%ld.html" ,(long)baseParam.paramInt];
+strUrl = [strUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     [[XiaoShuo7788SessionManager sharedClient] GET:strUrl parameters:dict progress:nil success:^(NSURLSessionDataTask * __unused task, id responseObject) {
         
         //NSString *string = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
@@ -461,6 +473,107 @@
     
     return iStr;
 }
+
+
+#pragma mark-  getBookChapterList
+
+-(void)getBookChapterList:(BMBaseParam*)baseParam
+{
+    NSString *strUrl = [NSString stringWithFormat:baseParam.paramString ,(long)baseParam.paramInt];
+    
+    strUrl = [strUrl stringByReplacingOccurrencesOfString:[XiaoShuo7788SessionManager getBaseUrl] withString:@""];
+    
+    [[XiaoShuo7788SessionManager sharedClient] GET:strUrl parameters:nil progress:nil success:^(NSURLSessionDataTask * __unused task, id responseObject) {
+        
+        NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:0x80000632];
+        baseParam.resultArray = [self getChapterList:responseStr];
+        
+        
+        if (baseParam.withresultobjectblock) {
+            baseParam.withresultobjectblock(0,@"",nil);
+        }
+        
+    } failure:^(NSURLSessionDataTask *__unused task, NSError *error)
+     {
+         NSLog(@"%@",[error userInfo]);
+         if (baseParam.withresultobjectblock) {
+             baseParam.withresultobjectblock(-1,@"",nil);
+         }
+         
+     }];
+}
+
+
+-(NSMutableArray*)getChapterList:(NSString*)strSource
+{
+    
+    NSMutableArray *aryChapterList = [NSMutableArray new];
+    
+    NSString *pattern = @"\<td\>\<a href=\".*?\.html\"\>.*?\<\/a\>\<\/td\>";
+    NSRegularExpression *regular = [[NSRegularExpression alloc]initWithPattern:pattern options:NSRegularExpressionCaseInsensitive error:nil];
+    NSArray *results = [regular matchesInString:strSource options:0 range:NSMakeRange(0, strSource.length)];
+    for (NSTextCheckingResult *match in results) {
+        
+        BookChapterModel *bookchaptermodel = [BookChapterModel new];
+        NSString* substringForMatch = [strSource substringWithRange:match.range];
+        NSLog(@"chapter list: %@",substringForMatch);
+        //            [arrayOfURLs addObject:substringForMatch];
+        NSString *patternChapterlink = @"href=\".*?\"\>";
+        NSRegularExpression *regularChapterLink = [[NSRegularExpression alloc]initWithPattern:patternChapterlink options:NSRegularExpressionCaseInsensitive error:nil];
+        
+        
+        NSTextCheckingResult *matchChapterLink = [regularChapterLink firstMatchInString:substringForMatch
+                                                                                options:0
+                                                                                  range:NSMakeRange(0, [substringForMatch length])];
+        if (matchChapterLink) {
+            //            NSRange matchRange = [match2 range];
+            //            NSRange firstHalfRange = [match2 rangeAtIndex:1];
+            //            NSRange secondHalfRange = [match rangeAtIndex:2];
+            NSString* strChapterLink = [substringForMatch substringWithRange:matchChapterLink.range];
+            strChapterLink = [strChapterLink stringByReplacingOccurrencesOfString:@"href=\"" withString:@""];
+            strChapterLink = [strChapterLink stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+            strChapterLink = [strChapterLink stringByReplacingOccurrencesOfString:@">" withString:@""];
+            NSLog(@"chapter list: %@",strChapterLink);
+            
+            
+            bookchaptermodel.url = strChapterLink;
+            
+        }
+        
+        NSString *patternChapterTitle = @"\"\s?\>.*?\<\/a\>";
+        NSRegularExpression *regularChapterTitle = [[NSRegularExpression alloc]initWithPattern:patternChapterTitle options:NSRegularExpressionCaseInsensitive error:nil];
+        
+        
+        NSTextCheckingResult *matchChapterTitle = [regularChapterTitle firstMatchInString:substringForMatch
+                                                                                  options:0
+                                                                                    range:NSMakeRange(0, [substringForMatch length])];
+        if (matchChapterTitle) {
+            //            NSRange matchRange = [match2 range];
+            //            NSRange firstHalfRange = [match2 rangeAtIndex:1];
+            //            NSRange secondHalfRange = [match rangeAtIndex:2];
+            NSString* strChapterTitle = [substringForMatch substringWithRange:matchChapterTitle.range];
+            strChapterTitle = [strChapterTitle stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+            strChapterTitle = [strChapterTitle stringByReplacingOccurrencesOfString:@">" withString:@""];
+            strChapterTitle = [strChapterTitle stringByReplacingOccurrencesOfString:@"</a" withString:@""];
+            NSLog(@"chapter title: %@",strChapterTitle);
+            
+            bookchaptermodel.title = strChapterTitle;
+            
+        }
+        
+        [aryChapterList addObject:bookchaptermodel];
+    }
+    
+    
+    
+    
+    return aryChapterList;
+    
+    
+    
+    
+}
+
 
 
 

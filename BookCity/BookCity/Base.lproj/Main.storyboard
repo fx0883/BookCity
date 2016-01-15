@@ -58,10 +58,13 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="gzN-qk-EFw"/>
+                    <connections>
+                        <segue destination="Pcg-mq-n8C" kind="push" identifier="categorybookToDetail" id="shf-qs-7GQ"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bwy-aC-8Ou" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="467" y="776"/>
+            <point key="canvasLocation" x="601" y="768"/>
         </scene>
         <!--Search-->
         <scene sceneID="j4C-un-apE">
@@ -88,6 +91,7 @@
                     <connections>
                         <outlet property="searchBar" destination="7Km-po-g0V" id="Pf6-BY-cqu"/>
                         <outlet property="searchDisplayController" destination="PY4-wJ-yzF" id="cgK-5K-Ubl"/>
+                        <segue destination="Pcg-mq-n8C" kind="push" identifier="searchBookToChapterList" id="mLa-yF-ryw"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="seg-Hb-Fj8" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -102,6 +106,37 @@
                 </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="596" y="47"/>
+        </scene>
+        <!--Book Chapter ListVC-->
+        <scene sceneID="fJJ-CF-fdW">
+            <objects>
+                <tableViewController id="Pcg-mq-n8C" customClass="BookChapterListVC" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="40" sectionHeaderHeight="28" sectionFooterHeight="28" id="Pkh-G3-Wh0">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="chapterNameCell" rowHeight="40" id="8rR-nZ-jNP">
+                                <rect key="frame" x="0.0" y="92" width="600" height="40"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8rR-nZ-jNP" id="jai-HK-BHF">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="39.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Pcg-mq-n8C" id="DLW-II-Qb3"/>
+                            <outlet property="delegate" destination="Pcg-mq-n8C" id="CDh-Ht-tFP"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="Yfl-uL-M8T">
+                        <barButtonItem key="rightBarButtonItem" title="Download" id="JL0-pL-yCu"/>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZQ9-7c-xAC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1295" y="203"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="dy9-y8-kh1">
@@ -120,4 +155,7 @@
             <point key="canvasLocation" x="-929" y="287"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="mLa-yF-ryw"/>
+    </inferredMetricsTieBreakers>
 </document>

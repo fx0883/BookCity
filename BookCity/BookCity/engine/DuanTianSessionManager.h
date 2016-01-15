@@ -27,4 +27,5 @@
 
 + (instancetype)sharedClient;
 
++ (NSString*)getBaseUrl;
 @end

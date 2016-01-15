@@ -17,6 +17,8 @@
 		183A04CF1C3A0A0200DE7CDA /* BookEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 183A04CE1C3A0A0200DE7CDA /* BookEngine.m */; };
 		185B39C11C438F130059FDC8 /* UIScrollView+SVInfiniteScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = 185B39BE1C438F130059FDC8 /* UIScrollView+SVInfiniteScrolling.m */; };
 		185B39C21C438F130059FDC8 /* UIScrollView+SVPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 185B39C01C438F130059FDC8 /* UIScrollView+SVPullToRefresh.m */; };
+		18618B081C478C3600766CC6 /* BookChapterListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18618B071C478C3600766CC6 /* BookChapterListVC.m */; };
+		18618B0B1C47940E00766CC6 /* BookChapterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18618B0A1C47940E00766CC6 /* BookChapterModel.m */; };
 		186A956C1C43DFC400CFB982 /* bookCityConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 186A956B1C43DFC400CFB982 /* bookCityConfig.plist */; };
 		186A956F1C43E15400CFB982 /* BookCityConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 186A956E1C43E15400CFB982 /* BookCityConfig.m */; };
 		18B2C61E1C3D516A00506A84 /* NSString+OAURLEncodingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B2C61D1C3D516A00506A84 /* NSString+OAURLEncodingAdditions.m */; };
@@ -108,6 +110,10 @@
 		185B39BE1C438F130059FDC8 /* UIScrollView+SVInfiniteScrolling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVInfiniteScrolling.m"; sourceTree = "<group>"; };
 		185B39BF1C438F130059FDC8 /* UIScrollView+SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVPullToRefresh.h"; sourceTree = "<group>"; };
 		185B39C01C438F130059FDC8 /* UIScrollView+SVPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVPullToRefresh.m"; sourceTree = "<group>"; };
+		18618B061C478C3600766CC6 /* BookChapterListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookChapterListVC.h; sourceTree = "<group>"; };
+		18618B071C478C3600766CC6 /* BookChapterListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookChapterListVC.m; sourceTree = "<group>"; };
+		18618B091C47940E00766CC6 /* BookChapterModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookChapterModel.h; sourceTree = "<group>"; };
+		18618B0A1C47940E00766CC6 /* BookChapterModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookChapterModel.m; sourceTree = "<group>"; };
 		186A956B1C43DFC400CFB982 /* bookCityConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = bookCityConfig.plist; sourceTree = "<group>"; };
 		186A956D1C43E15400CFB982 /* BookCityConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookCityConfig.h; sourceTree = "<group>"; };
 		186A956E1C43E15400CFB982 /* BookCityConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookCityConfig.m; sourceTree = "<group>"; };
@@ -313,6 +319,8 @@
 				182205601C44CA5B005A47E2 /* DataManager.m */,
 				182205621C44CB08005A47E2 /* BookCategoryModel.h */,
 				182205631C44CB08005A47E2 /* BookCategoryModel.m */,
+				18618B091C47940E00766CC6 /* BookChapterModel.h */,
+				18618B0A1C47940E00766CC6 /* BookChapterModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -325,6 +333,8 @@
 				18C0FD471C3C0A98002A7D45 /* SearchTableViewController.m */,
 				18367D121C453CEE002D3469 /* CategoryBooksViewController.h */,
 				18367D131C453CEE002D3469 /* CategoryBooksViewController.m */,
+				18618B061C478C3600766CC6 /* BookChapterListVC.h */,
+				18618B071C478C3600766CC6 /* BookChapterListVC.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -786,6 +796,7 @@
 				83A0DDB11C37707F00F7C663 /* BMBaseParam.m in Sources */,
 				83981A8A1C37F02A0053B102 /* SDWebImageDecoder.m in Sources */,
 				83981A761C37F02A0053B102 /* AFURLRequestSerialization.m in Sources */,
+				18618B081C478C3600766CC6 /* BookChapterListVC.m in Sources */,
 				83981A781C37F02A0053B102 /* AFURLSessionManager.m in Sources */,
 				83981A7B1C37F02A0053B102 /* AFAutoPurgingImageCache.m in Sources */,
 				83981A8F1C37F02A0053B102 /* UIButton+WebCache.m in Sources */,
@@ -804,6 +815,7 @@
 				83981A7E1C37F02A0053B102 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				83981A231C37CFB00053B102 /* BMBaseTableViewCell.m in Sources */,
 				18C0FD401C3C0537002A7D45 /* XiaoShuo7788Engine.m in Sources */,
+				18618B0B1C47940E00766CC6 /* BookChapterModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

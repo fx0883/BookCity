@@ -50,4 +50,9 @@ static NSString * const BaseURLString = @"http://www.duantian.com/";
     return _sharedClient;
 }
 
++ (NSString*)getBaseUrl
+{
+    return BaseURLString;
+}
+
 @end
