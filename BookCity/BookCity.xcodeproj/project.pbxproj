@@ -28,6 +28,7 @@
 		18C0FD431C3C062C002A7D45 /* XiaoShuo7788SessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C0FD421C3C062C002A7D45 /* XiaoShuo7788SessionManager.m */; };
 		18C0FD481C3C0A98002A7D45 /* SearchTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C0FD471C3C0A98002A7D45 /* SearchTableViewController.m */; };
 		18DEABD51C3E13C600739E7F /* BookModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DEABD41C3E13C600739E7F /* BookModel.m */; };
+		18EE332D1C4A43B600175A2D /* ChapterDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE332C1C4A43B600175A2D /* ChapterDetailViewController.m */; };
 		834D80031C36AC21003A5366 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 834D80021C36AC21003A5366 /* main.m */; };
 		834D80061C36AC21003A5366 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 834D80051C36AC21003A5366 /* AppDelegate.m */; };
 		834D800C1C36AC21003A5366 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 834D800A1C36AC21003A5366 /* Main.storyboard */; };
@@ -133,6 +134,8 @@
 		18C0FD471C3C0A98002A7D45 /* SearchTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchTableViewController.m; sourceTree = "<group>"; };
 		18DEABD31C3E13C600739E7F /* BookModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookModel.h; sourceTree = "<group>"; };
 		18DEABD41C3E13C600739E7F /* BookModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookModel.m; sourceTree = "<group>"; };
+		18EE332B1C4A43B600175A2D /* ChapterDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChapterDetailViewController.h; sourceTree = "<group>"; };
+		18EE332C1C4A43B600175A2D /* ChapterDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChapterDetailViewController.m; sourceTree = "<group>"; };
 		834D7FFE1C36AC21003A5366 /* BookCity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookCity.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		834D80021C36AC21003A5366 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		834D80041C36AC21003A5366 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -335,6 +338,8 @@
 				18367D131C453CEE002D3469 /* CategoryBooksViewController.m */,
 				18618B061C478C3600766CC6 /* BookChapterListVC.h */,
 				18618B071C478C3600766CC6 /* BookChapterListVC.m */,
+				18EE332B1C4A43B600175A2D /* ChapterDetailViewController.h */,
+				18EE332C1C4A43B600175A2D /* ChapterDetailViewController.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -810,6 +815,7 @@
 				83981A221C37CFB00053B102 /* BMBaseTabBarController.m in Sources */,
 				83A0DDAF1C37707F00F7C663 /* NSObject+BMNotification.m in Sources */,
 				83A0DDB21C37707F00F7C663 /* BMActionManager.m in Sources */,
+				18EE332D1C4A43B600175A2D /* ChapterDetailViewController.m in Sources */,
 				18B2C61E1C3D516A00506A84 /* NSString+OAURLEncodingAdditions.m in Sources */,
 				183A04CF1C3A0A0200DE7CDA /* BookEngine.m in Sources */,
 				83981A7E1C37F02A0053B102 /* UIActivityIndicatorView+AFNetworking.m in Sources */,

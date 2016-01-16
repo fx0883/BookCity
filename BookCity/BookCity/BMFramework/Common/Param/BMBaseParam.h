@@ -47,6 +47,11 @@ typedef void (^WithResultObjectBlock)(int,NSString*,id);
 @property (nonatomic,strong) NSString* paramString;
 
 /*!
+ *  string 参数2
+ */
+@property (nonatomic,strong) NSString* paramString2;
+
+/*!
  *  object 参数
  */
 @property (nonatomic,strong) NSObject* paramObject;

@@ -12,6 +12,34 @@
 
 @implementation DuanTianEngine
 
+-(void)getBookChapterDetail:(BMBaseParam*)baseParam
+{
+    //paramString2 保存chapterDetail url
+    NSString *strUrl = baseParam.paramString2;
+    
+    strUrl = [strUrl stringByReplacingOccurrencesOfString:[DuanTianSessionManager getBaseUrl] withString:@""];
+    
+    [[DuanTianSessionManager sharedClient] GET:strUrl parameters:nil progress:nil success:^(NSURLSessionDataTask * __unused task, id responseObject) {
+        
+        NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:0x80000632];
+
+        NSLog(@"%@",responseStr);
+        
+        
+        if (baseParam.withresultobjectblock) {
+            baseParam.withresultobjectblock(0,@"",nil);
+        }
+        
+    } failure:^(NSURLSessionDataTask *__unused task, NSError *error)
+     {
+         NSLog(@"%@",[error userInfo]);
+         if (baseParam.withresultobjectblock) {
+             baseParam.withresultobjectblock(-1,@"",nil);
+         }
+         
+     }];
+}
+
 -(void)getSearchBookResult:(BMBaseParam*)baseParam
 {
 //    NSString *strUrl = [NSString stringWithFormat:baseParam.paramString ,(long)baseParam.paramInt];
@@ -122,6 +150,8 @@
             
         }
         
+        bookchaptermodel.hostUrl = [DuanTianSessionManager getBaseUrl];
+        
         [aryChapterList addObject:bookchaptermodel];
     }
     
@@ -135,17 +165,8 @@
     
 }
 
--(void)getChapterDetail:(NSString*)urlPath
-{
-//    [manage GET:urlPath parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//        
-//        NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:0x80000632];
-//        
-//        NSLog(@"%@",responseStr);
-//        
-//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//        
-//    }];
-}
+
+
+
 
 @end

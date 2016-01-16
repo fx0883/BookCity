@@ -11,6 +11,7 @@
 @interface BookChapterModel : NSObject
 
 
+@property (nonatomic,strong) NSString *hostUrl;
 @property (nonatomic,strong) NSString *title;
 @property (nonatomic,strong) NSString *url;
 @property (nonatomic,strong) NSString *content;

@@ -13,4 +13,6 @@
 
 -(void)getSearchBookResult:(BMBaseParam*)baseParam;
 -(void)getCategoryBooksResult:(BMBaseParam*)baseParam;
+
+-(void)getBookChapterDetail:(BMBaseParam*)baseParam;
 @end

@@ -120,6 +120,26 @@
 }
 
 
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+
+{
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+    //    NSString *strKey = [_aryCategory objectAtIndex:indexPath.row];
+    BookChapterModel* bookChapterModel = [_aryBook objectAtIndex:indexPath.row];
+    UIViewController *destination = [segue destinationViewController];
+    
+    if ([destination respondsToSelector:@selector(setBookChapterModel:)]) {
+        
+        [destination setValue:bookChapterModel forKey:@"bookChapterModel"];
+        
+    }
+    
+
+    
+    
+    
+}
+
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

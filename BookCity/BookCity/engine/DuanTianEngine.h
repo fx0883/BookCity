@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 #import "BookEngine.h"
 @interface DuanTianEngine : BookEngine
--(void)getSearchBookResult:(BMBaseParam*)baseParam;
+//-(void)getSearchBookResult:(BMBaseParam*)baseParam;
 @end

@@ -27,7 +27,10 @@
     [[EngineManager sharedInstance]getBookChapterList:baseParam];
 }
 
-
+-(void)getBookChapterDetail:(BMBaseParam*)baseParam
+{
+    [[EngineManager sharedInstance] getBookChapterDetail:baseParam];
+}
 
 
 @end

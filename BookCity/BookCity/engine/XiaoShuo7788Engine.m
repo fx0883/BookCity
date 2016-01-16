@@ -560,7 +560,7 @@ strUrl = [strUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacter
             bookchaptermodel.title = strChapterTitle;
             
         }
-        
+        bookchaptermodel.hostUrl = [XiaoShuo7788SessionManager getBaseUrl];
         [aryChapterList addObject:bookchaptermodel];
     }
     
