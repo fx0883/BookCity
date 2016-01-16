@@ -14,7 +14,72 @@
 @implementation XiaoShuo7788Engine
 
 
+-(void)getBookChapterDetail:(BMBaseParam*)baseParam
+{
+    //paramString2 保存chapterDetail url
+    NSString *strUrl = baseParam.paramString2;
+    
+    strUrl = [strUrl stringByReplacingOccurrencesOfString:[XiaoShuo7788SessionManager getBaseUrl] withString:@""];
+    //    __weak BMBaseParam *weakBaseParam = baseParam;
+    __weak XiaoShuo7788Engine *weakSelf = self;
+    [[XiaoShuo7788SessionManager sharedClient] GET:strUrl parameters:nil progress:nil success:^(NSURLSessionDataTask * __unused task, id responseObject) {
+        
+        NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:0x80000632];
+        
+        NSLog(@"%@",responseStr);
+        baseParam.resultString = [weakSelf getChapterContent:responseStr];
+        
+       // BookChapterModel* bookchaptermodel = (BookChapterModel*)baseParam.paramObject;
+//       ((BookChapterModel*)baseParam.paramObject).content = [weakSelf getChapterContentText:baseParam.resultString];
+        
+        BookChapterModel* bookchaptermodel = (BookChapterModel*)baseParam.paramObject;
+        bookchaptermodel.content = [weakSelf getChapterContentText:baseParam.resultString];
+        bookchaptermodel.htmlContent = baseParam.resultString;
+        if (baseParam.withresultobjectblock) {
+            baseParam.withresultobjectblock(0,@"",nil);
+        }
+        
+    } failure:^(NSURLSessionDataTask *__unused task, NSError *error)
+     {
+         NSLog(@"%@",[error userInfo]);
+         if (baseParam.withresultobjectblock) {
+             baseParam.withresultobjectblock(-1,@"",nil);
+         }
+         
+     }];
+}
 
+-(NSString*)getChapterContent:(NSString*)strSource
+{
+    NSString *strContent = @"";
+    NSString *strPattern = @"\<div id=\\\"bookContent\\\" ondblclick=\\\"scrollRun\\(\\)\\\" onclick=\\\"scrollStop\\(\\)\\\" class=\\\"ic13\\\"\>.*?\<\/div\>";
+    strContent = [BookEngine getStr:strSource pattern:strPattern];
+    
+    strContent = [strContent stringByReplacingOccurrencesOfString:@"<div id=\"bookContent\" ondblclick=\"scrollRun()\" onclick=\"scrollStop()\" class=\"ic13\">" withString:@""];
+    strContent = [strContent stringByReplacingOccurrencesOfString:@"</div>" withString:@""];
+    
+    
+    NSString *strScriptPattern = @"\<script\>.*\<\/script\>";
+    NSString *strScript = [BookEngine getStr:strContent pattern:strScriptPattern];
+
+    
+    strContent = [strContent stringByReplacingOccurrencesOfString:strScript withString:@""];
+    
+    
+    
+
+    
+    return strContent;
+}
+
+-(NSString*)getChapterContentText:(NSString*)strSource
+{
+    NSString *strContent = @"";
+    strContent = [strSource stringByReplacingOccurrencesOfString:@"<p>" withString:@""];
+    strContent = [strSource stringByReplacingOccurrencesOfString:@"</p>" withString:@"\r\n"];
+    strContent = [strSource stringByReplacingOccurrencesOfString:@"<br/>" withString:@"\r\n"];
+    return strContent;
+}
 
 
 

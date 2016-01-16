@@ -18,14 +18,18 @@
     NSString *strUrl = baseParam.paramString2;
     
     strUrl = [strUrl stringByReplacingOccurrencesOfString:[DuanTianSessionManager getBaseUrl] withString:@""];
-    
+//    __weak BMBaseParam *weakBaseParam = baseParam;
+    __weak DuanTianEngine *weakSelf = self;
     [[DuanTianSessionManager sharedClient] GET:strUrl parameters:nil progress:nil success:^(NSURLSessionDataTask * __unused task, id responseObject) {
         
         NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:0x80000632];
 
         NSLog(@"%@",responseStr);
+        baseParam.resultString = [weakSelf getChapterContent:responseStr];
         
-        
+        BookChapterModel* bookchaptermodel = (BookChapterModel*)baseParam.paramObject;
+        bookchaptermodel.content = [weakSelf getChapterContentText:baseParam.resultString];
+        bookchaptermodel.htmlContent = baseParam.resultString;
         if (baseParam.withresultobjectblock) {
             baseParam.withresultobjectblock(0,@"",nil);
         }
@@ -38,6 +42,32 @@
          }
          
      }];
+}
+
+-(NSString*)getChapterContent:(NSString*)strSource
+{
+    NSString *strContent = @"";
+    NSString *strPattern = @"id=\"bookContent\"\>.*?\<\/div\>";
+    strContent = [BookEngine getStr:strSource pattern:strPattern];
+    
+    strContent = [strContent stringByReplacingOccurrencesOfString:@"id=\"bookContent\">" withString:@""];
+    strContent = [strContent stringByReplacingOccurrencesOfString:@"</div>" withString:@""];
+    
+    
+    strContent = [strContent stringByReplacingOccurrencesOfString:@"<script>document.write('<br />断天小说网 www.duantian.com 欢迎您，本站提供免费小说阅读和下载<br />手机访问3g.duantian.com流量最省，速度最快')</script>" withString:@""];
+    
+
+    
+    return strContent;
+}
+
+-(NSString*)getChapterContentText:(NSString*)strSource
+{
+    NSString *strContent = @"";
+    strContent = [strSource stringByReplacingOccurrencesOfString:@"<p>" withString:@""];
+    strContent = [strSource stringByReplacingOccurrencesOfString:@"</p>" withString:@"\r\n"];
+    strContent = [strSource stringByReplacingOccurrencesOfString:@"<br/>" withString:@"\r\n"];
+    return strContent;
 }
 
 -(void)getSearchBookResult:(BMBaseParam*)baseParam

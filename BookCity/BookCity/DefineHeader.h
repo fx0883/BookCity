@@ -15,7 +15,7 @@
 #define DEF_ACTIONIDCMD_GETSEARCHBOOKRESULT @"getSearchBookResult:"
 #define DEF_ACTIONIDCMD_GETCATEGORYBOOKSRESULT @"getCategoryBooksResult:"
 #define DEF_ACTIONIDCMD_GETBOOKCHAPTERLIST @"getBookChapterList:"
-
+#define DEF_ACTIONIDCMD_GETBOOKCHAPTERDETAIL @"getBookChapterDetail:"
 //所有命令
 #define DEF_ACTIONID_BOOKACTION @"BookAction"
 

@@ -71,6 +71,8 @@ typedef void (^WithResultObjectBlock)(int,NSString*,id);
 
 @property (nonatomic,strong) NSObject* resultObject;
 
+@property (nonatomic,strong) NSString* resultString;
+
 /*!
  *  方法调用完成
  */

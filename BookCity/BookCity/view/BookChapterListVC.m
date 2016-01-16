@@ -83,7 +83,10 @@
     [dicParam setParam:baseparam];
     
     [SharedControl excute:dicParam];
+    if (progressTest == nil) {
         progressTest = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    }
+    
         progressTest.labelText = @"加载中...";
         progressTest.mode = MBProgressHUDModeIndeterminate;//可以显示不同风格的进度；
     //

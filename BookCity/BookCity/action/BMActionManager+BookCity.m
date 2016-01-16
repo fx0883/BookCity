@@ -11,9 +11,9 @@
 
 @implementation BMActionManager(BookCity)
 
--(void)registerAllAction
-{
-//    [self registAction:DEF_ACTIONID_BOOKACTION action:[BookAction new]];
-}
+//-(void)registerAllAction
+//{
+////    [self registAction:DEF_ACTIONID_BOOKACTION action:[BookAction new]];
+//}
 
 @end
