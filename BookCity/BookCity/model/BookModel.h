@@ -32,6 +32,11 @@
 
 @property (nonatomic, strong) NSMutableArray *aryChapterList;
 
+@property (readwrite) NSInteger finishChapterNumber;
 
+
+-(NSMutableDictionary*)toDic;
+
+-(Boolean)savePlist;
 
 @end

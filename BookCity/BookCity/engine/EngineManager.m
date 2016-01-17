@@ -147,4 +147,19 @@ DEF_SINGLETON(EngineManager)
     }
 }
 
+
+-(void)downloadplist:(BMBaseParam*)baseParam
+{
+    //利用正则判断是哪个网站，
+    NSString* strResult = [self getStr:baseParam.paramString pattern:@"^http://www.7788xiaoshuo.com/"];
+    if (strResult.length > 0) {
+        [_dicEngine[E7788] downloadplist:baseParam];
+    }
+    else if([self getStr:baseParam.paramString pattern:@"^http://www.duantian.com/"].length>0)
+    {
+        [_dicEngine[EDUANTIAN] downloadplist:baseParam];
+    }
+}
+
+
 @end

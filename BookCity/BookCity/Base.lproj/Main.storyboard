@@ -135,7 +135,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="Yfl-uL-M8T">
-                        <barButtonItem key="rightBarButtonItem" title="Download" id="JL0-pL-yCu"/>
+                        <barButtonItem key="rightBarButtonItem" title="Download" id="JL0-pL-yCu">
+                            <connections>
+                                <action selector="onClickDownloadButton:" destination="Pcg-mq-n8C" id="ga1-gT-BYw"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZQ9-7c-xAC" userLabel="First Responder" sceneMemberID="firstResponder"/>

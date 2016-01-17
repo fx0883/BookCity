@@ -22,5 +22,7 @@ AS_SINGLETON(EngineManager)
 
 -(void)getBookChapterDetail:(BMBaseParam*)baseParam;
 
+-(void)downloadplist:(BMBaseParam*)baseParam;
+
 -(void)registerEngine:(BookEngine*)bookEngine;
 @end

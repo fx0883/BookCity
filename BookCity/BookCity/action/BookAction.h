@@ -15,4 +15,5 @@
 -(void)getCategoryBooksResult:(BMBaseParam*)baseParam;
 
 -(void)getBookChapterDetail:(BMBaseParam*)baseParam;
+-(void)downloadplist:(BMBaseParam*)baseParam;
 @end

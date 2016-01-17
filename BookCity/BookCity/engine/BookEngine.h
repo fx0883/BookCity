@@ -17,6 +17,8 @@
 -(void)getBookChapterList:(BMBaseParam*)baseParam;
 -(void)getBookChapterDetail:(BMBaseParam*)baseParam;
 
+-(void)downloadplist:(BMBaseParam*)baseParam;
+
 +(NSString*)getStr:(NSString*)strSource
            pattern:(NSString*)strPattern;
 @end

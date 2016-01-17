@@ -76,11 +76,10 @@
 {
     NSString *strContent = @"";
     strContent = [strSource stringByReplacingOccurrencesOfString:@"<p>" withString:@""];
-    strContent = [strSource stringByReplacingOccurrencesOfString:@"</p>" withString:@"\r\n"];
-    strContent = [strSource stringByReplacingOccurrencesOfString:@"<br/>" withString:@"\r\n"];
+    strContent = [strContent stringByReplacingOccurrencesOfString:@"</p>" withString:@"\r\n"];
+    strContent = [strContent stringByReplacingOccurrencesOfString:@"<br/>" withString:@"\r\n"];
     return strContent;
 }
-
 
 
 

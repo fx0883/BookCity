@@ -9,8 +9,154 @@
 #import "DuanTianEngine.h"
 #import "DuanTianSessionManager.h"
 #import "BookChapterModel.h"
+#import "BookModel.h"
 
 @implementation DuanTianEngine
+-(void)downloadplist:(BMBaseParam*)baseParam
+{
+    BookModel *bookmodel = (BookModel*)baseParam.paramObject;
+
+    if (bookmodel == nil || bookmodel.aryChapterList == nil || [bookmodel.aryChapterList count] == 0 ) {
+        
+        if (baseParam.withresultobjectblock) {
+            baseParam.withresultobjectblock(-1,@"数据没有准备好，不要下载",nil);
+        }
+        
+    }
+    
+    bookmodel.finishChapterNumber = 0;
+    
+    //一次请求过多会超时，必须控制请求数
+    
+//    for (NSInteger i = 0 ; i < [bookmodel.aryChapterList count]; i++) {
+//        
+//        BookChapterModel* bookchaptermodel = [bookmodel.aryChapterList objectAtIndex:i];
+//        
+//        usleep(100);
+//        
+//        NSString *strUrl = bookchaptermodel.url;
+//        
+//        strUrl = [strUrl stringByReplacingOccurrencesOfString:[DuanTianSessionManager getBaseUrl] withString:@""];
+//        __weak DuanTianEngine *weakSelf = self;
+//        [[DuanTianSessionManager sharedClient] GET:strUrl parameters:nil progress:nil success:^(NSURLSessionDataTask * __unused task, id responseObject) {
+//            
+//            NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:0x80000632];
+//            
+//            NSLog(@"%@",responseStr);
+//            bookchaptermodel.htmlContent = [weakSelf getChapterContent:responseStr];
+//            bookchaptermodel.content = [weakSelf getChapterContentText:bookchaptermodel.htmlContent];
+//            bookmodel.finishChapterNumber++;
+//            if (baseParam.withresultobjectblock) {
+//                NSString* strStatus = @"";
+//                if (bookmodel.finishChapterNumber == [bookmodel.aryChapterList count]) {
+//                    
+//                    strStatus = @"finished";
+//                    
+//                    [bookmodel savePlist];
+//                }
+//                else
+//                {
+//                    strStatus = @"downloading";
+//                }
+//                baseParam.withresultobjectblock(0,strStatus,nil);
+//            }
+//            
+//        } failure:^(NSURLSessionDataTask *__unused task, NSError *error)
+//         {
+//             NSLog(@"%@",[error userInfo]);
+//             NSString* strStatus = @"";
+//             if (bookmodel.finishChapterNumber == [bookmodel.aryChapterList count]) {
+//                 strStatus = @"finished";
+//                 [bookmodel savePlist];
+//             }
+//             else
+//             {
+//                 strStatus = @"downloading";
+//                 
+//             }
+//             baseParam.withresultobjectblock(-1,strStatus,nil);
+//             
+//         }];
+//        
+//        
+//    }
+    
+    [self downloadChapterOnePage:baseParam book:bookmodel];
+    
+}
+
+-(void)downloadChapterOnePage:(BMBaseParam*)baseParam
+                         book:(BookModel*)bookmodel
+{
+    NSInteger pageSize = 10;
+    NSInteger curPageEnd = bookmodel.finishChapterNumber + pageSize;
+    __weak DuanTianEngine *weakSelf = self;
+    NSInteger i = bookmodel.finishChapterNumber;
+    while (i < curPageEnd && i < [bookmodel.aryChapterList count])
+    {
+        
+        BookChapterModel* bookchaptermodel = [bookmodel.aryChapterList objectAtIndex:i];
+        i++;
+        usleep(100);
+        
+        NSString *strUrl = bookchaptermodel.url;
+        
+        strUrl = [strUrl stringByReplacingOccurrencesOfString:[DuanTianSessionManager getBaseUrl] withString:@""];
+        __weak DuanTianEngine *weakSelf = self;
+        [[DuanTianSessionManager sharedClient] GET:strUrl parameters:nil progress:nil success:^(NSURLSessionDataTask * __unused task, id responseObject) {
+            
+            NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:0x80000632];
+            
+            NSLog(@"%@",responseStr);
+            bookchaptermodel.htmlContent = [weakSelf getChapterContent:responseStr];
+            bookchaptermodel.content = [weakSelf getChapterContentText:bookchaptermodel.htmlContent];
+            bookmodel.finishChapterNumber++;
+            if (baseParam.withresultobjectblock) {
+                NSString* strStatus = @"";
+                if (bookmodel.finishChapterNumber == [bookmodel.aryChapterList count]) {
+                    
+                    strStatus = @"finished";
+                    
+                    [bookmodel savePlist];
+                }
+                else
+                {
+                    strStatus = @"downloading";
+                    
+                    if(bookmodel.finishChapterNumber == curPageEnd)
+                    {
+                        [weakSelf downloadChapterOnePage:baseParam book:bookmodel];
+                    }
+                }
+                baseParam.withresultobjectblock(0,strStatus,nil);
+            }
+            
+        } failure:^(NSURLSessionDataTask *__unused task, NSError *error)
+         {
+             NSLog(@"%@",[error userInfo]);
+             NSString* strStatus = @"";
+             if (bookmodel.finishChapterNumber == [bookmodel.aryChapterList count]) {
+                 strStatus = @"finished";
+                 [bookmodel savePlist];
+             }
+             else
+             {
+                 strStatus = @"downloading";
+                 if(bookmodel.finishChapterNumber == curPageEnd)
+                 {
+                     [weakSelf downloadChapterOnePage:baseParam book:bookmodel];
+                 }
+             }
+             baseParam.withresultobjectblock(-1,strStatus,nil);
+             
+         }];
+        
+        
+    }
+
+}
+
+
 
 -(void)getBookChapterDetail:(BMBaseParam*)baseParam
 {
@@ -65,8 +211,8 @@
 {
     NSString *strContent = @"";
     strContent = [strSource stringByReplacingOccurrencesOfString:@"<p>" withString:@""];
-    strContent = [strSource stringByReplacingOccurrencesOfString:@"</p>" withString:@"\r\n"];
-    strContent = [strSource stringByReplacingOccurrencesOfString:@"<br/>" withString:@"\r\n"];
+    strContent = [strContent stringByReplacingOccurrencesOfString:@"</p>" withString:@"\r\n"];
+    strContent = [strContent stringByReplacingOccurrencesOfString:@"<br/>" withString:@"\r\n"];
     return strContent;
 }
 

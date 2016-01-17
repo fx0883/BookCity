@@ -39,7 +39,60 @@
     }
     _aryBook = _bookModel.aryChapterList;
 }
+- (IBAction)onClickDownloadButton:(id)sender {
+    [self downloadplist];
+}
 
+
+-(void)downloadplist
+{
+    if (!_task) {
+        [_task cancel];
+    }
+    
+    //实例化一个传入传出参数
+    BMBaseParam* baseparam=[BMBaseParam new];
+    
+    //参数
+    baseparam.paramString=_bookModel.bookLink;
+    baseparam.paramObject = _bookModel;
+    
+    //    [baseparam.paramDic setObject:@"id" forKey:@"234"];
+    
+    __weak BookChapterListVC *weakSelf=self;
+    __weak BMBaseParam *weakBaseParam = baseparam;
+    baseparam.withresultobjectblock=^(int intError,NSString* strMsg,id obj)
+    {
+        if (intError == 0)
+        {
+            
+            
+            
+            
+        }
+        else
+        {
+            
+        }
+        NSLog(@"%ld",_bookModel.finishChapterNumber);
+        
+        if (progressTest) {
+            [progressTest hide:YES];
+        }
+        
+    };
+    NSMutableDictionary* dicParam=[NSMutableDictionary createParamDic];
+    [dicParam setActionID:DEF_ACTIONID_BOOKACTION strcmd:DEF_ACTIONIDCMD_DOWNLOADPLIST];
+    [dicParam setParam:baseparam];
+    
+    [SharedControl excute:dicParam];
+    if (progressTest == nil) {
+        progressTest = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    }
+    [progressTest show:YES];
+    progressTest.labelText = @"下载中...";
+    progressTest.mode = MBProgressHUDModeIndeterminate;//可以显示不同风格的进度；
+}
 
 -(void)getChapterList
 {

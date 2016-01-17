@@ -33,4 +33,9 @@
 }
 
 
+-(void)downloadplist:(BMBaseParam*)baseParam
+{
+    [[EngineManager sharedInstance] downloadplist:baseParam];
+}
+
 @end

@@ -16,6 +16,10 @@
 #define DEF_ACTIONIDCMD_GETCATEGORYBOOKSRESULT @"getCategoryBooksResult:"
 #define DEF_ACTIONIDCMD_GETBOOKCHAPTERLIST @"getBookChapterList:"
 #define DEF_ACTIONIDCMD_GETBOOKCHAPTERDETAIL @"getBookChapterDetail:"
+#define DEF_ACTIONIDCMD_DOWNLOADPLIST @"downloadplist:"
+
+
+
 //所有命令
 #define DEF_ACTIONID_BOOKACTION @"BookAction"
 
