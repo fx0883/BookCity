@@ -14,6 +14,153 @@
 @implementation XiaoShuo7788Engine
 
 
+-(void)downloadplist:(BMBaseParam*)baseParam
+{
+    BookModel *bookmodel = (BookModel*)baseParam.paramObject;
+    
+    if (bookmodel == nil || bookmodel.aryChapterList == nil || [bookmodel.aryChapterList count] == 0 ) {
+        
+        if (baseParam.withresultobjectblock) {
+            baseParam.withresultobjectblock(-1,@"数据没有准备好，不要下载",nil);
+        }
+        
+    }
+    
+    bookmodel.finishChapterNumber = 0;
+    
+    //一次请求过多会超时，必须控制请求数
+    
+    //    for (NSInteger i = 0 ; i < [bookmodel.aryChapterList count]; i++) {
+    //
+    //        BookChapterModel* bookchaptermodel = [bookmodel.aryChapterList objectAtIndex:i];
+    //
+    //        usleep(100);
+    //
+    //        NSString *strUrl = bookchaptermodel.url;
+    //
+    //        strUrl = [strUrl stringByReplacingOccurrencesOfString:[DuanTianSessionManager getBaseUrl] withString:@""];
+    //        __weak DuanTianEngine *weakSelf = self;
+    //        [[DuanTianSessionManager sharedClient] GET:strUrl parameters:nil progress:nil success:^(NSURLSessionDataTask * __unused task, id responseObject) {
+    //
+    //            NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:0x80000632];
+    //
+    //            NSLog(@"%@",responseStr);
+    //            bookchaptermodel.htmlContent = [weakSelf getChapterContent:responseStr];
+    //            bookchaptermodel.content = [weakSelf getChapterContentText:bookchaptermodel.htmlContent];
+    //            bookmodel.finishChapterNumber++;
+    //            if (baseParam.withresultobjectblock) {
+    //                NSString* strStatus = @"";
+    //                if (bookmodel.finishChapterNumber == [bookmodel.aryChapterList count]) {
+    //
+    //                    strStatus = @"finished";
+    //
+    //                    [bookmodel savePlist];
+    //                }
+    //                else
+    //                {
+    //                    strStatus = @"downloading";
+    //                }
+    //                baseParam.withresultobjectblock(0,strStatus,nil);
+    //            }
+    //
+    //        } failure:^(NSURLSessionDataTask *__unused task, NSError *error)
+    //         {
+    //             NSLog(@"%@",[error userInfo]);
+    //             NSString* strStatus = @"";
+    //             if (bookmodel.finishChapterNumber == [bookmodel.aryChapterList count]) {
+    //                 strStatus = @"finished";
+    //                 [bookmodel savePlist];
+    //             }
+    //             else
+    //             {
+    //                 strStatus = @"downloading";
+    //
+    //             }
+    //             baseParam.withresultobjectblock(-1,strStatus,nil);
+    //
+    //         }];
+    //
+    //
+    //    }
+    
+    [self downloadChapterOnePage:baseParam book:bookmodel];
+    
+}
+
+-(void)downloadChapterOnePage:(BMBaseParam*)baseParam
+                         book:(BookModel*)bookmodel
+{
+    NSInteger pageSize = 10;
+    NSInteger curPageEnd = bookmodel.finishChapterNumber + pageSize;
+    __weak XiaoShuo7788SessionManager *weakSelf = self;
+    NSInteger i = bookmodel.finishChapterNumber;
+    while (i < curPageEnd && i < [bookmodel.aryChapterList count])
+    {
+        
+        BookChapterModel* bookchaptermodel = [bookmodel.aryChapterList objectAtIndex:i];
+        i++;
+        usleep(100);
+        
+        NSString *strUrl = bookchaptermodel.url;
+        
+        strUrl = [strUrl stringByReplacingOccurrencesOfString:[XiaoShuo7788SessionManager getBaseUrl] withString:@""];
+        __weak XiaoShuo7788Engine *weakSelf = self;
+        [[XiaoShuo7788SessionManager sharedClient] GET:strUrl parameters:nil progress:nil success:^(NSURLSessionDataTask * __unused task, id responseObject) {
+            
+            NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:0x80000632];
+            
+            NSLog(@"%@",responseStr);
+            bookchaptermodel.htmlContent = [weakSelf getChapterContent:responseStr];
+            bookchaptermodel.content = [weakSelf getChapterContentText:bookchaptermodel.htmlContent];
+            bookmodel.finishChapterNumber++;
+            if (baseParam.withresultobjectblock) {
+                NSString* strStatus = @"";
+                if (bookmodel.finishChapterNumber == [bookmodel.aryChapterList count]) {
+                    
+                    strStatus = @"finished";
+                    
+                    [bookmodel savePlist];
+                }
+                else
+                {
+                    strStatus = @"downloading";
+                    
+                    if(bookmodel.finishChapterNumber == curPageEnd)
+                    {
+                        [weakSelf downloadChapterOnePage:baseParam book:bookmodel];
+                    }
+                }
+                baseParam.withresultobjectblock(0,strStatus,nil);
+            }
+            
+        } failure:^(NSURLSessionDataTask *__unused task, NSError *error)
+         {
+             NSLog(@"%@",[error userInfo]);
+             NSString* strStatus = @"";
+             if (bookmodel.finishChapterNumber == [bookmodel.aryChapterList count]) {
+                 strStatus = @"finished";
+                 [bookmodel savePlist];
+             }
+             else
+             {
+                 strStatus = @"downloading";
+                 if(bookmodel.finishChapterNumber == curPageEnd)
+                 {
+                     [weakSelf downloadChapterOnePage:baseParam book:bookmodel];
+                 }
+             }
+             baseParam.withresultobjectblock(-1,strStatus,nil);
+             
+         }];
+        
+        
+    }
+    
+}
+
+
+
+
 -(void)getBookChapterDetail:(BMBaseParam*)baseParam
 {
     //paramString2 保存chapterDetail url
@@ -78,6 +225,7 @@
     strContent = [strSource stringByReplacingOccurrencesOfString:@"<p>" withString:@""];
     strContent = [strContent stringByReplacingOccurrencesOfString:@"</p>" withString:@"\r\n"];
     strContent = [strContent stringByReplacingOccurrencesOfString:@"<br/>" withString:@"\r\n"];
+    strContent = [strContent stringByReplacingOccurrencesOfString:@"<br />" withString:@"\r\n"];
     return strContent;
 }
 
@@ -105,27 +253,28 @@
         
         NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:0x80000632];
         
-        NSArray *ary = [self getBookList:responseStr];
+
         
         NSMutableArray *bookList = [[NSMutableArray alloc]init];
         
-        for (NSTextCheckingResult *match in ary) {
-            NSString* substringForMatch = [responseStr substringWithRange:match.range];
-            NSLog(@"Extracted URL: %@",substringForMatch);
-            //            [arrayOfURLs addObject:substringForMatch];
-            BookModel *bookModel = [self getBookModel:substringForMatch];
-            [bookList addObject:bookModel];
-            
-            NSLog(@"========================================");
-            NSLog(@"%@",bookModel.title);
-            NSLog(@"%@",bookModel.imgSrc);
-            NSLog(@"%@",bookModel.bookLink);
-            NSLog(@"%@",bookModel.memo);
-        }
         
+        //段天小说网的小说
+//        NSArray *ary = [self getBookList:responseStr];
+//        for (NSTextCheckingResult *match in ary) {
+//            NSString* substringForMatch = [responseStr substringWithRange:match.range];
+//            NSLog(@"Extracted URL: %@",substringForMatch);
+//            //            [arrayOfURLs addObject:substringForMatch];
+//            BookModel *bookModel = [self getBookModel:substringForMatch];
+//            [bookList addObject:bookModel];
+//            
+//            NSLog(@"========================================");
+//            NSLog(@"%@",bookModel.title);
+//            NSLog(@"%@",bookModel.imgSrc);
+//            NSLog(@"%@",bookModel.bookLink);
+//            NSLog(@"%@",bookModel.memo);
+//        }
+        //7788小说网的小说
         NSArray *ary7788 = [self getBookList7788:responseStr];
-        
-        
         for (NSTextCheckingResult *match in ary7788) {
             NSString* substringForMatch = [responseStr substringWithRange:match.range];
             NSLog(@"Extracted URL: %@",substringForMatch);
@@ -180,27 +329,25 @@ strUrl = [strUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacter
         
         NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:0x80000632];
 
-        NSArray *ary = [self getBookList:responseStr];
-        
         NSMutableArray *bookList = [[NSMutableArray alloc]init];
         
-        for (NSTextCheckingResult *match in ary) {
-            NSString* substringForMatch = [responseStr substringWithRange:match.range];
-            NSLog(@"Extracted URL: %@",substringForMatch);
-            //            [arrayOfURLs addObject:substringForMatch];
-            BookModel *bookModel = [self getBookModel:substringForMatch];
-            [bookList addObject:bookModel];
-            
-            NSLog(@"========================================");
-            NSLog(@"%@",bookModel.title);
-            NSLog(@"%@",bookModel.imgSrc);
-            NSLog(@"%@",bookModel.bookLink);
-            NSLog(@"%@",bookModel.memo);
-        }
-        
+        //段天小说网
+//        NSArray *ary = [self getBookList:responseStr];
+//        for (NSTextCheckingResult *match in ary) {
+//            NSString* substringForMatch = [responseStr substringWithRange:match.range];
+//            NSLog(@"Extracted URL: %@",substringForMatch);
+//            //            [arrayOfURLs addObject:substringForMatch];
+//            BookModel *bookModel = [self getBookModel:substringForMatch];
+//            [bookList addObject:bookModel];
+//            
+//            NSLog(@"========================================");
+//            NSLog(@"%@",bookModel.title);
+//            NSLog(@"%@",bookModel.imgSrc);
+//            NSLog(@"%@",bookModel.bookLink);
+//            NSLog(@"%@",bookModel.memo);
+//        }
+                //7788小说网
         NSArray *ary7788 = [self getBookList7788:responseStr];
-        
-
         for (NSTextCheckingResult *match in ary7788) {
             NSString* substringForMatch = [responseStr substringWithRange:match.range];
             NSLog(@"Extracted URL: %@",substringForMatch);

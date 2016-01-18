@@ -74,10 +74,16 @@
         {
             
         }
+        
+        NSLog(@"==================>当前进度%f",_bookModel.finishChapterNumber/((float)[_bookModel.aryChapterList count]));
         NSLog(@"%ld",_bookModel.finishChapterNumber);
         
         if (progressTest) {
-            [progressTest hide:YES];
+            if([_bookModel.aryChapterList count]==_bookModel.finishChapterNumber)
+            {
+                [progressTest hide:YES];
+            }
+ 
         }
         
     };

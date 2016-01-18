@@ -13,11 +13,13 @@
 #import "DataManager.h"
 
 #import "SVPullToRefresh.h"
+#import "MBProgressHUD.h"
 
 @interface CategoryBooksViewController ()
 {
     NSMutableArray *_aryBook;
     __weak NSURLSessionTask* _task;
+    MBProgressHUD *progressTest;
 }
 @end
 
@@ -168,19 +170,19 @@
             NSLog(@"获取数据失败");
         }
         [weakSelf.tableView.infiniteScrollingView stopAnimating];
+        [progressTest hide:YES];
     };
     NSMutableDictionary* dicParam=[NSMutableDictionary createParamDic];
     [dicParam setActionID:DEF_ACTIONID_BOOKACTION strcmd:DEF_ACTIONIDCMD_GETCATEGORYBOOKSRESULT];
     [dicParam setParam:baseparam];
     
     [SharedControl excute:dicParam];
-    //    progressTest = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    //    progressTest.labelText = @"加载中...";
-    //    progressTest.mode = MBProgressHUDModeIndeterminate;//可以显示不同风格的进度；
-    //
-    //    _task = (NSURLSessionTask*)baseparam.paramObject;
-    //
-    //    [progressTest setAnimatingWithStateOfTask:_task];
+    if (progressTest == nil) {
+        progressTest = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    }
+    [progressTest show:YES];
+    progressTest.labelText = @"加载中...";
+    progressTest.mode = MBProgressHUDModeIndeterminate;//可以显示不同风格的进度；
 }
 
 
