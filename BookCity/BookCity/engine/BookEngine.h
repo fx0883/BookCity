@@ -11,6 +11,8 @@
 
 @interface BookEngine : NSObject
 
+-(NSArray*)getBookListBase:(NSString*)strSource
+                   pattern:(NSString*)strPattern;
 
 -(void)getSearchBookResult:(BMBaseParam*)baseParam;
 -(void)getCategoryBooksResult:(BMBaseParam*)baseParam;
@@ -19,6 +21,6 @@
 
 -(void)downloadplist:(BMBaseParam*)baseParam;
 
-+(NSString*)getStr:(NSString*)strSource
+-(NSString*)getStr:(NSString*)strSource
            pattern:(NSString*)strPattern;
 @end

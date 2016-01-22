@@ -200,14 +200,14 @@
 {
     NSString *strContent = @"";
     NSString *strPattern = @"\<div id=\\\"bookContent\\\" ondblclick=\\\"scrollRun\\(\\)\\\" onclick=\\\"scrollStop\\(\\)\\\" class=\\\"ic13\\\"\>.*?\<\/div\>";
-    strContent = [BookEngine getStr:strSource pattern:strPattern];
+    strContent = [self getStr:strSource pattern:strPattern];
     
     strContent = [strContent stringByReplacingOccurrencesOfString:@"<div id=\"bookContent\" ondblclick=\"scrollRun()\" onclick=\"scrollStop()\" class=\"ic13\">" withString:@""];
     strContent = [strContent stringByReplacingOccurrencesOfString:@"</div>" withString:@""];
     
     
     NSString *strScriptPattern = @"\<script\>.*\<\/script\>";
-    NSString *strScript = [BookEngine getStr:strContent pattern:strScriptPattern];
+    NSString *strScript = [self getStr:strContent pattern:strScriptPattern];
 
     
     strContent = [strContent stringByReplacingOccurrencesOfString:strScript withString:@""];
@@ -381,14 +381,13 @@ strUrl = [strUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacter
 
 
 
--(NSArray*)getBookListBase:(NSString*)strSource
-                pattern:(NSString*)strPattern
-{
-//    NSString *pattern = @"ShowIdtoItem\\(.*?\\)";
-    NSRegularExpression *regular = [[NSRegularExpression alloc]initWithPattern:strPattern options:NSRegularExpressionCaseInsensitive error:nil];
-    NSArray *results = [regular matchesInString:strSource options:0 range:NSMakeRange(0, strSource.length)];
-    return results;
-}
+//-(NSArray*)getBookListBase:(NSString*)strSource
+//                pattern:(NSString*)strPattern
+//{
+//    NSRegularExpression *regular = [[NSRegularExpression alloc]initWithPattern:strPattern options:NSRegularExpressionCaseInsensitive error:nil];
+//    NSArray *results = [regular matchesInString:strSource options:0 range:NSMakeRange(0, strSource.length)];
+//    return results;
+//}
 
 -(NSArray*)getBookList7788:(NSString*)strSource
 {
@@ -397,22 +396,22 @@ strUrl = [strUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacter
 }
 
 
--(NSString*)getStr:(NSString*)strSource
-            pattern:(NSString*)strPattern
-{
-//    NSString *strPattern = @"ShowIdtoItem\\(.*?\\)";
-    NSString* strResult = @"";
-    NSRegularExpression *regularexpression1 = [[NSRegularExpression alloc]initWithPattern:strPattern options:NSRegularExpressionCaseInsensitive error:nil];
-    
-    
-    NSTextCheckingResult *match1 = [regularexpression1 firstMatchInString:strSource
-                                                                  options:0
-                                                                    range:NSMakeRange(0, [strSource length])];
-    if (match1) {
-        strResult = [strSource substringWithRange:match1.range];
-    }
-    return strResult;
-}
+//-(NSString*)getStr:(NSString*)strSource
+//            pattern:(NSString*)strPattern
+//{
+////    NSString *strPattern = @"ShowIdtoItem\\(.*?\\)";
+//    NSString* strResult = @"";
+//    NSRegularExpression *regularexpression1 = [[NSRegularExpression alloc]initWithPattern:strPattern options:NSRegularExpressionCaseInsensitive error:nil];
+//    
+//    
+//    NSTextCheckingResult *match1 = [regularexpression1 firstMatchInString:strSource
+//                                                                  options:0
+//                                                                    range:NSMakeRange(0, [strSource length])];
+//    if (match1) {
+//        strResult = [strSource substringWithRange:match1.range];
+//    }
+//    return strResult;
+//}
 
 //getBookImg
 -(NSString*)getBookImgStr7788:(NSString*)strSource

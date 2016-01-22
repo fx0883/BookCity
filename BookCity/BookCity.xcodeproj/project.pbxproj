@@ -29,6 +29,8 @@
 		18C0FD481C3C0A98002A7D45 /* SearchTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C0FD471C3C0A98002A7D45 /* SearchTableViewController.m */; };
 		18DEABD51C3E13C600739E7F /* BookModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DEABD41C3E13C600739E7F /* BookModel.m */; };
 		18EE332D1C4A43B600175A2D /* ChapterDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE332C1C4A43B600175A2D /* ChapterDetailViewController.m */; };
+		18FC9C831C50D8750072E8C8 /* SiKushuSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FC9C821C50D8750072E8C8 /* SiKushuSessionManager.m */; };
+		18FC9C861C50D9AE0072E8C8 /* SiKushuEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FC9C851C50D9AE0072E8C8 /* SiKushuEngine.m */; };
 		834D80031C36AC21003A5366 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 834D80021C36AC21003A5366 /* main.m */; };
 		834D80061C36AC21003A5366 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 834D80051C36AC21003A5366 /* AppDelegate.m */; };
 		834D800C1C36AC21003A5366 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 834D800A1C36AC21003A5366 /* Main.storyboard */; };
@@ -136,6 +138,10 @@
 		18DEABD41C3E13C600739E7F /* BookModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookModel.m; sourceTree = "<group>"; };
 		18EE332B1C4A43B600175A2D /* ChapterDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChapterDetailViewController.h; sourceTree = "<group>"; };
 		18EE332C1C4A43B600175A2D /* ChapterDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChapterDetailViewController.m; sourceTree = "<group>"; };
+		18FC9C811C50D8750072E8C8 /* SiKushuSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SiKushuSessionManager.h; sourceTree = "<group>"; };
+		18FC9C821C50D8750072E8C8 /* SiKushuSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SiKushuSessionManager.m; sourceTree = "<group>"; };
+		18FC9C841C50D9AE0072E8C8 /* SiKushuEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SiKushuEngine.h; sourceTree = "<group>"; };
+		18FC9C851C50D9AE0072E8C8 /* SiKushuEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SiKushuEngine.m; sourceTree = "<group>"; };
 		834D7FFE1C36AC21003A5366 /* BookCity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookCity.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		834D80021C36AC21003A5366 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		834D80041C36AC21003A5366 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -295,6 +301,10 @@
 				18C0FD3F1C3C0537002A7D45 /* XiaoShuo7788Engine.m */,
 				18C0FD411C3C062C002A7D45 /* XiaoShuo7788SessionManager.h */,
 				18C0FD421C3C062C002A7D45 /* XiaoShuo7788SessionManager.m */,
+				18FC9C811C50D8750072E8C8 /* SiKushuSessionManager.h */,
+				18FC9C821C50D8750072E8C8 /* SiKushuSessionManager.m */,
+				18FC9C841C50D9AE0072E8C8 /* SiKushuEngine.h */,
+				18FC9C851C50D9AE0072E8C8 /* SiKushuEngine.m */,
 			);
 			path = engine;
 			sourceTree = "<group>";
@@ -754,6 +764,7 @@
 				83981A801C37F02A0053B102 /* UIImageView+AFNetworking.m in Sources */,
 				83981A211C37CFB00053B102 /* BMUIApplication.m in Sources */,
 				834D80511C36AE94003A5366 /* MainTableViewController.m in Sources */,
+				18FC9C831C50D8750072E8C8 /* SiKushuSessionManager.m in Sources */,
 				182205641C44CB08005A47E2 /* BookCategoryModel.m in Sources */,
 				83981A901C37F02A0053B102 /* UIImage+GIF.m in Sources */,
 				83A0DDB01C37707F00F7C663 /* NSObject+BMProperty.m in Sources */,
@@ -791,6 +802,7 @@
 				83981A8E1C37F02A0053B102 /* SDWebImagePrefetcher.m in Sources */,
 				18367D141C453CEE002D3469 /* CategoryBooksViewController.m in Sources */,
 				18C0FD3D1C3C005E002A7D45 /* DuanTianSessionManager.m in Sources */,
+				18FC9C861C50D9AE0072E8C8 /* SiKushuEngine.m in Sources */,
 				185B39C21C438F130059FDC8 /* UIScrollView+SVPullToRefresh.m in Sources */,
 				83981A261C37CFB00053B102 /* BMBaseViewController.m in Sources */,
 				83A0DDC01C377EDF00F7C663 /* ServiceInspector_Indicator.m in Sources */,

@@ -15,4 +15,6 @@
 -(NSString *)ConvertUTF8;
 
 -(NSString *)ConvertUTF16Big;
+
+-(NSString *)URLEncodedStringGB_18030_2000;
 @end

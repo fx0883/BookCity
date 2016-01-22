@@ -88,4 +88,16 @@ for (int i=0; i<[self length]; i++) {
     return strResult;
 }
 
+-(NSString *)URLEncodedStringGB_18030_2000
+{
+    //    NSString *str = @"校花";
+//    NSString *str = @"hello";
+    NSStringEncoding encGB_18030_2000 = CFStringConvertEncodingToNSStringEncoding (kCFStringEncodingGB_18030_2000);
+    
+//    NSString *strUTF8 = [str stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *strGB_18030_2000 = [self stringByAddingPercentEscapesUsingEncoding:encGB_18030_2000];
+    return strGB_18030_2000;
+
+}
+
 @end

@@ -194,7 +194,7 @@
 {
     NSString *strContent = @"";
     NSString *strPattern = @"id=\"bookContent\"\>.*?\<\/div\>";
-    strContent = [BookEngine getStr:strSource pattern:strPattern];
+    strContent = [self getStr:strSource pattern:strPattern];
     
     strContent = [strContent stringByReplacingOccurrencesOfString:@"id=\"bookContent\">" withString:@""];
     strContent = [strContent stringByReplacingOccurrencesOfString:@"</div>" withString:@""];
