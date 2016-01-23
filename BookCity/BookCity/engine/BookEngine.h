@@ -14,6 +14,10 @@
 -(NSArray*)getBookListBase:(NSString*)strSource
                    pattern:(NSString*)strPattern;
 
+
+-(NSArray*)getBookListBaseStr:(NSString*)strSource
+                   pattern:(NSString*)strPattern;
+
 -(void)getSearchBookResult:(BMBaseParam*)baseParam;
 -(void)getCategoryBooksResult:(BMBaseParam*)baseParam;
 -(void)getBookChapterList:(BMBaseParam*)baseParam;
@@ -23,4 +27,7 @@
 
 -(NSString*)getStr:(NSString*)strSource
            pattern:(NSString*)strPattern;
+
+-(NSString*)getStrGroup1:(NSString*)strSource
+                 pattern:(NSString*)strPattern;
 @end

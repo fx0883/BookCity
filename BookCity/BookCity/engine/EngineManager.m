@@ -133,6 +133,10 @@ DEF_SINGLETON(EngineManager)
     {
         [_dicEngine[EDUANTIAN] getBookChapterList:baseParam];
     }
+    else if([self getStr:baseParam.paramString pattern:@"^http://www.sikushu.com/"].length>0)
+    {
+        [_dicEngine[ESIKUSHU] getBookChapterList:baseParam];
+    }
     
     
     
@@ -149,6 +153,10 @@ DEF_SINGLETON(EngineManager)
     {
         [_dicEngine[EDUANTIAN] getBookChapterDetail:baseParam];
     }
+    else if([self getStr:baseParam.paramString pattern:@"^http://www.sikushu.com/"].length>0)
+    {
+        [_dicEngine[ESIKUSHU] getBookChapterDetail:baseParam];
+    }
 }
 
 
@@ -162,6 +170,10 @@ DEF_SINGLETON(EngineManager)
     else if([self getStr:baseParam.paramString pattern:@"^http://www.duantian.com/"].length>0)
     {
         [_dicEngine[EDUANTIAN] downloadplist:baseParam];
+    }
+    else if([self getStr:baseParam.paramString pattern:@"^http://www.sikushu.com/"].length>0)
+    {
+        [_dicEngine[ESIKUSHU] downloadplist:baseParam];
     }
 }
 

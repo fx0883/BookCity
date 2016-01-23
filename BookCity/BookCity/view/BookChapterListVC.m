@@ -40,6 +40,8 @@
     _aryBook = _bookModel.aryChapterList;
 }
 - (IBAction)onClickDownloadButton:(id)sender {
+    
+   // [_bookModel saveImgSrc];
     [self downloadplist];
 }
 

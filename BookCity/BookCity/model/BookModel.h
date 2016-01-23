@@ -39,4 +39,6 @@
 
 -(Boolean)savePlist;
 
+-(void)saveImgSrc;
+
 @end

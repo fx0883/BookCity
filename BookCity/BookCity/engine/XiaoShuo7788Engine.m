@@ -92,7 +92,7 @@
 {
     NSInteger pageSize = 10;
     NSInteger curPageEnd = bookmodel.finishChapterNumber + pageSize;
-    __weak XiaoShuo7788SessionManager *weakSelf = self;
+//    __weak XiaoShuo7788SessionManager *weakSelf = self;
     NSInteger i = bookmodel.finishChapterNumber;
     while (i < curPageEnd && i < [bookmodel.aryChapterList count])
     {

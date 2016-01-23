@@ -11,6 +11,8 @@
 #import "BookCategoryModel.h"
 #import "BMUtilDefine.h"
 
+#import "SDWebImageManager.h"
+
 @implementation BookModel
 
 -(NSMutableDictionary*)toDic
@@ -56,7 +58,31 @@
     NSString *plistFile = [NSString stringWithFormat:@"%@/%@.plist",DocumentsDir,self.title];
     NSMutableDictionary *bookDic = [self toDic];
     
-    
+    [self saveImgSrc];
     return [bookDic writeToFile:plistFile atomically:YES];
+}
+
+-(void)saveImgSrc
+{
+    if (self.imgSrc == nil || self.imgSrc.length == 0) {
+        return;
+    }
+    [[SDWebImageManager sharedManager] downloadImageWithURL:[NSURL URLWithString:self.imgSrc] options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        
+    }
+        completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL)
+    {
+        if (image&&finished) {
+            NSData *imagedata=UIImageJPEGRepresentation(image,1.0);
+            
+//            NSArray*paths=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
+            
+//            NSString *documentsDirectory=[paths objectAtIndex:0];
+            
+            NSString *imgPath = [NSString stringWithFormat:@"%@/%@.jpg",DocumentsDir,self.title];
+            
+            [imagedata writeToFile:imgPath atomically:YES];
+        }
+    }];
 }
 @end
