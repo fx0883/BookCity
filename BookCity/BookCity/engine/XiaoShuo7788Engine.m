@@ -135,6 +135,7 @@
             
         } failure:^(NSURLSessionDataTask *__unused task, NSError *error)
          {
+             bookmodel.finishChapterNumber++;
              NSLog(@"%@",[error userInfo]);
              NSString* strStatus = @"";
              if (bookmodel.finishChapterNumber == [bookmodel.aryChapterList count]) {

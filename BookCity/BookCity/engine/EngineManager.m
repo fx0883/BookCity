@@ -41,7 +41,7 @@ DEF_SINGLETON(EngineManager)
 {
     if (_dicEngine == nil) {
         _dicEngine = [[NSMutableDictionary alloc]initWithCapacity:3];
-//        [self registerEngine:[XiaoShuo7788Engine new] key:E7788];
+        [self registerEngine:[XiaoShuo7788Engine new] key:E7788];
 //        [self registerEngine:[DuanTianEngine new] key:EDUANTIAN];
         [self registerEngine:[SiKushuEngine new] key:ESIKUSHU];
         
