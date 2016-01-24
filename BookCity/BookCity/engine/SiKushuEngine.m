@@ -50,7 +50,9 @@
         
         if([self getStr:responseStr pattern:@"<h1 class=\"f20h\">"].length>0)
         {
-            
+            BookModel *oneBook = [self getBookModeSiKuShuForOne:responseStr];
+            bookList = [[NSMutableArray alloc]initWithCapacity:2];
+            [bookList addObject:oneBook];
         }
         else
         {
@@ -85,7 +87,22 @@
 {
     BookModel *book = [BookModel new];
     
+//    <h1 class=\"f20h\">([^<]*)<em>([^<]*)</em></h1>
+    NSString *strPatternAuthorAndTitle = @"<h1 class=\"f20h\">([^<]*)<em>([^<]*)</em></h1>";
+    NSRegularExpression *regular = [[NSRegularExpression alloc]initWithPattern:strPatternAuthorAndTitle options:NSRegularExpressionCaseInsensitive error:nil];
+        NSArray *matchs = [regular matchesInString:strSource options:0 range:NSMakeRange(0, strSource.length)];
     
+        if ([matchs count]>0) {
+    
+            NSTextCheckingResult *match = [matchs objectAtIndex:0];
+    
+            book.title = [strSource substringWithRange:[match rangeAtIndex:1]];
+            book.author = [strSource substringWithRange:[match rangeAtIndex:2]];
+        }
+    
+    book.bookLink = [self getStrGroup1:strSource pattern:@"<a href=\"([^\"]*)\" title=\"开始阅读\"><span>开始阅读</span>"];
+//    <div class="pic"[^\"]*\"([^\"]*)\"
+        book.imgSrc = [self getStrGroup1:strSource pattern:@"<div class=\"pic\"[^\"]*\"([^\"]*)\""];
     return book;
 }
 
