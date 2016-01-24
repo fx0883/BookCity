@@ -98,6 +98,9 @@
     
             book.title = [strSource substringWithRange:[match rangeAtIndex:1]];
             book.author = [strSource substringWithRange:[match rangeAtIndex:2]];
+            
+            //作者：
+            book.author = [book.author stringByReplacingOccurrencesOfString:@"作者：" withString:@""];
         }
     
     book.bookLink = [self getStrGroup1:strSource pattern:@"<a href=\"([^\"]*)\" title=\"开始阅读\"><span>开始阅读</span>"];
