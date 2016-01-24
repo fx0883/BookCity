@@ -416,8 +416,8 @@
     
     NSString *strContent = @"";
     strContent = [strSource stringByReplacingOccurrencesOfString:@"<p>" withString:@""];
-    strContent = [strSource stringByReplacingOccurrencesOfString:@"&nbsp;&nbsp;" withString:@" "];
-    strContent = [strSource stringByReplacingOccurrencesOfString:@"<br>" withString:@""];
+    strContent = [strContent stringByReplacingOccurrencesOfString:@"&nbsp;&nbsp;" withString:@" "];
+    strContent = [strContent stringByReplacingOccurrencesOfString:@"<br>" withString:@""];
     strContent = [strContent stringByReplacingOccurrencesOfString:@"</p>" withString:@"\r\n"];
     strContent = [strContent stringByReplacingOccurrencesOfString:@"<br/>" withString:@"\r\n"];
     strContent = [strContent stringByReplacingOccurrencesOfString:@"<br />" withString:@"\r\n"];
