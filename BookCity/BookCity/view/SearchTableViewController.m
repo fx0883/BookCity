@@ -93,6 +93,9 @@
     
 
     [self.searchDisplayController setActive:NO animated:YES];
+    
+    [_aryBook removeAllObjects];
+    [self.tableView reloadData];
 }
 
 -(void)searchBook:(NSString*)strKey
@@ -112,12 +115,13 @@
     
     __weak SearchTableViewController *weakSelf=self;
     __weak BMBaseParam *weakBaseParam = baseparam;
+
     baseparam.withresultobjectblock=^(int intError,NSString* strMsg,id obj)
     {
         if (intError == 0)
         {
             if (weakBaseParam.paramInt == 1) {
-                [_aryBook removeAllObjects];
+                
             }
             [_aryBook addObjectsFromArray:weakBaseParam.resultArray];
             [weakSelf.tableView reloadData];
