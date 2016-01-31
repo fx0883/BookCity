@@ -41,7 +41,7 @@ DEF_SINGLETON(EngineManager)
 {
     if (_dicEngine == nil) {
         _dicEngine = [[NSMutableDictionary alloc]initWithCapacity:3];
-        [self registerEngine:[XiaoShuo7788Engine new] key:E7788];
+//        [self registerEngine:[XiaoShuo7788Engine new] key:E7788];
 //        [self registerEngine:[DuanTianEngine new] key:EDUANTIAN];
         [self registerEngine:[SiKushuEngine new] key:ESIKUSHU];
         
@@ -99,11 +99,43 @@ DEF_SINGLETON(EngineManager)
 
 -(void)getCategoryBooksResult:(BMBaseParam*)baseParam
 {
-    //利用正则判断是哪个网站，
-    NSString* strResult = [self getStr:baseParam.paramString pattern:@"^http://www.7788xiaoshuo.com/"];
-    if (strResult.length > 0) {
-        [_dicEngine[@"7788"] getCategoryBooksResult:baseParam];
+    
+    for (NSString *strUrl in baseParam.paramArray) {
+        //利用正则判断是哪个网站，
+//        NSString* strResult = [self getStr:baseParam.paramString pattern:@"^http://www.7788xiaoshuo.com/"];
+//        if (strResult.length > 0) {
+//            [_dicEngine[@"7788"] getCategoryBooksResult:baseParam];
+//        }
+        baseParam.paramString = strUrl;
+        
+    
+        if ([self getStr:baseParam.paramString pattern:@"^http://www.7788xiaoshuo.com/"].length > 0) {
+            if ([_dicEngine objectForKey:E7788]) {
+                [_dicEngine[E7788] getCategoryBooksResult:baseParam];
+            }
+            
+        }
+        else if([self getStr:baseParam.paramString pattern:@"^http://www.duantian.com/"].length>0)
+        {
+            if ([_dicEngine objectForKey:EDUANTIAN]) {
+                [_dicEngine[EDUANTIAN] getCategoryBooksResult:baseParam];
+            }
+
+        }
+        else if([self getStr:baseParam.paramString pattern:@"^http://www.sikushu.com/"].length>0)
+        {
+            if ([_dicEngine objectForKey:ESIKUSHU]) {
+                [_dicEngine[ESIKUSHU] getCategoryBooksResult:baseParam];
+            }
+        }
+        usleep(100);
     }
+    
+//    //利用正则判断是哪个网站，
+//    NSString* strResult = [self getStr:baseParam.paramString pattern:@"^http://www.7788xiaoshuo.com/"];
+//    if (strResult.length > 0) {
+//        [_dicEngine[@"7788"] getCategoryBooksResult:baseParam];
+//    }
 }
 
 -(NSString*)getStr:(NSString*)strSource

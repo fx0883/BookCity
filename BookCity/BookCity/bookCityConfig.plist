@@ -5,6 +5,11 @@
 	<key>BookCategory</key>
 	<array>
 		<dict>
+			<key>urlAry</key>
+			<array>
+				<string>http://www.sikushu.com/catalog/1-%d.html</string>
+				<string>http://www.7788xiaoshuo.com/list/104/%d.html</string>
+			</array>
 			<key>order</key>
 			<integer>0</integer>
 			<key>categoryname</key>
@@ -15,6 +20,11 @@
 			<string>http://www.7788xiaoshuo.com/list/104/%d.html</string>
 		</dict>
 		<dict>
+			<key>urlAry</key>
+			<array>
+				<string>http://www.7788xiaoshuo.com/list/104/%d.html</string>
+				<string>http://www.7788xiaoshuo.com/list/104/%d.html</string>
+			</array>
 			<key>categoryname</key>
 			<string>奇幻</string>
 			<key>order</key>
@@ -25,6 +35,11 @@
 			<string>http://www.7788xiaoshuo.com/list/510/%d.html</string>
 		</dict>
 		<dict>
+			<key>urlAry</key>
+			<array>
+				<string>http://www.sikushu.com/catalog/3-%d.html</string>
+				<string>http://www.7788xiaoshuo.com/list/104/%d.html</string>
+			</array>
 			<key>categoryname</key>
 			<string>都市</string>
 			<key>order</key>
@@ -35,6 +50,11 @@
 			<string>http://www.7788xiaoshuo.com/list/105/%d.html</string>
 		</dict>
 		<dict>
+			<key>urlAry</key>
+			<array>
+				<string>http://www.7788xiaoshuo.com/list/104/%d.html</string>
+				<string>http://www.7788xiaoshuo.com/list/104/%d.html</string>
+			</array>
 			<key>order</key>
 			<integer>0</integer>
 			<key>categoryname</key>
@@ -45,6 +65,11 @@
 			<string>http://www.7788xiaoshuo.com/list/511/%d.html</string>
 		</dict>
 		<dict>
+			<key>urlAry</key>
+			<array>
+				<string>http://www.sikushu.com/catalog/2-%d.html</string>
+				<string>http://www.7788xiaoshuo.com/list/104/%d.html</string>
+			</array>
 			<key>order</key>
 			<integer>0</integer>
 			<key>categoryname</key>
@@ -55,6 +80,11 @@
 			<string>http://www.7788xiaoshuo.com/list/109/%d.html</string>
 		</dict>
 		<dict>
+			<key>urlAry</key>
+			<array>
+				<string>http://www.7788xiaoshuo.com/list/104/%d.html</string>
+				<string>http://www.7788xiaoshuo.com/list/104/%d.html</string>
+			</array>
 			<key>order</key>
 			<integer>0</integer>
 			<key>categoryname</key>
@@ -65,6 +95,11 @@
 			<string>http://www.7788xiaoshuo.com/list/513/%d.html</string>
 		</dict>
 		<dict>
+			<key>urlAry</key>
+			<array>
+				<string>http://www.7788xiaoshuo.com/list/104/%d.html</string>
+				<string>http://www.7788xiaoshuo.com/list/104/%d.html</string>
+			</array>
 			<key>order</key>
 			<integer>0</integer>
 			<key>categoryname</key>
@@ -75,6 +110,11 @@
 			<string>http://www.7788xiaoshuo.com/list/144/%d.html</string>
 		</dict>
 		<dict>
+			<key>urlAry</key>
+			<array>
+				<string>http://www.sikushu.com/catalog/4-%d.html</string>
+				<string>http://www.7788xiaoshuo.com/list/104/%d.html</string>
+			</array>
 			<key>order</key>
 			<integer>0</integer>
 			<key>categoryname</key>
@@ -85,6 +125,11 @@
 			<string>http://www.7788xiaoshuo.com/list/108/%d.html</string>
 		</dict>
 		<dict>
+			<key>urlAry</key>
+			<array>
+				<string>http://www.7788xiaoshuo.com/list/104/%d.html</string>
+				<string>http://www.7788xiaoshuo.com/list/104/%d.html</string>
+			</array>
 			<key>order</key>
 			<integer>0</integer>
 			<key>categoryname</key>
@@ -95,6 +140,11 @@
 			<string>http://www.7788xiaoshuo.com/list/447/%d.html</string>
 		</dict>
 		<dict>
+			<key>urlAry</key>
+			<array>
+				<string>http://www.sikushu.com/catalog/7-%d.html</string>
+				<string>http://www.7788xiaoshuo.com/list/104/%d.html</string>
+			</array>
 			<key>order</key>
 			<integer>0</integer>
 			<key>categoryname</key>
@@ -105,6 +155,11 @@
 			<string>http://www.7788xiaoshuo.com/list/110/%d.html</string>
 		</dict>
 		<dict>
+			<key>urlAry</key>
+			<array>
+				<string>http://www.sikushu.com/catalog/5-%d.html</string>
+				<string>http://www.7788xiaoshuo.com/list/104/%d.html</string>
+			</array>
 			<key>order</key>
 			<integer>0</integer>
 			<key>categoryname</key>
@@ -115,6 +170,11 @@
 			<string>http://www.7788xiaoshuo.com/list/107/%d.html</string>
 		</dict>
 		<dict>
+			<key>urlAry</key>
+			<array>
+				<string>http://www.7788xiaoshuo.com/list/104/%d.html</string>
+				<string>http://www.7788xiaoshuo.com/list/104/%d.html</string>
+			</array>
 			<key>order</key>
 			<integer>0</integer>
 			<key>categoryname</key>
@@ -125,6 +185,11 @@
 			<string>http://www.7788xiaoshuo.com/list/512/%d.html</string>
 		</dict>
 		<dict>
+			<key>urlAry</key>
+			<array>
+				<string>http://www.7788xiaoshuo.com/list/104/%d.html</string>
+				<string>http://www.7788xiaoshuo.com/list/104/%d.html</string>
+			</array>
 			<key>order</key>
 			<integer>0</integer>
 			<key>categoryname</key>
@@ -135,6 +200,11 @@
 			<string>http://www.7788xiaoshuo.com/list/515/%d.html</string>
 		</dict>
 		<dict>
+			<key>urlAry</key>
+			<array>
+				<string>http://www.sikushu.com/catalog/8-%d.html</string>
+				<string>http://www.7788xiaoshuo.com/list/104/%d.html</string>
+			</array>
 			<key>order</key>
 			<integer>0</integer>
 			<key>categoryname</key>
@@ -145,6 +215,11 @@
 			<string>http://www.7788xiaoshuo.com/list/448/%d.html</string>
 		</dict>
 		<dict>
+			<key>urlAry</key>
+			<array>
+				<string>http://www.7788xiaoshuo.com/list/104/%d.html</string>
+				<string>http://www.7788xiaoshuo.com/list/104/%d.html</string>
+			</array>
 			<key>order</key>
 			<integer>0</integer>
 			<key>categoryname</key>
@@ -155,6 +230,11 @@
 			<string>http://www.7788xiaoshuo.com/list/449/%d.html</string>
 		</dict>
 		<dict>
+			<key>urlAry</key>
+			<array>
+				<string>http://www.sikushu.com/catalog/6-%d.html</string>
+				<string>http://www.7788xiaoshuo.com/list/104/%d.html</string>
+			</array>
 			<key>order</key>
 			<integer>0</integer>
 			<key>categoryname</key>
@@ -165,6 +245,11 @@
 			<string>http://www.7788xiaoshuo.com/list/111/%d.html</string>
 		</dict>
 		<dict>
+			<key>urlAry</key>
+			<array>
+				<string>http://www.7788xiaoshuo.com/list/104/%d.html</string>
+				<string>http://www.7788xiaoshuo.com/list/104/%d.html</string>
+			</array>
 			<key>order</key>
 			<integer>0</integer>
 			<key>categoryname</key>
@@ -175,6 +260,26 @@
 			<string>http://www.7788xiaoshuo.com/list/516/%d.html</string>
 		</dict>
 		<dict>
+			<key>urlAry</key>
+			<array>
+				<string>http://www.sikushu.com/catalog/9-%d.html</string>
+				<string>http://www.7788xiaoshuo.com/list/104/%d.html</string>
+			</array>
+			<key>order</key>
+			<integer>0</integer>
+			<key>description</key>
+			<string>描述分类</string>
+			<key>categoryname</key>
+			<string>女生</string>
+			<key>url</key>
+			<string>http://www.7788xiaoshuo.com/list/112/%d.html</string>
+		</dict>
+		<dict>
+			<key>urlAry</key>
+			<array>
+				<string>http://www.sikushu.com/catalog/10-%d.html</string>
+				<string>http://www.7788xiaoshuo.com/list/104/%d.html</string>
+			</array>
 			<key>order</key>
 			<integer>0</integer>
 			<key>description</key>

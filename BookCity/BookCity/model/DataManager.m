@@ -42,7 +42,10 @@ DEF_SINGLETON(DataManager)
         bookcategorymodel.curIndex = 1;
         bookcategorymodel.name = dicItem[CATEGORYNAME];
         bookcategorymodel.strUrl = dicItem[URL];
-        bookcategorymodel.categoryDescription = dicItem[DESCRIPTION];        
+        bookcategorymodel.categoryDescription = dicItem[DESCRIPTION];
+        
+        bookcategorymodel.aryUrl = [[NSMutableArray alloc]initWithArray:dicItem[URLARY]];
+        
         [_bookCategory addObject:bookcategorymodel];
 
     }

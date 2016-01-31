@@ -145,9 +145,9 @@
     BMBaseParam* baseparam=[BMBaseParam new];
     
     //参数
-    baseparam.paramString=_bookCategoryModel.strUrl;
+    //baseparam.paramString=_bookCategoryModel.strUrl;
     baseparam.paramInt = _bookCategoryModel.curIndex;
-    
+    baseparam.paramArray = _bookCategoryModel.aryUrl;
     //    [baseparam.paramDic setObject:@"id" forKey:@"234"];
     
     __weak CategoryBooksViewController *weakSelf=self;

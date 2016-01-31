@@ -575,7 +575,106 @@
 }
 
 
+#pragma mark-  getCategoryBooksResult
 
+-(void)getCategoryBooksResult:(BMBaseParam*)baseParam
+{
+    NSString *strUrl = [NSString stringWithFormat:baseParam.paramString ,(long)baseParam.paramInt];
+    
+    strUrl = [strUrl stringByReplacingOccurrencesOfString:[SiKushuSessionManager getBaseUrl] withString:@""];
+    
+    [[SiKushuSessionManager sharedClient] GET:strUrl parameters:nil progress:nil success:^(NSURLSessionDataTask * __unused task, id responseObject) {
+        
+        //NSString *string = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        
+        NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:0x80000632];
+        
+        
+        
+        NSMutableArray *bookList = nil;
+
+        //7788小说网的小说
+//        NSArray *ary7788 = [self getBookList7788:responseStr];
+//        for (NSTextCheckingResult *match in ary7788) {
+//            NSString* substringForMatch = [responseStr substringWithRange:match.range];
+//            NSLog(@"Extracted URL: %@",substringForMatch);
+//            //            [arrayOfURLs addObject:substringForMatch];
+//            BookModel *bookModel = [self getBookModel7788:substringForMatch];
+//            [bookList addObject:bookModel];
+//            
+//            NSLog(@"========================================");
+//            NSLog(@"%@",bookModel.title);
+//            NSLog(@"%@",bookModel.imgSrc);
+//            NSLog(@"%@",bookModel.bookLink);
+//            NSLog(@"%@",bookModel.memo);
+//        }
+        NSString *strListMain = [self getMainListContent:responseStr];
+        
+        bookList = [self getBookListFromCategorySiku:strListMain];
+        
+        baseParam.resultArray = bookList;
+        if (baseParam.withresultobjectblock) {
+            baseParam.withresultobjectblock(0,@"",nil);
+        }
+        //
+        //        NSLog(ary);
+        //        NSLog(responseStr);
+        //        NSLog(string);
+    } failure:^(NSURLSessionDataTask *__unused task, NSError *error)
+     {
+         NSLog(@"%@",[error userInfo]);
+         if (baseParam.withresultobjectblock) {
+             baseParam.withresultobjectblock(-1,@"",nil);
+         }
+         
+     }];
+}
+
+-(NSString*)getMainListContent:(NSString*)strSource
+{
+    NSString *strRet = @"";
+    strRet = [self getStr:strSource pattern:@"<ul class=\"list_box1\">[\\S\\s]*?</ul>"];
+    
+    return strRet;
+}
+
+-(NSMutableArray*)getBookListFromCategorySiku:(NSString*)strSource
+{
+    NSMutableArray *retAry = [NSMutableArray new];
+    
+    NSString *strPattern = @"<li>[\\S\\s]*?</li>";
+    NSArray *arySiku = [self getBookListBase:strSource pattern:strPattern];
+    for (NSTextCheckingResult *match in arySiku) {
+        NSString* substringForMatch = [strSource substringWithRange:match.range];
+        NSLog(@"Extracted URL: %@",substringForMatch);
+        //            [arrayOfURLs addObject:substringForMatch];
+//        BookModel *bookModel = [self getBookModel7788:substringForMatch];
+//        [bookList addObject:bookModel];
+//        
+//        NSLog(@"========================================");
+//        NSLog(@"%@",bookModel.title);
+//        NSLog(@"%@",bookModel.imgSrc);
+//        NSLog(@"%@",bookModel.bookLink);
+//        NSLog(@"%@",bookModel.memo);
+        
+        BookModel *bookModel = [self getBookModelFromCategory:substringForMatch];
+        [retAry addObject:bookModel];
+    }
+    
+    return retAry;
+}
+
+-(BookModel*)getBookModelFromCategory:(NSString*)strSource
+{
+    BookModel *bookmodel = [BookModel new];
+    bookmodel.imgSrc = [self getStrGroup1:strSource pattern:@"<img src=\"([^\"]*)\""];
+    bookmodel.bookLink = [self getStrGroup1:strSource pattern:@"最新章节：<a href=\"([^\"]*)\""];
+    bookmodel.title = [self getStrGroup1:strSource pattern:@"<img src=\"[^\"]*\" alt=\"([^\"]*)\"/>"];
+    bookmodel.memo = [self getStrGroup1:strSource pattern:@"<p>([\\S\\s]*?)</p>"];
+    bookmodel.author = [self getStrGroup1:strSource pattern:@"作者：([^<]*)</a>"];
+    
+    return bookmodel;
+}
 
 
 @end
