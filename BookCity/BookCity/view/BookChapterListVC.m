@@ -189,12 +189,16 @@
 {
     NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
     //    NSString *strKey = [_aryCategory objectAtIndex:indexPath.row];
-    BookChapterModel* bookChapterModel = [_aryBook objectAtIndex:indexPath.row];
+//    BookChapterModel* bookChapterModel = [_aryBook objectAtIndex:indexPath.row];
+    
+    [_bookModel setCurChapter:indexPath.row];
     UIViewController *destination = [segue destinationViewController];
     
     if ([destination respondsToSelector:@selector(setBookChapterModel:)]) {
         
-        [destination setValue:bookChapterModel forKey:@"bookChapterModel"];
+//        [destination setValue:bookChapterModel forKey:@"bookChapterModel"];
+        
+        [destination setValue:_bookModel forKey:@"bookModel"];
         
     }
     

@@ -19,7 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"%@",_bookChapterModel);
+//    NSLog(@"%@",_bookChapterModel);
     // Do any additional setup after loading the view.
     
     [self loadData];
@@ -28,6 +28,22 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+- (IBAction)preChapter:(id)sender {
+    
+    if (_bookModel.curChapter > 0) {
+        _bookModel.curChapter--;
+        [self loadData];
+    }
+    
+}
+
+
+- (IBAction)nextChapter:(id)sender {
+    if (_bookModel.curChapter < [_bookModel.aryChapterList count]) {
+        _bookModel.curChapter++;
+        [self loadData];
+    }
 }
 
 
@@ -42,6 +58,7 @@
     
     //实例化一个传入传出参数
     
+    _bookChapterModel = [_bookModel.aryChapterList objectAtIndex:_bookModel.curChapter];
 
     if ([_bookChapterModel.htmlContent length]>0) {
        [self.webView loadHTMLString:_bookChapterModel.htmlContent baseURL:nil];
@@ -87,6 +104,10 @@
     [SharedControl excute:dicParam];
     if (progressTest == nil) {
         progressTest = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    }
+    else
+    {
+        [progressTest show:YES];
     }
     
     progressTest.labelText = @"加载中...";

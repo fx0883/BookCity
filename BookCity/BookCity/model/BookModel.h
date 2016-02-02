@@ -35,6 +35,12 @@
 @property (readwrite) NSInteger finishChapterNumber;
 
 
+
+//网页浏览的时候调用。
+@property (readwrite) NSInteger curChapter;
+
+
+
 -(NSMutableDictionary*)toDic;
 
 -(Boolean)savePlist;

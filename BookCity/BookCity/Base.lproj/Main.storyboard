@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="s6S-Oo-6e6">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="s6S-Oo-6e6">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -162,10 +162,36 @@
                                 <rect key="frame" x="20" y="0.0" width="560" height="556"/>
                                 <color key="backgroundColor" red="0.59215688710000003" green="0.90196084980000002" blue="0.42352944609999998" alpha="1" colorSpace="deviceRGB"/>
                             </webView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e2o-dy-3NL">
+                                <rect key="frame" x="524" y="499" width="46" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="46" id="T0N-Zt-nSR"/>
+                                    <constraint firstAttribute="height" constant="30" id="v2S-Bd-huB"/>
+                                </constraints>
+                                <state key="normal" title="下一章"/>
+                                <connections>
+                                    <action selector="nextChapter:" destination="mHt-kh-lnh" eventType="touchUpInside" id="VOE-Op-gLm"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R51-iO-iMn">
+                                <rect key="frame" x="30" y="499" width="46" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="24i-jX-8Nh"/>
+                                    <constraint firstAttribute="width" constant="46" id="cLJ-MW-8UF"/>
+                                </constraints>
+                                <state key="normal" title="上一章"/>
+                                <connections>
+                                    <action selector="preChapter:" destination="mHt-kh-lnh" eventType="touchUpInside" id="9v4-Zy-ubM"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="e2o-dy-3NL" secondAttribute="trailing" constant="10" id="069-kH-Lby"/>
+                            <constraint firstItem="R51-iO-iMn" firstAttribute="leading" secondItem="fDa-rW-1yI" secondAttribute="leadingMargin" constant="10" id="2a0-yY-6c9"/>
                             <constraint firstItem="vrT-Jq-GJo" firstAttribute="top" secondItem="Fgl-cC-WcQ" secondAttribute="bottom" id="3hR-7K-2nH"/>
+                            <constraint firstItem="vrT-Jq-GJo" firstAttribute="top" secondItem="e2o-dy-3NL" secondAttribute="bottom" constant="27" id="Gug-KW-fA1"/>
+                            <constraint firstItem="vrT-Jq-GJo" firstAttribute="top" secondItem="R51-iO-iMn" secondAttribute="bottom" constant="27" id="UFP-Fd-81u"/>
                             <constraint firstItem="Fgl-cC-WcQ" firstAttribute="top" secondItem="fDa-rW-1yI" secondAttribute="topMargin" id="gZY-oF-Snf"/>
                             <constraint firstItem="Fgl-cC-WcQ" firstAttribute="trailing" secondItem="fDa-rW-1yI" secondAttribute="trailingMargin" id="nTg-fw-9fL"/>
                             <constraint firstItem="Fgl-cC-WcQ" firstAttribute="leading" secondItem="fDa-rW-1yI" secondAttribute="leadingMargin" id="wz3-Fm-uDD"/>
