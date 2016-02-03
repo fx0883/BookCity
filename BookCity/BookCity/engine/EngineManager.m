@@ -10,11 +10,13 @@
 #import "XiaoShuo7788Engine.h"
 #import "DuanTianEngine.h"
 #import "SiKushuEngine.h"
+#import "H23wxEngine.h"
 
 
 #define E7788 @"7788"
 #define EDUANTIAN @"DuanTian"
 #define ESIKUSHU @"SiKuShu"
+#define H23WX @"H23Wx"
 
 @interface EngineManager()
 {
@@ -41,9 +43,10 @@ DEF_SINGLETON(EngineManager)
 {
     if (_dicEngine == nil) {
         _dicEngine = [[NSMutableDictionary alloc]initWithCapacity:3];
-        [self registerEngine:[XiaoShuo7788Engine new] key:E7788];
+//        [self registerEngine:[XiaoShuo7788Engine new] key:E7788];
 //        [self registerEngine:[DuanTianEngine new] key:EDUANTIAN];
-        [self registerEngine:[SiKushuEngine new] key:ESIKUSHU];
+//        [self registerEngine:[SiKushuEngine new] key:ESIKUSHU];
+        [self registerEngine:[H23wxEngine new] key:H23WX];
         
     }
     

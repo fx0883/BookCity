@@ -15,6 +15,9 @@
 		18367D141C453CEE002D3469 /* CategoryBooksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18367D131C453CEE002D3469 /* CategoryBooksViewController.m */; };
 		183A04CC1C3A09C400DE7CDA /* DuanTianEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 183A04CB1C3A09C400DE7CDA /* DuanTianEngine.m */; };
 		183A04CF1C3A0A0200DE7CDA /* BookEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 183A04CE1C3A0A0200DE7CDA /* BookEngine.m */; };
+		184E6FDA1C60998D005E8149 /* So23wxSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 184E6FD91C60998D005E8149 /* So23wxSessionManager.m */; };
+		184E6FDD1C6099B2005E8149 /* H23wxSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 184E6FDC1C6099B2005E8149 /* H23wxSessionManager.m */; };
+		184E6FE01C609BD3005E8149 /* H23wxEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 184E6FDF1C609BD3005E8149 /* H23wxEngine.m */; };
 		185B39C11C438F130059FDC8 /* UIScrollView+SVInfiniteScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = 185B39BE1C438F130059FDC8 /* UIScrollView+SVInfiniteScrolling.m */; };
 		185B39C21C438F130059FDC8 /* UIScrollView+SVPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 185B39C01C438F130059FDC8 /* UIScrollView+SVPullToRefresh.m */; };
 		18618B081C478C3600766CC6 /* BookChapterListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 18618B071C478C3600766CC6 /* BookChapterListVC.m */; };
@@ -108,6 +111,12 @@
 		183A04CB1C3A09C400DE7CDA /* DuanTianEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DuanTianEngine.m; sourceTree = "<group>"; };
 		183A04CD1C3A0A0200DE7CDA /* BookEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookEngine.h; sourceTree = "<group>"; };
 		183A04CE1C3A0A0200DE7CDA /* BookEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookEngine.m; sourceTree = "<group>"; };
+		184E6FD81C60998D005E8149 /* So23wxSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = So23wxSessionManager.h; sourceTree = "<group>"; };
+		184E6FD91C60998D005E8149 /* So23wxSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = So23wxSessionManager.m; sourceTree = "<group>"; };
+		184E6FDB1C6099B2005E8149 /* H23wxSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = H23wxSessionManager.h; sourceTree = "<group>"; };
+		184E6FDC1C6099B2005E8149 /* H23wxSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = H23wxSessionManager.m; sourceTree = "<group>"; };
+		184E6FDE1C609BD3005E8149 /* H23wxEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = H23wxEngine.h; sourceTree = "<group>"; };
+		184E6FDF1C609BD3005E8149 /* H23wxEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = H23wxEngine.m; sourceTree = "<group>"; };
 		185B39BC1C438F130059FDC8 /* SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVPullToRefresh.h; sourceTree = "<group>"; };
 		185B39BD1C438F130059FDC8 /* UIScrollView+SVInfiniteScrolling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVInfiniteScrolling.h"; sourceTree = "<group>"; };
 		185B39BE1C438F130059FDC8 /* UIScrollView+SVInfiniteScrolling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVInfiniteScrolling.m"; sourceTree = "<group>"; };
@@ -305,6 +314,12 @@
 				18FC9C821C50D8750072E8C8 /* SiKushuSessionManager.m */,
 				18FC9C841C50D9AE0072E8C8 /* SiKushuEngine.h */,
 				18FC9C851C50D9AE0072E8C8 /* SiKushuEngine.m */,
+				184E6FD81C60998D005E8149 /* So23wxSessionManager.h */,
+				184E6FD91C60998D005E8149 /* So23wxSessionManager.m */,
+				184E6FDB1C6099B2005E8149 /* H23wxSessionManager.h */,
+				184E6FDC1C6099B2005E8149 /* H23wxSessionManager.m */,
+				184E6FDE1C609BD3005E8149 /* H23wxEngine.h */,
+				184E6FDF1C609BD3005E8149 /* H23wxEngine.m */,
 			);
 			path = engine;
 			sourceTree = "<group>";
@@ -781,6 +796,7 @@
 				83981A931C37F02A0053B102 /* UIImageView+WebCache.m in Sources */,
 				18C0FD481C3C0A98002A7D45 /* SearchTableViewController.m in Sources */,
 				83981A731C37F02A0053B102 /* AFHTTPSessionManager.m in Sources */,
+				184E6FDD1C6099B2005E8149 /* H23wxSessionManager.m in Sources */,
 				83A0DDBF1C377EDF00F7C663 /* ServiceInspector_Border.m in Sources */,
 				18C0FD381C3BFADC002A7D45 /* BMActionManager+BookCity.m in Sources */,
 				83A0DDB51C37707F00F7C663 /* BMBaseAction.m in Sources */,
@@ -801,9 +817,11 @@
 				18DEABD51C3E13C600739E7F /* BookModel.m in Sources */,
 				83981A8E1C37F02A0053B102 /* SDWebImagePrefetcher.m in Sources */,
 				18367D141C453CEE002D3469 /* CategoryBooksViewController.m in Sources */,
+				184E6FDA1C60998D005E8149 /* So23wxSessionManager.m in Sources */,
 				18C0FD3D1C3C005E002A7D45 /* DuanTianSessionManager.m in Sources */,
 				18FC9C861C50D9AE0072E8C8 /* SiKushuEngine.m in Sources */,
 				185B39C21C438F130059FDC8 /* UIScrollView+SVPullToRefresh.m in Sources */,
+				184E6FE01C609BD3005E8149 /* H23wxEngine.m in Sources */,
 				83981A261C37CFB00053B102 /* BMBaseViewController.m in Sources */,
 				83A0DDC01C377EDF00F7C663 /* ServiceInspector_Indicator.m in Sources */,
 				83A0DDB61C37707F00F7C663 /* BMControl.m in Sources */,
