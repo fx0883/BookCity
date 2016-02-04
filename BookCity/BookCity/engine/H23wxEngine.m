@@ -11,6 +11,7 @@
 #import "H23wxSessionManager.h"
 
 #import "BookModel.h"
+#import "BookChapterModel.h"
 @implementation H23wxEngine
 
 
@@ -147,6 +148,312 @@
 //    
 //    book.imgSrc = [NSString stringWithFormat:@"http://www.sikushu.com/files/article/image/%@/%@/%@s.jpg",strBookNumberFront2,strBookNumber,strBookNumber];
     return book;
+}
+
+
+#pragma mark-  getBookChapterList
+
+-(void)getBookChapterList:(BMBaseParam*)baseParam
+{
+    //NSString *strUrlParam = [NSString stringWithFormat:baseParam.paramString ,(long)baseParam.paramInt];
+    
+    NSString *strUrlParam = baseParam.paramString;
+    
+    NSString *strUrl = [strUrlParam stringByReplacingOccurrencesOfString:[H23wxSessionManager getBaseUrl] withString:@""];
+    
+    [[H23wxSessionManager sharedClient] GET:strUrl parameters:nil progress:nil success:^(NSURLSessionDataTask * __unused task, id responseObject) {
+        
+        NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:0x80000632];
+        baseParam.resultArray = [self getChapterList:responseStr url:strUrlParam];
+        
+        
+        if (baseParam.withresultobjectblock) {
+            baseParam.withresultobjectblock(0,@"",nil);
+        }
+        
+    } failure:^(NSURLSessionDataTask *__unused task, NSError *error)
+     {
+         NSLog(@"%@",[error userInfo]);
+         if (baseParam.withresultobjectblock) {
+             baseParam.withresultobjectblock(-1,@"",nil);
+         }
+         
+     }];
+}
+
+
+-(NSMutableArray*)getChapterList:(NSString*)strSource
+                             url:(NSString*)strUrl
+{
+    
+    NSMutableArray *aryChapterList = [NSMutableArray new];
+    
+    NSString *pattern = @"<td class=\"L\"><a href=\"([^\"]*)\">([^<]*)</a>";
+    NSRegularExpression *regular = [[NSRegularExpression alloc]initWithPattern:pattern options:NSRegularExpressionCaseInsensitive error:nil];
+    NSArray *results = [regular matchesInString:strSource options:0 range:NSMakeRange(0, strSource.length)];
+    for (NSTextCheckingResult *match in results) {
+        
+        BookChapterModel *bookchaptermodel = [BookChapterModel new];
+//        NSString* substringForMatch = [strSource substringWithRange:match.range];
+//        NSLog(@"chapter list: %@",substringForMatch);
+//        
+//        NSString *strPatternListDetail = @"<a href=\"([^\"]*)\">([^<]*)</a>";
+//        NSRegularExpression *regular = [[NSRegularExpression alloc]initWithPattern:strPatternListDetail options:NSRegularExpressionCaseInsensitive error:nil];
+//        NSArray *matchs = [regular matchesInString:substringForMatch options:0 range:NSMakeRange(0, substringForMatch.length)];
+//        
+//        if ([matchs count]>0) {
+//            
+//            NSTextCheckingResult *match2 = [matchs objectAtIndex:0];
+//            
+//            
+//            bookchaptermodel.url = [substringForMatch substringWithRange:[match2 rangeAtIndex:1]];
+//            
+//            
+//            NSString* strChapterUrlBase = [strUrl stringByDeletingLastPathComponent];
+//            bookchaptermodel.url = [NSString stringWithFormat:@"%@/%@",strChapterUrlBase,bookchaptermodel.url];
+//            
+//            bookchaptermodel.title = [substringForMatch substringWithRange:[match2 rangeAtIndex:2]];
+//        }
+        
+        bookchaptermodel.url = [strSource substringWithRange:[match rangeAtIndex:1]];
+//        NSString* strChapterUrlBase = [strUrl stringByDeletingLastPathComponent];
+        bookchaptermodel.url = [NSString stringWithFormat:@"%@%@",strUrl,bookchaptermodel.url];
+        bookchaptermodel.title = [strSource substringWithRange:[match rangeAtIndex:2]];
+        bookchaptermodel.hostUrl = [H23wxSessionManager getBaseUrl];
+        [aryChapterList addObject:bookchaptermodel];
+    }
+    
+    
+    
+    
+    return aryChapterList;
+    
+    
+    
+    
+}
+
+
+#pragma mark-  getBookChapterDetail
+
+-(void)getBookChapterDetail:(BMBaseParam*)baseParam
+{
+    //paramString2 保存chapterDetail url
+    NSString *strUrl = baseParam.paramString2;
+    
+    strUrl = [strUrl stringByReplacingOccurrencesOfString:[H23wxSessionManager getBaseUrl] withString:@""];
+    //    __weak BMBaseParam *weakBaseParam = baseParam;
+    __weak H23wxEngine *weakSelf = self;
+    [[H23wxSessionManager sharedClient] GET:strUrl parameters:nil progress:nil success:^(NSURLSessionDataTask * __unused task, id responseObject) {
+        
+        NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:0x80000632];
+        
+        NSLog(@"%@",responseStr);
+        baseParam.resultString = [weakSelf getChapterContent:responseStr];
+        
+        // BookChapterModel* bookchaptermodel = (BookChapterModel*)baseParam.paramObject;
+        //       ((BookChapterModel*)baseParam.paramObject).content = [weakSelf getChapterContentText:baseParam.resultString];
+        
+        BookChapterModel* bookchaptermodel = (BookChapterModel*)baseParam.paramObject;
+        bookchaptermodel.content = [weakSelf getChapterContentText:baseParam.resultString];
+        bookchaptermodel.htmlContent = baseParam.resultString;
+        if (baseParam.withresultobjectblock) {
+            baseParam.withresultobjectblock(0,@"",nil);
+        }
+        
+    } failure:^(NSURLSessionDataTask *__unused task, NSError *error)
+     {
+         NSLog(@"%@",[error userInfo]);
+         if (baseParam.withresultobjectblock) {
+             baseParam.withresultobjectblock(-1,@"",nil);
+         }
+         
+     }];
+}
+
+-(NSString*)getChapterContent:(NSString*)strSource
+{
+    NSString *strContent = @"";
+    NSString *strPattern = @"<dd id=\"contents\">([\\s\\S]*?)</dd>";
+    strContent = [self getStrGroup1:strSource pattern:strPattern];
+//    strContent = [strContent stringByReplacingOccurrencesOfString:@"(四库书www.sikushu.com)" withString:@""];
+//    
+//    NSString *strScriptPattern = @"\\[最快的更新.*?\\]";
+//    NSString *strScript = [self getStr:strContent pattern:strScriptPattern];
+    
+//    
+//    strContent = [strContent stringByReplacingOccurrencesOfString:strScript withString:@""];
+    
+    //
+    //    strContent = [strContent stringByReplacingOccurrencesOfString:@"[最快的更新尽在四&amp;库*书*小说网<a href=\"http://www.SikUShu.com\" target=\"_blank\">www.SikUShu.com</a>]" withString:@""];
+    
+    
+    
+    
+    return strContent;
+}
+
+-(NSString*)getChapterContentText:(NSString*)strSource
+{
+    //    &nbsp;&nbsp;&nbsp;&nbsp;
+    
+    NSString *strContent = @"";
+    strContent = [strSource stringByReplacingOccurrencesOfString:@"<p>" withString:@""];
+    strContent = [strContent stringByReplacingOccurrencesOfString:@"&nbsp;&nbsp;" withString:@" "];
+    strContent = [strContent stringByReplacingOccurrencesOfString:@"<br>" withString:@""];
+    strContent = [strContent stringByReplacingOccurrencesOfString:@"</p>" withString:@"\r\n"];
+    strContent = [strContent stringByReplacingOccurrencesOfString:@"<br/>" withString:@"\r\n"];
+    strContent = [strContent stringByReplacingOccurrencesOfString:@"<br />" withString:@"\r\n"];
+    
+    
+    return strContent;
+}
+
+#pragma mark-  downloadplist
+
+-(void)downloadplist:(BMBaseParam*)baseParam
+{
+    BookModel *bookmodel = (BookModel*)baseParam.paramObject;
+    
+    if (bookmodel == nil || bookmodel.aryChapterList == nil || [bookmodel.aryChapterList count] == 0 ) {
+        
+        if (baseParam.withresultobjectblock) {
+            baseParam.withresultobjectblock(-1,@"数据没有准备好，不要下载",nil);
+        }
+        
+    }
+    
+    bookmodel.finishChapterNumber = 0;
+    
+    //一次请求过多会超时，必须控制请求数
+    
+    //    for (NSInteger i = 0 ; i < [bookmodel.aryChapterList count]; i++) {
+    //
+    //        BookChapterModel* bookchaptermodel = [bookmodel.aryChapterList objectAtIndex:i];
+    //
+    //        usleep(100);
+    //
+    //        NSString *strUrl = bookchaptermodel.url;
+    //
+    //        strUrl = [strUrl stringByReplacingOccurrencesOfString:[DuanTianSessionManager getBaseUrl] withString:@""];
+    //        __weak DuanTianEngine *weakSelf = self;
+    //        [[DuanTianSessionManager sharedClient] GET:strUrl parameters:nil progress:nil success:^(NSURLSessionDataTask * __unused task, id responseObject) {
+    //
+    //            NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:0x80000632];
+    //
+    //            NSLog(@"%@",responseStr);
+    //            bookchaptermodel.htmlContent = [weakSelf getChapterContent:responseStr];
+    //            bookchaptermodel.content = [weakSelf getChapterContentText:bookchaptermodel.htmlContent];
+    //            bookmodel.finishChapterNumber++;
+    //            if (baseParam.withresultobjectblock) {
+    //                NSString* strStatus = @"";
+    //                if (bookmodel.finishChapterNumber == [bookmodel.aryChapterList count]) {
+    //
+    //                    strStatus = @"finished";
+    //
+    //                    [bookmodel savePlist];
+    //                }
+    //                else
+    //                {
+    //                    strStatus = @"downloading";
+    //                }
+    //                baseParam.withresultobjectblock(0,strStatus,nil);
+    //            }
+    //
+    //        } failure:^(NSURLSessionDataTask *__unused task, NSError *error)
+    //         {
+    //             NSLog(@"%@",[error userInfo]);
+    //             NSString* strStatus = @"";
+    //             if (bookmodel.finishChapterNumber == [bookmodel.aryChapterList count]) {
+    //                 strStatus = @"finished";
+    //                 [bookmodel savePlist];
+    //             }
+    //             else
+    //             {
+    //                 strStatus = @"downloading";
+    //
+    //             }
+    //             baseParam.withresultobjectblock(-1,strStatus,nil);
+    //
+    //         }];
+    //
+    //
+    //    }
+    
+    [self downloadChapterOnePage:baseParam book:bookmodel];
+    
+}
+
+-(void)downloadChapterOnePage:(BMBaseParam*)baseParam
+                         book:(BookModel*)bookmodel
+{
+    NSInteger pageSize = 10;
+    NSInteger curPageEnd = bookmodel.finishChapterNumber + pageSize;
+    __weak H23wxEngine *weakSelf = self;
+    NSInteger i = bookmodel.finishChapterNumber;
+    while (i < curPageEnd && i < [bookmodel.aryChapterList count])
+    {
+        
+        BookChapterModel* bookchaptermodel = [bookmodel.aryChapterList objectAtIndex:i];
+        i++;
+        usleep(100);
+        
+        NSString *strUrl = bookchaptermodel.url;
+        
+        strUrl = [strUrl stringByReplacingOccurrencesOfString:[H23wxSessionManager getBaseUrl] withString:@""];
+        //        __weak XiaoShuo7788Engine *weakSelf = self;
+        [[H23wxSessionManager sharedClient] GET:strUrl parameters:nil progress:nil success:^(NSURLSessionDataTask * __unused task, id responseObject) {
+            
+            NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:0x80000632];
+            
+            NSLog(@"%@",responseStr);
+            bookchaptermodel.htmlContent = [weakSelf getChapterContent:responseStr];
+            bookchaptermodel.content = [weakSelf getChapterContentText:bookchaptermodel.htmlContent];
+            bookmodel.finishChapterNumber++;
+            if (baseParam.withresultobjectblock) {
+                NSString* strStatus = @"";
+                if (bookmodel.finishChapterNumber == [bookmodel.aryChapterList count]) {
+                    
+                    strStatus = @"finished";
+                    
+                    [bookmodel savePlist];
+                }
+                else
+                {
+                    strStatus = @"downloading";
+                    
+                    if(bookmodel.finishChapterNumber == curPageEnd)
+                    {
+                        [weakSelf downloadChapterOnePage:baseParam book:bookmodel];
+                    }
+                }
+                baseParam.withresultobjectblock(0,strStatus,nil);
+            }
+            
+        } failure:^(NSURLSessionDataTask *__unused task, NSError *error)
+         {
+             bookmodel.finishChapterNumber++;
+             NSLog(@"%@",[error userInfo]);
+             NSString* strStatus = @"";
+             if (bookmodel.finishChapterNumber == [bookmodel.aryChapterList count]) {
+                 strStatus = @"finished";
+                 [bookmodel savePlist];
+             }
+             else
+             {
+                 strStatus = @"downloading";
+                 if(bookmodel.finishChapterNumber == curPageEnd)
+                 {
+                     [weakSelf downloadChapterOnePage:baseParam book:bookmodel];
+                 }
+             }
+             baseParam.withresultobjectblock(-1,strStatus,nil);
+             
+         }];
+        
+        
+    }
+    
 }
 
 

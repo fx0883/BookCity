@@ -690,7 +690,8 @@ strUrl = [strUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacter
 
 -(void)getBookChapterList:(BMBaseParam*)baseParam
 {
-    NSString *strUrl = [NSString stringWithFormat:baseParam.paramString ,(long)baseParam.paramInt];
+//    NSString *strUrl = [NSString stringWithFormat:baseParam.paramString ,(long)baseParam.paramInt];
+    NSString *strUrl = baseParam.paramString;
     
     strUrl = [strUrl stringByReplacingOccurrencesOfString:[XiaoShuo7788SessionManager getBaseUrl] withString:@""];
     

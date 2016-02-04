@@ -279,7 +279,9 @@
 
 -(void)getBookChapterList:(BMBaseParam*)baseParam
 {
-    NSString *strUrlParam = [NSString stringWithFormat:baseParam.paramString ,(long)baseParam.paramInt];
+    //NSString *strUrlParam = [NSString stringWithFormat:baseParam.paramString ,(long)baseParam.paramInt];
+    
+    NSString *strUrlParam = baseParam.paramString;
     
     NSString *strUrl = [strUrlParam stringByReplacingOccurrencesOfString:[SiKushuSessionManager getBaseUrl] withString:@""];
     

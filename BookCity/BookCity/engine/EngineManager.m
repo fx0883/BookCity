@@ -46,7 +46,7 @@ DEF_SINGLETON(EngineManager)
 //        [self registerEngine:[XiaoShuo7788Engine new] key:E7788];
 //        [self registerEngine:[DuanTianEngine new] key:EDUANTIAN];
 //        [self registerEngine:[SiKushuEngine new] key:ESIKUSHU];
-        [self registerEngine:[H23wxEngine new] key:H23WX];
+          [self registerEngine:[H23wxEngine new] key:H23WX];
         
     }
     
@@ -172,8 +172,12 @@ DEF_SINGLETON(EngineManager)
     {
         [_dicEngine[ESIKUSHU] getBookChapterList:baseParam];
     }
+    else if([self getStr:baseParam.paramString pattern:@"^http://www.23wx.com/"].length>0)
+    {
+        [_dicEngine[H23WX] getBookChapterList:baseParam];
+    }
     
-    
+    //http://www.23wx.com/
     
 }
 
@@ -192,6 +196,11 @@ DEF_SINGLETON(EngineManager)
     {
         [_dicEngine[ESIKUSHU] getBookChapterDetail:baseParam];
     }
+    
+    else if([self getStr:baseParam.paramString pattern:@"^http://www.23wx.com/"].length>0)
+    {
+        [_dicEngine[H23WX] getBookChapterDetail:baseParam];
+    }
 }
 
 
@@ -209,6 +218,10 @@ DEF_SINGLETON(EngineManager)
     else if([self getStr:baseParam.paramString pattern:@"^http://www.sikushu.com/"].length>0)
     {
         [_dicEngine[ESIKUSHU] downloadplist:baseParam];
+    }
+    else if([self getStr:baseParam.paramString pattern:@"^http://www.23wx.com/"].length>0)
+    {
+        [_dicEngine[H23WX] downloadplist:baseParam];
     }
 }
 
