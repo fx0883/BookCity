@@ -43,9 +43,9 @@ DEF_SINGLETON(EngineManager)
 {
     if (_dicEngine == nil) {
         _dicEngine = [[NSMutableDictionary alloc]initWithCapacity:3];
-//        [self registerEngine:[XiaoShuo7788Engine new] key:E7788];
-//        [self registerEngine:[DuanTianEngine new] key:EDUANTIAN];
-//        [self registerEngine:[SiKushuEngine new] key:ESIKUSHU];
+        [self registerEngine:[XiaoShuo7788Engine new] key:E7788];
+        //[self registerEngine:[DuanTianEngine new] key:EDUANTIAN];
+        [self registerEngine:[SiKushuEngine new] key:ESIKUSHU];
           [self registerEngine:[H23wxEngine new] key:H23WX];
         
     }
@@ -96,6 +96,7 @@ DEF_SINGLETON(EngineManager)
 //    }
     for (NSString *strKey in [_dicEngine allKeys]) {
         [_dicEngine[strKey] getSearchBookResult:baseParam];
+         usleep(100);
     }
     
 }
@@ -129,6 +130,12 @@ DEF_SINGLETON(EngineManager)
         {
             if ([_dicEngine objectForKey:ESIKUSHU]) {
                 [_dicEngine[ESIKUSHU] getCategoryBooksResult:baseParam];
+            }
+        }
+        else if([self getStr:baseParam.paramString pattern:@"^http://www.23wx.com/"].length>0)
+        {
+            if ([_dicEngine objectForKey:H23WX]) {
+                [_dicEngine[H23WX] getCategoryBooksResult:baseParam];
             }
         }
         usleep(100);

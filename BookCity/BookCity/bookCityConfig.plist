@@ -9,6 +9,7 @@
 			<array>
 				<string>http://www.sikushu.com/catalog/1-%d.html</string>
 				<string>http://www.7788xiaoshuo.com/list/104/%d.html</string>
+				<string>http://www.23wx.com/class/1_%d.html</string>
 			</array>
 			<key>order</key>
 			<integer>0</integer>
@@ -22,6 +23,7 @@
 		<dict>
 			<key>urlAry</key>
 			<array>
+				<string>http://www.23wx.com/class/5_%d.html</string>
 				<string>http://www.7788xiaoshuo.com/list/104/%d.html</string>
 			</array>
 			<key>categoryname</key>
@@ -51,6 +53,7 @@
 		<dict>
 			<key>urlAry</key>
 			<array>
+				<string>http://www.23wx.com/class/3_%d.html</string>
 				<string>http://www.7788xiaoshuo.com/list/104/%d.html</string>
 				<string>http://www.7788xiaoshuo.com/list/104/%d.html</string>
 			</array>
@@ -66,6 +69,7 @@
 		<dict>
 			<key>urlAry</key>
 			<array>
+				<string>http://www.23wx.com/class/2_%d.html</string>
 				<string>http://www.sikushu.com/catalog/2-%d.html</string>
 				<string>http://www.7788xiaoshuo.com/list/104/%d.html</string>
 			</array>
@@ -126,6 +130,7 @@
 		<dict>
 			<key>urlAry</key>
 			<array>
+				<string>http://www.23wx.com/class/4_%d.html</string>
 				<string>http://www.7788xiaoshuo.com/list/104/%d.html</string>
 				<string>http://www.7788xiaoshuo.com/list/104/%d.html</string>
 			</array>
@@ -141,6 +146,7 @@
 		<dict>
 			<key>urlAry</key>
 			<array>
+				<string>http://www.23wx.com/class/7_%d.html</string>
 				<string>http://www.sikushu.com/catalog/7-%d.html</string>
 				<string>http://www.7788xiaoshuo.com/list/104/%d.html</string>
 			</array>
@@ -156,6 +162,7 @@
 		<dict>
 			<key>urlAry</key>
 			<array>
+				<string>http://www.23wx.com/class/6_%d.html</string>
 				<string>http://www.sikushu.com/catalog/5-%d.html</string>
 				<string>http://www.7788xiaoshuo.com/list/104/%d.html</string>
 			</array>
@@ -231,6 +238,7 @@
 		<dict>
 			<key>urlAry</key>
 			<array>
+				<string>http://www.23wx.com/class/8_%d.html</string>
 				<string>http://www.sikushu.com/catalog/6-%d.html</string>
 				<string>http://www.7788xiaoshuo.com/list/104/%d.html</string>
 			</array>
@@ -246,6 +254,7 @@
 		<dict>
 			<key>urlAry</key>
 			<array>
+				<string>http://www.23wx.com/class/9_%d.html</string>
 				<string>http://www.7788xiaoshuo.com/list/104/%d.html</string>
 				<string>http://www.7788xiaoshuo.com/list/104/%d.html</string>
 			</array>
@@ -276,6 +285,7 @@
 		<dict>
 			<key>urlAry</key>
 			<array>
+				<string>http://www.23wx.com/class/10_%d.html</string>
 				<string>http://www.sikushu.com/catalog/10-%d.html</string>
 				<string>http://www.7788xiaoshuo.com/list/104/%d.html</string>
 			</array>

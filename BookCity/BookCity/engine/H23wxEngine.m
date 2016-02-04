@@ -456,6 +456,122 @@
     
 }
 
+#pragma mark-  getCategoryBooksResult
+
+-(void)getCategoryBooksResult:(BMBaseParam*)baseParam
+{
+    NSString *strUrl = [NSString stringWithFormat:baseParam.paramString ,(long)baseParam.paramInt];
+    
+    strUrl = [strUrl stringByReplacingOccurrencesOfString:[H23wxSessionManager getBaseUrl] withString:@""];
+    
+    [[H23wxSessionManager sharedClient] GET:strUrl parameters:nil progress:nil success:^(NSURLSessionDataTask * __unused task, id responseObject) {
+        
+        //NSString *string = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        
+        NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:0x80000632];
+        
+        
+        
+        NSMutableArray *bookList = nil;
+        
+        //7788小说网的小说
+        //        NSArray *ary7788 = [self getBookList7788:responseStr];
+        //        for (NSTextCheckingResult *match in ary7788) {
+        //            NSString* substringForMatch = [responseStr substringWithRange:match.range];
+        //            NSLog(@"Extracted URL: %@",substringForMatch);
+        //            //            [arrayOfURLs addObject:substringForMatch];
+        //            BookModel *bookModel = [self getBookModel7788:substringForMatch];
+        //            [bookList addObject:bookModel];
+        //
+        //            NSLog(@"========================================");
+        //            NSLog(@"%@",bookModel.title);
+        //            NSLog(@"%@",bookModel.imgSrc);
+        //            NSLog(@"%@",bookModel.bookLink);
+        //            NSLog(@"%@",bookModel.memo);
+        //        }
+//        NSString *strListMain = [self getMainListContent:responseStr];
+        
+        bookList = [self getBookListFromCategoryH23w:responseStr];
+        
+        baseParam.resultArray = bookList;
+        if (baseParam.withresultobjectblock) {
+            baseParam.withresultobjectblock(0,@"",nil);
+        }
+        //
+        //        NSLog(ary);
+        //        NSLog(responseStr);
+        //        NSLog(string);
+    } failure:^(NSURLSessionDataTask *__unused task, NSError *error)
+     {
+         NSLog(@"%@",[error userInfo]);
+         if (baseParam.withresultobjectblock) {
+             baseParam.withresultobjectblock(-1,@"",nil);
+         }
+         
+     }];
+}
+
+//-(NSString*)getMainListContent:(NSString*)strSource
+//{
+//    NSString *strRet = @"";
+//    strRet = [self getStr:strSource pattern:@"<ul class=\"list_box1\">[\\S\\s]*?</ul>"];
+//    
+//    return strRet;
+//}
+
+-(NSMutableArray*)getBookListFromCategoryH23w:(NSString*)strSource
+{
+    NSMutableArray *retAry = [NSMutableArray new];
+    
+    NSString *strPattern = @"<tr bgcolor=\"#FFFFFF\">[\\s\\S]*?</tr>";
+    NSArray *ary = [self getBookListBase:strSource pattern:strPattern];
+    for (NSTextCheckingResult *match in ary) {
+        NSString* substringForMatch = [strSource substringWithRange:match.range];
+        NSLog(@"Extracted URL: %@",substringForMatch);
+        //            [arrayOfURLs addObject:substringForMatch];
+        //        BookModel *bookModel = [self getBookModel7788:substringForMatch];
+        //        [bookList addObject:bookModel];
+        //
+        //        NSLog(@"========================================");
+        //        NSLog(@"%@",bookModel.title);
+        //        NSLog(@"%@",bookModel.imgSrc);
+        //        NSLog(@"%@",bookModel.bookLink);
+        //        NSLog(@"%@",bookModel.memo);
+        
+        BookModel *bookModel = [self getBookModelFromCategory:substringForMatch];
+        [retAry addObject:bookModel];
+    }
+    
+    return retAry;
+}
+
+-(BookModel*)getBookModelFromCategory:(NSString*)strSource
+{
+    BookModel *bookmodel = [BookModel new];
+
+    bookmodel.bookLink = [self getStrGroup1:strSource pattern:@"<a href=\"([^\"]*)\" target=\"_blank\">"];
+    bookmodel.title = [self getStrGroup1:strSource pattern:@"<a href=\"[^\"]*\">(.*?)</a>"];
+    //bookmodel.memo = [self getStrGroup1:strSource pattern:@"<p>([\\S\\s]*?)</p>"];
+    bookmodel.author = [self getStrGroup1:strSource pattern:@"<td class=\"C\">(.*?)</td>[\\s\\S]*?<td class=\"R\">"];
+    
+    
+//        bookmodel.imgSrc = [self getStrGroup1:strSource pattern:@"<img src=\"([^\"]*)\""];
+    
+    
+    NSArray *aryBookNumber = [bookmodel.bookLink componentsSeparatedByString:@"/"];
+    
+    NSString *strBookNumber = [aryBookNumber objectAtIndex:[aryBookNumber count]-2];
+    
+    NSString *strBookNumberFront2 = [strBookNumber substringToIndex:2];
+    
+    //http://www.23wx.com/files/article/image/59/59945/59945s.jpg
+    
+    bookmodel.imgSrc = [NSString stringWithFormat:@"http://www.23wx.com/files/article/image/%@/%@/%@s.jpg",strBookNumberFront2,strBookNumber,strBookNumber];
+
+    
+    return bookmodel;
+}
+
 
 
 @end
