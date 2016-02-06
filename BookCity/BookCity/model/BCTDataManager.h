@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@interface DataManager : NSObject
-AS_SINGLETON(DataManager)
+@interface BCTDataManager : NSObject
+AS_SINGLETON(BCTDataManager)
 
 
 

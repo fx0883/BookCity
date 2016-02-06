@@ -6,14 +6,14 @@
 //
 //
 
-#import "BookModel.h"
-#import "BookChapterModel.h"
-#import "BookCategoryModel.h"
+#import "BCTBookModel.h"
+#import "BCTBookChapterModel.h"
+#import "BCTBookCategoryModel.h"
 #import "BMUtilDefine.h"
 
 #import "SDWebImageManager.h"
 
-@implementation BookModel
+@implementation BCTBookModel
 
 -(NSMutableDictionary*)toDic
 {
@@ -35,7 +35,7 @@
     NSMutableArray *aryChapter2= [NSMutableArray new];
     
     for (NSInteger i = 0; i < [self.aryChapterList count]; i++) {
-        BookChapterModel *bookchaptermodel = [self.aryChapterList objectAtIndex:i];
+        BCTBookChapterModel *bookchaptermodel = [self.aryChapterList objectAtIndex:i];
         
         NSMutableDictionary *chapterDic = [NSMutableDictionary new];
         

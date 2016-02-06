@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BookModel.h"
+#import "BCTBookModel.h"
 
 @interface BookChapterListVC : UITableViewController
 
-@property (nonatomic,strong) BookModel* bookModel;
+@property (nonatomic,strong) BCTBookModel* bookModel;
 @end

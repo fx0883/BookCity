@@ -7,14 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BookChapterModel.h"
-#import "BookModel.h"
+#import "BCTBookChapterModel.h"
+#import "BCTBookModel.h"
 
 @interface ChapterDetailViewController : UIViewController
 
 
-@property (nonatomic,weak) BookChapterModel *bookChapterModel;
-@property (nonatomic,strong) BookModel *bookModel;
+@property (nonatomic,weak) BCTBookChapterModel *bookChapterModel;
+@property (nonatomic,strong) BCTBookModel *bookModel;
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 
 @end

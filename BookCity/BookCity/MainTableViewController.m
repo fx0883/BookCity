@@ -7,8 +7,8 @@
 //
 
 #import "MainTableViewController.h"
-#import "BookCategoryModel.h"
-#import "DataManager.h"
+#import "BCTBookCategoryModel.h"
+#import "BCTDataManager.h"
 
 
 @interface MainTableViewController ()
@@ -38,7 +38,7 @@
 
 -(void)loadData
 {
-    _aryCategory = [DataManager sharedInstance].bookCategory;
+    _aryCategory = [BCTDataManager sharedInstance].bookCategory;
     
     
     
@@ -74,7 +74,7 @@
 {
     NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
 //    NSString *strKey = [_aryCategory objectAtIndex:indexPath.row];
-    BookCategoryModel* bookCategoryModel = [_aryCategory objectAtIndex:indexPath.row];
+    BCTBookCategoryModel* bookCategoryModel = [_aryCategory objectAtIndex:indexPath.row];
     UIViewController *destination = [segue destinationViewController];
     
     if ([destination respondsToSelector:@selector(setBookCategoryModel:)]) {
@@ -117,7 +117,7 @@
 //
 //    }
 //    cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
-    BookCategoryModel *bookcategorymodel = [_aryCategory objectAtIndex:indexPath.row];
+    BCTBookCategoryModel *bookcategorymodel = [_aryCategory objectAtIndex:indexPath.row];
     
     cell.text = bookcategorymodel.name;
     return cell;

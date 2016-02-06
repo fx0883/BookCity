@@ -8,7 +8,7 @@
 
 #import "BookCell.h"
 #import "BMFramework.h"
-#import "BookModel.h"
+#import "BCTBookModel.h"
 
 @implementation BookCell
 
@@ -22,7 +22,7 @@
     // Configure the view for the selected state
 }
 
-- (void)setBookModel:(BookModel*)bookModel
+- (void)setBookModel:(BCTBookModel*)bookModel
 {
     [self.bookImg sd_setImageWithURL:[NSURL URLWithString:bookModel.imgSrc]
                       placeholderImage:[UIImage imageNamed:@"def.jpg"]];

@@ -6,12 +6,12 @@
 //  Copyright © 2016年 FS. All rights reserved.
 //
 
-#import "DataManager.h"
-#import "BookCityConfig.h"
-#import "BookCategoryModel.h"
+#import "BCTDataManager.h"
+#import "BCTBookCityConfig.h"
+#import "BCTBookCategoryModel.h"
 
-@implementation DataManager
-DEF_SINGLETON(DataManager)
+@implementation BCTDataManager
+DEF_SINGLETON(BCTDataManager)
 
 
 -(id)init
@@ -29,7 +29,7 @@ DEF_SINGLETON(DataManager)
     _bookCategory = [NSMutableArray new];
 
     
-    BookCityConfig *bookCityConfig = [BookCityConfig sharedInstance];
+    BCTBookCityConfig *bookCityConfig = [BCTBookCityConfig sharedInstance];
     
     NSUInteger count = [bookCityConfig.bookCategory count];
     for (NSInteger i = 0; i < count; i++)
@@ -38,7 +38,7 @@ DEF_SINGLETON(DataManager)
 //        NSLog (@"Key: %@ for value: %@", key, value);
         NSDictionary *dicItem = [bookCityConfig.bookCategory objectAtIndex:i];
         
-        BookCategoryModel *bookcategorymodel = [BookCategoryModel new];
+        BCTBookCategoryModel *bookcategorymodel = [BCTBookCategoryModel new];
         bookcategorymodel.curIndex = 1;
         bookcategorymodel.name = dicItem[CATEGORYNAME];
         bookcategorymodel.strUrl = dicItem[URL];

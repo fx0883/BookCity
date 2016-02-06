@@ -10,7 +10,7 @@
 #import "MBProgressHUD.h"
 
 #import "BookCell.h"
-#import "BookModel.h"
+#import "BCTBookModel.h"
 
 #import "SVPullToRefresh.h"
 
@@ -193,7 +193,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    BookModel* bookmodel = [_aryBook objectAtIndex:indexPath.row];
+    BCTBookModel* bookmodel = [_aryBook objectAtIndex:indexPath.row];
     
     [self performSegueWithIdentifier:@"searchBookToChapterList" sender:bookmodel];
 }
@@ -209,7 +209,7 @@
     else if(tableView == self.tableView)
     {
     BookCell *cell = (BookCell*)[tableView dequeueReusableCellWithIdentifier:BOOKCELLID forIndexPath:indexPath];
-    BookModel *bookmodel = [_aryBook objectAtIndex:indexPath.row];
+    BCTBookModel *bookmodel = [_aryBook objectAtIndex:indexPath.row];
     
     [cell setBookModel:bookmodel];
     return cell;

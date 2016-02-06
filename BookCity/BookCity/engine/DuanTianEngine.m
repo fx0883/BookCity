@@ -8,13 +8,13 @@
 
 #import "DuanTianEngine.h"
 #import "DuanTianSessionManager.h"
-#import "BookChapterModel.h"
-#import "BookModel.h"
+#import "BCTBookChapterModel.h"
+#import "BCTBookModel.h"
 
 @implementation DuanTianEngine
 -(void)downloadplist:(BMBaseParam*)baseParam
 {
-    BookModel *bookmodel = (BookModel*)baseParam.paramObject;
+    BCTBookModel *bookmodel = (BCTBookModel*)baseParam.paramObject;
 
     if (bookmodel == nil || bookmodel.aryChapterList == nil || [bookmodel.aryChapterList count] == 0 ) {
         
@@ -86,7 +86,7 @@
 }
 
 -(void)downloadChapterOnePage:(BMBaseParam*)baseParam
-                         book:(BookModel*)bookmodel
+                         book:(BCTBookModel*)bookmodel
 {
     NSInteger pageSize = 10;
     NSInteger curPageEnd = bookmodel.finishChapterNumber + pageSize;
@@ -95,7 +95,7 @@
     while (i < curPageEnd && i < [bookmodel.aryChapterList count])
     {
         
-        BookChapterModel* bookchaptermodel = [bookmodel.aryChapterList objectAtIndex:i];
+        BCTBookChapterModel* bookchaptermodel = [bookmodel.aryChapterList objectAtIndex:i];
         i++;
         usleep(100);
         
@@ -173,7 +173,7 @@
         NSLog(@"%@",responseStr);
         baseParam.resultString = [weakSelf getChapterContent:responseStr];
         
-        BookChapterModel* bookchaptermodel = (BookChapterModel*)baseParam.paramObject;
+        BCTBookChapterModel* bookchaptermodel = (BCTBookChapterModel*)baseParam.paramObject;
         bookchaptermodel.content = [weakSelf getChapterContentText:baseParam.resultString];
         bookchaptermodel.htmlContent = baseParam.resultString;
         if (baseParam.withresultobjectblock) {
@@ -279,7 +279,7 @@
     NSArray *results = [regular matchesInString:strSource options:0 range:NSMakeRange(0, strSource.length)];
     for (NSTextCheckingResult *match in results) {
         
-        BookChapterModel *bookchaptermodel = [BookChapterModel new];
+        BCTBookChapterModel *bookchaptermodel = [BCTBookChapterModel new];
         NSString* substringForMatch = [strSource substringWithRange:match.range];
         NSLog(@"chapter list: %@",substringForMatch);
         //            [arrayOfURLs addObject:substringForMatch];

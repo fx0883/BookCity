@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface BookModel : NSObject
+@interface BCTBookModel : NSObject
 
 
 @property (nonatomic, strong) NSString *bookId;

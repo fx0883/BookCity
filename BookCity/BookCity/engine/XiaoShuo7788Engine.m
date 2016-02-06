@@ -8,15 +8,15 @@
 
 #import "XiaoShuo7788Engine.h"
 #import "XiaoShuo7788SessionManager.h"
-#import "BookModel.h"
-#import "BookChapterModel.h"
+#import "BCTBookModel.h"
+#import "BCTBookChapterModel.h"
 
 @implementation XiaoShuo7788Engine
 
 
 -(void)downloadplist:(BMBaseParam*)baseParam
 {
-    BookModel *bookmodel = (BookModel*)baseParam.paramObject;
+    BCTBookModel *bookmodel = (BCTBookModel*)baseParam.paramObject;
     
     if (bookmodel == nil || bookmodel.aryChapterList == nil || [bookmodel.aryChapterList count] == 0 ) {
         
@@ -88,7 +88,7 @@
 }
 
 -(void)downloadChapterOnePage:(BMBaseParam*)baseParam
-                         book:(BookModel*)bookmodel
+                         book:(BCTBookModel*)bookmodel
 {
     NSInteger pageSize = 10;
     NSInteger curPageEnd = bookmodel.finishChapterNumber + pageSize;
@@ -97,7 +97,7 @@
     while (i < curPageEnd && i < [bookmodel.aryChapterList count])
     {
         
-        BookChapterModel* bookchaptermodel = [bookmodel.aryChapterList objectAtIndex:i];
+        BCTBookChapterModel* bookchaptermodel = [bookmodel.aryChapterList objectAtIndex:i];
         i++;
         usleep(100);
         
@@ -180,7 +180,7 @@
        // BookChapterModel* bookchaptermodel = (BookChapterModel*)baseParam.paramObject;
 //       ((BookChapterModel*)baseParam.paramObject).content = [weakSelf getChapterContentText:baseParam.resultString];
         
-        BookChapterModel* bookchaptermodel = (BookChapterModel*)baseParam.paramObject;
+        BCTBookChapterModel* bookchaptermodel = (BCTBookChapterModel*)baseParam.paramObject;
         bookchaptermodel.content = [weakSelf getChapterContentText:baseParam.resultString];
         bookchaptermodel.htmlContent = baseParam.resultString;
         if (baseParam.withresultobjectblock) {
@@ -280,7 +280,7 @@
             NSString* substringForMatch = [responseStr substringWithRange:match.range];
             NSLog(@"Extracted URL: %@",substringForMatch);
             //            [arrayOfURLs addObject:substringForMatch];
-            BookModel *bookModel = [self getBookModel7788:substringForMatch];
+            BCTBookModel *bookModel = [self getBookModel7788:substringForMatch];
             [bookList addObject:bookModel];
             
             NSLog(@"========================================");
@@ -353,7 +353,7 @@ strUrl = [strUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacter
             NSString* substringForMatch = [responseStr substringWithRange:match.range];
             NSLog(@"Extracted URL: %@",substringForMatch);
             //            [arrayOfURLs addObject:substringForMatch];
-            BookModel *bookModel = [self getBookModel7788:substringForMatch];
+            BCTBookModel *bookModel = [self getBookModel7788:substringForMatch];
             [bookList addObject:bookModel];
             
             NSLog(@"========================================");
@@ -532,12 +532,12 @@ strUrl = [strUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacter
     return [self getBookListBase:strSource pattern:strPattern];
 }
 
--(BookModel*)getBookModel:(NSString*)strSource
+-(BCTBookModel*)getBookModel:(NSString*)strSource
 {
     strSource = [strSource stringByReplacingOccurrencesOfString:@"ShowIdtoItem(" withString:@""];
     strSource = [strSource stringByReplacingOccurrencesOfString:@")" withString:@""];
     NSArray *array = [strSource componentsSeparatedByString:@","]; //从字符A中分隔成2个元素的数组
-    BookModel* book = [BookModel new];
+    BCTBookModel* book = [BCTBookModel new];
     
     NSInteger bookId = 0;
     NSString *chapterId;
@@ -648,9 +648,9 @@ strUrl = [strUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacter
     return book;
 }
 
--(BookModel*)getBookModel7788:(NSString*)strSource
+-(BCTBookModel*)getBookModel7788:(NSString*)strSource
 {
-    BookModel *book = [BookModel new];
+    BCTBookModel *book = [BCTBookModel new];
     book.bookLink = [self getBookLink7788:strSource];
     book.title = [self getBookTitle7788:strSource];
     book.memo = [self getBookMemo7788:strSource];
@@ -726,7 +726,7 @@ strUrl = [strUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacter
     NSArray *results = [regular matchesInString:strSource options:0 range:NSMakeRange(0, strSource.length)];
     for (NSTextCheckingResult *match in results) {
         
-        BookChapterModel *bookchaptermodel = [BookChapterModel new];
+        BCTBookChapterModel *bookchaptermodel = [BCTBookChapterModel new];
         NSString* substringForMatch = [strSource substringWithRange:match.range];
         NSLog(@"chapter list: %@",substringForMatch);
         //            [arrayOfURLs addObject:substringForMatch];

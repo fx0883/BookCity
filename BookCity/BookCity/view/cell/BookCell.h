@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 #import "UIImageView+WebCache.h"
-#import "BookModel.h"
+#import "BCTBookModel.h"
 
 @interface BookCell : UITableViewCell
 
@@ -21,5 +21,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *memo;
 
 
-- (void)setBookModel:(BookModel*)bookModel;
+- (void)setBookModel:(BCTBookModel*)bookModel;
 @end

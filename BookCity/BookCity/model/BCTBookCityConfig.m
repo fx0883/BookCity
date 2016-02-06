@@ -6,10 +6,10 @@
 //  Copyright © 2016年 FS. All rights reserved.
 //
 
-#import "BookCityConfig.h"
+#import "BCTBookCityConfig.h"
 
-@implementation BookCityConfig
-DEF_SINGLETON(BookCityConfig)
+@implementation BCTBookCityConfig
+DEF_SINGLETON(BCTBookCityConfig)
 
 -(id)init
 {

@@ -8,8 +8,8 @@
 
 #import "SiKushuEngine.h"
 #import "SiKushuSessionManager.h"
-#import "BookModel.h"
-#import "BookChapterModel.h"
+#import "BCTBookModel.h"
+#import "BCTBookChapterModel.h"
 
 @implementation SiKushuEngine
 
@@ -50,7 +50,7 @@
         
         if([self getStr:responseStr pattern:@"<h1 class=\"f20h\">"].length>0)
         {
-            BookModel *oneBook = [self getBookModeSiKuShuForOne:responseStr];
+            BCTBookModel *oneBook = [self getBookModeSiKuShuForOne:responseStr];
             bookList = [[NSMutableArray alloc]initWithCapacity:2];
             [bookList addObject:oneBook];
         }
@@ -83,9 +83,9 @@
 }
 
 //整个HTML一本书
--(BookModel*)getBookModeSiKuShuForOne:(NSString*)strSource
+-(BCTBookModel*)getBookModeSiKuShuForOne:(NSString*)strSource
 {
-    BookModel *book = [BookModel new];
+    BCTBookModel *book = [BCTBookModel new];
     
 //    <h1 class=\"f20h\">([^<]*)<em>([^<]*)</em></h1>
     NSString *strPatternAuthorAndTitle = @"<h1 class=\"f20h\">([^<]*)<em>([^<]*)</em></h1>";
@@ -118,16 +118,16 @@
     NSMutableArray *bookList = [[NSMutableArray alloc]init];
     
     for (NSString* subStrSource in arySource) {
-        BookModel *book = [self getBookModeSiKuShu:subStrSource];
+        BCTBookModel *book = [self getBookModeSiKuShu:subStrSource];
         [bookList addObject:book];
     }
     
     return bookList;
 }
 
--(BookModel*)getBookModeSiKuShu:(NSString*)strSource
+-(BCTBookModel*)getBookModeSiKuShu:(NSString*)strSource
 {
-    BookModel *book = [BookModel new];
+    BCTBookModel *book = [BCTBookModel new];
     
 //    NSString *strPattern = @"\<a href=\"[^\"]*\"\\s*>([^<]*)\<\/a\>";
     
@@ -317,7 +317,7 @@
     NSArray *results = [regular matchesInString:strSource options:0 range:NSMakeRange(0, strSource.length)];
     for (NSTextCheckingResult *match in results) {
         
-        BookChapterModel *bookchaptermodel = [BookChapterModel new];
+        BCTBookChapterModel *bookchaptermodel = [BCTBookChapterModel new];
         NSString* substringForMatch = [strSource substringWithRange:match.range];
         NSLog(@"chapter list: %@",substringForMatch);
 
@@ -373,7 +373,7 @@
         // BookChapterModel* bookchaptermodel = (BookChapterModel*)baseParam.paramObject;
         //       ((BookChapterModel*)baseParam.paramObject).content = [weakSelf getChapterContentText:baseParam.resultString];
         
-        BookChapterModel* bookchaptermodel = (BookChapterModel*)baseParam.paramObject;
+        BCTBookChapterModel* bookchaptermodel = (BCTBookChapterModel*)baseParam.paramObject;
         bookchaptermodel.content = [weakSelf getChapterContentText:baseParam.resultString];
         bookchaptermodel.htmlContent = baseParam.resultString;
         if (baseParam.withresultobjectblock) {
@@ -433,7 +433,7 @@
 
 -(void)downloadplist:(BMBaseParam*)baseParam
 {
-    BookModel *bookmodel = (BookModel*)baseParam.paramObject;
+    BCTBookModel *bookmodel = (BCTBookModel*)baseParam.paramObject;
     
     if (bookmodel == nil || bookmodel.aryChapterList == nil || [bookmodel.aryChapterList count] == 0 ) {
         
@@ -505,7 +505,7 @@
 }
 
 -(void)downloadChapterOnePage:(BMBaseParam*)baseParam
-                         book:(BookModel*)bookmodel
+                         book:(BCTBookModel*)bookmodel
 {
     NSInteger pageSize = 10;
     NSInteger curPageEnd = bookmodel.finishChapterNumber + pageSize;
@@ -514,7 +514,7 @@
     while (i < curPageEnd && i < [bookmodel.aryChapterList count])
     {
         
-        BookChapterModel* bookchaptermodel = [bookmodel.aryChapterList objectAtIndex:i];
+        BCTBookChapterModel* bookchaptermodel = [bookmodel.aryChapterList objectAtIndex:i];
         i++;
         usleep(100);
         
@@ -659,16 +659,16 @@
 //        NSLog(@"%@",bookModel.bookLink);
 //        NSLog(@"%@",bookModel.memo);
         
-        BookModel *bookModel = [self getBookModelFromCategory:substringForMatch];
+        BCTBookModel *bookModel = [self getBookModelFromCategory:substringForMatch];
         [retAry addObject:bookModel];
     }
     
     return retAry;
 }
 
--(BookModel*)getBookModelFromCategory:(NSString*)strSource
+-(BCTBookModel*)getBookModelFromCategory:(NSString*)strSource
 {
-    BookModel *bookmodel = [BookModel new];
+    BCTBookModel *bookmodel = [BCTBookModel new];
     bookmodel.imgSrc = [self getStrGroup1:strSource pattern:@"<img src=\"([^\"]*)\""];
     bookmodel.bookLink = [self getStrGroup1:strSource pattern:@"最新章节：<a href=\"([^\"]*)\""];
     bookmodel.title = [self getStrGroup1:strSource pattern:@"<img src=\"[^\"]*\" alt=\"([^\"]*)\"/>"];

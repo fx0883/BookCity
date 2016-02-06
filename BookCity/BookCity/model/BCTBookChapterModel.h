@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface BookChapterModel : NSObject
+@interface BCTBookChapterModel : NSObject
 
 
 @property (nonatomic,strong) NSString *hostUrl;

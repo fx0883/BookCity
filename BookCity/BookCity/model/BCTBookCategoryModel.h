@@ -17,7 +17,7 @@
 
 
 
-@interface BookCategoryModel : NSObject
+@interface BCTBookCategoryModel : NSObject
 
 @property (nonatomic,strong) NSString *name;
 @property (nonatomic,strong) NSString *strUrl;

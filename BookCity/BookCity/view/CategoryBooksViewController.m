@@ -9,8 +9,8 @@
 #import "CategoryBooksViewController.h"
 
 #import "BookCell.h"
-#import "BookModel.h"
-#import "DataManager.h"
+#import "BCTBookModel.h"
+#import "BCTDataManager.h"
 
 #import "SVPullToRefresh.h"
 #import "MBProgressHUD.h"
@@ -35,7 +35,7 @@
     [super viewDidLoad];
     
     NSLog(@"%@",_bookCategoryModel);
-    _aryBook = [[DataManager sharedInstance] getBookArybyCategoryname:_bookCategoryModel.name];
+    _aryBook = [[BCTDataManager sharedInstance] getBookArybyCategoryname:_bookCategoryModel.name];
     [self registCell];
     
     [self addPullRefresh];
@@ -105,7 +105,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-        BookModel* bookmodel = [_aryBook objectAtIndex:indexPath.row];
+        BCTBookModel* bookmodel = [_aryBook objectAtIndex:indexPath.row];
 
         [self performSegueWithIdentifier:@"categorybookToDetail" sender:bookmodel];
 }
@@ -127,7 +127,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
         BookCell *cell = (BookCell*)[tableView dequeueReusableCellWithIdentifier:BOOKCELLID forIndexPath:indexPath];
-        BookModel *bookmodel = [_aryBook objectAtIndex:indexPath.row];
+        BCTBookModel *bookmodel = [_aryBook objectAtIndex:indexPath.row];
         
         [cell setBookModel:bookmodel];
         return cell;

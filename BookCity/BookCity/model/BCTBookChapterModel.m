@@ -6,9 +6,9 @@
 //  Copyright © 2016年 FS. All rights reserved.
 //
 
-#import "BookChapterModel.h"
+#import "BCTBookChapterModel.h"
 
-@implementation BookChapterModel
+@implementation BCTBookChapterModel
 
 
 

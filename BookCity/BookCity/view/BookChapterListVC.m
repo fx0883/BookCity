@@ -7,7 +7,7 @@
 //
 
 #import "BookChapterListVC.h"
-#import "BookChapterModel.h"
+#import "BCTBookChapterModel.h"
 #import "MBProgressHUD.h"
 
 @interface BookChapterListVC ()
@@ -217,7 +217,7 @@
     //
     //    }
     //    cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
-    BookChapterModel *bookchaptermodel = [_aryBook objectAtIndex:indexPath.row];
+    BCTBookChapterModel *bookchaptermodel = [_aryBook objectAtIndex:indexPath.row];
     
     cell.text = bookchaptermodel.title;
     return cell;

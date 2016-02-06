@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@interface BookCityConfig : NSObject
-AS_SINGLETON(BookCityConfig)
+@interface BCTBookCityConfig : NSObject
+AS_SINGLETON(BCTBookCityConfig)
 
 
 @property (nonatomic,strong) NSDictionary *dicConfig;

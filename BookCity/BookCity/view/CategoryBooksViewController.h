@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#include "BookCategoryModel.h"
+#include "BCTBookCategoryModel.h"
 
 @interface CategoryBooksViewController : UITableViewController
 
 
-@property (nonatomic,strong) BookCategoryModel* bookCategoryModel;
+@property (nonatomic,strong) BCTBookCategoryModel* bookCategoryModel;
 
 @end
