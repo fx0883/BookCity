@@ -56,6 +56,8 @@
 -(Boolean)savePlist
 {
     NSString *plistFile = [NSString stringWithFormat:@"%@/%@.plist",DocumentsDir,self.title];
+    NSLog(@"plist Adress==================================>");
+    NSLog(plistFile);
     NSMutableDictionary *bookDic = [self toDic];
     
     [self saveImgSrc];

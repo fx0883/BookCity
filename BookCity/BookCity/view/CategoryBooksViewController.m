@@ -152,13 +152,15 @@
     
     __weak CategoryBooksViewController *weakSelf=self;
     __weak BMBaseParam *weakBaseParam = baseparam;
+    [_aryBook removeAllObjects];
+    [weakSelf.tableView reloadData];
     baseparam.withresultobjectblock=^(int intError,NSString* strMsg,id obj)
     {
         if (intError == 0)
         {
-            if (weakBaseParam.paramInt == 1) {
-                [_aryBook removeAllObjects];
-            }
+//            if (weakBaseParam.paramInt == 1) {
+//                [_aryBook removeAllObjects];
+//            }
             [_aryBook addObjectsFromArray:weakBaseParam.resultArray];
             [weakSelf.tableView reloadData];
             
