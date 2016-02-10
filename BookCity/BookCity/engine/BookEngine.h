@@ -30,4 +30,8 @@
 
 -(NSString*)getStrGroup1:(NSString*)strSource
                  pattern:(NSString*)strPattern;
+
+-(NSString*)replace:(NSString*)strSource
+          aimSource:(NSString*)strAimSource
+            pattern:(NSString*)strPattern;
 @end

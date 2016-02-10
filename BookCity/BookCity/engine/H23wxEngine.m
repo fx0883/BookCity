@@ -295,18 +295,20 @@
 
 -(NSString*)getChapterContentText:(NSString*)strSource
 {
-    //    &nbsp;&nbsp;&nbsp;&nbsp;
+    //&nbsp;&nbsp;&nbsp;&nbsp;
     
     NSString *strContent = @"";
     strContent = [strSource stringByReplacingOccurrencesOfString:@"<p>" withString:@""];
     strContent = [strContent stringByReplacingOccurrencesOfString:@"&nbsp;&nbsp;" withString:@" "];
     strContent = [strContent stringByReplacingOccurrencesOfString:@"<br>" withString:@""];
     strContent = [strContent stringByReplacingOccurrencesOfString:@"</p>" withString:@"\r\n"];
+    
+    strContent = [self replace:strContent aimSource:@"\r\n" pattern:@"<br />[\\s]*?<br />"];
     strContent = [strContent stringByReplacingOccurrencesOfString:@"<br/>" withString:@"\r\n"];
     strContent = [strContent stringByReplacingOccurrencesOfString:@"<br />" withString:@"\r\n"];
-    
-    
+    strContent = [strContent stringByReplacingOccurrencesOfString:@"\r\n\r\n" withString:@"\r\n"];
     return strContent;
+    
 }
 
 #pragma mark-  downloadplist

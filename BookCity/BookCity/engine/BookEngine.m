@@ -24,6 +24,29 @@
     return strResult;
 }
 
+-(NSString*)replace:(NSString*)strSource
+          aimSource:(NSString*)strAimSource
+            pattern:(NSString*)strPattern
+{
+//    NSString* strResult = @"";
+    
+    NSError *error = nil;
+    NSRegularExpression *regular = [[NSRegularExpression alloc]initWithPattern:strPattern options:NSRegularExpressionCaseInsensitive error:&error];
+    NSArray *matchs = [regular matchesInString:strSource options:0 range:NSMakeRange(0, strSource.length)];
+    NSMutableArray *retArray = [NSMutableArray new];
+    for (NSTextCheckingResult *match in matchs) {
+        NSString* substringForMatch = [strSource substringWithRange:match.range];
+        [retArray addObject:substringForMatch];
+//         = [strSource stringByReplacingOccurrencesOfString:substringForMatch withString:strAimSource];
+    }
+    
+    for (NSString *strSub in retArray) {
+        strSource = [strSource stringByReplacingOccurrencesOfString:strSub withString:strAimSource];
+    }
+    
+    return strSource;
+}
+
 
 -(NSString*)getStr:(NSString*)strSource
            pattern:(NSString*)strPattern
