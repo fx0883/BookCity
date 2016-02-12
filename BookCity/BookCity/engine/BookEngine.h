@@ -34,4 +34,6 @@
 -(NSString*)replace:(NSString*)strSource
           aimSource:(NSString*)strAimSource
             pattern:(NSString*)strPattern;
+
+-(NSString*)getChapterContentText:(NSString*)strSource;
 @end
