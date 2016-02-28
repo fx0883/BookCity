@@ -367,7 +367,7 @@
         
         NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:0x80000632];
         
-        NSLog(@"%@",responseStr);
+//        NSLog(@"%@",responseStr);
         baseParam.resultString = [weakSelf getChapterContent:responseStr];
         
         // BookChapterModel* bookchaptermodel = (BookChapterModel*)baseParam.paramObject;
@@ -545,7 +545,7 @@
             
             NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:0x80000632];
             
-            NSLog(@"%@",responseStr);
+//            NSLog(@"%@",responseStr);
             bookchaptermodel.htmlContent = [weakSelf getChapterContent:responseStr];
             bookchaptermodel.content = [weakSelf getChapterContentText:bookchaptermodel.htmlContent];
             bookmodel.finishChapterNumber++;
