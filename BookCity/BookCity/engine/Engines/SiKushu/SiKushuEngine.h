@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "BookEngine.h"
-@interface SiKushuEngine : BookEngine
+#import "BCIBookEngine.h"
+
+@interface SiKushuEngine : NSObject <BCIBookEngine>
 
 @end

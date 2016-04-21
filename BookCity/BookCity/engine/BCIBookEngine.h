@@ -1,19 +1,25 @@
 //
-//  XiaoShuo7788Engine.h
+//  BCIBookEngine.h
 //  BookCity
 //
-//  Created by apple on 16/1/5.
+//  Created by Dong Yiming on 16/4/21.
 //  Copyright © 2016年 FS. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import "BookEngine.h"
 
-@interface XiaoShuo7788Engine : BookEngine
+@class BMBaseParam;
+
+@protocol BCIBookEngine <NSObject>
 
 -(void)getSearchBookResult:(BMBaseParam*)baseParam;
 
 -(void)getCategoryBooksResult:(BMBaseParam*)baseParam;
 
 -(void)getBookChapterList:(BMBaseParam*)baseParam;
+
+-(void)getBookChapterDetail:(BMBaseParam*)baseParam;
+
+-(void)downloadplist:(BMBaseParam*)baseParam;
+
 @end

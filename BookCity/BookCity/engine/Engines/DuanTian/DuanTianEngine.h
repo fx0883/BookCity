@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "BookEngine.h"
-@interface DuanTianEngine : BookEngine
-//-(void)getSearchBookResult:(BMBaseParam*)baseParam;
+#import "BCIBookEngine.h"
+
+@interface DuanTianEngine : NSObject <BCIBookEngine>
+
 @end

@@ -58,7 +58,7 @@ DEF_SINGLETON(EngineManager)
 //    }
 }
 
--(void)registerEngine:(BookEngine*)bookEngine
+-(void)registerEngine:(id<BCIBookEngine>)bookEngine
                   key:(NSString*)strKey
 {
     
@@ -75,7 +75,7 @@ DEF_SINGLETON(EngineManager)
     }
 }
 
--(void)registerEngine:(BookEngine*)bookEngine
+-(void)registerEngine:(id<BCIBookEngine>)bookEngine
 {
     
     if (_aryEngine != nil && ![_aryEngine containsObject:bookEngine])

@@ -8,21 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import "BMFramework.h"
-#import "BookEngine.h"
+#import "BCIBookEngine.h"
 
-@interface EngineManager : NSObject
+@interface EngineManager : NSObject <BCIBookEngine>
 AS_SINGLETON(EngineManager)
 
+-(void)registerEngine:(id<BCIBookEngine>)bookEngine;
 
--(void)getSearchBookResult:(BMBaseParam*)baseParam;
-
--(void)getCategoryBooksResult:(BMBaseParam*)baseParam;
-
--(void)getBookChapterList:(BMBaseParam*)baseParam;
-
--(void)getBookChapterDetail:(BMBaseParam*)baseParam;
-
--(void)downloadplist:(BMBaseParam*)baseParam;
-
--(void)registerEngine:(BookEngine*)bookEngine;
 @end

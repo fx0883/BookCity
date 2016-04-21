@@ -1,16 +1,16 @@
 //
-//  SearchEngine.m
+//  BCTBookAnalyzer.m
 //  BookCity
 //
 //  Created by apple on 16/1/4.
 //  Copyright © 2016年 FS. All rights reserved.
 //
 
-#import "BookEngine.h"
+#import "BCTBookAnalyzer.h"
 
-@implementation BookEngine
+@implementation BCTBookAnalyzer
 
--(NSString*)getStrGroup1:(NSString*)strSource
++ (NSString*)getStrGroup1:(NSString*)strSource
            pattern:(NSString*)strPattern
 {
     NSString* strResult = @"";
@@ -24,7 +24,7 @@
     return strResult;
 }
 
--(NSString*)replace:(NSString*)strSource
++ (NSString*)replace:(NSString*)strSource
           aimSource:(NSString*)strAimSource
             pattern:(NSString*)strPattern
 {
@@ -48,7 +48,7 @@
 }
 
 
--(NSString*)getStr:(NSString*)strSource
++ (NSString*)getStr:(NSString*)strSource
            pattern:(NSString*)strPattern
 {
     NSString* strResult = @"";
@@ -64,7 +64,7 @@
     return strResult;
 }
 
--(NSArray*)getBookListBase:(NSString*)strSource
++ (NSArray*)getBookListBase:(NSString*)strSource
                    pattern:(NSString*)strPattern
 {
     NSRegularExpression *regular = [[NSRegularExpression alloc]initWithPattern:strPattern options:NSRegularExpressionCaseInsensitive error:nil];
@@ -72,7 +72,7 @@
     return results;
 }
 
--(NSArray*)getBookListBaseStr:(NSString*)strSource
++ (NSArray*)getBookListBaseStr:(NSString*)strSource
                       pattern:(NSString*)strPattern
 {
     NSError *error = nil;
@@ -88,7 +88,7 @@
     
 }
 
--(NSString*)getChapterContentText:(NSString*)strSource
++ (NSString*)getChapterContentText:(NSString*)strSource
 {
     //&nbsp;&nbsp;&nbsp;&nbsp;
     

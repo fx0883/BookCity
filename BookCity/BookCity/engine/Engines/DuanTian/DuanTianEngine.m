@@ -10,6 +10,7 @@
 #import "DuanTianSessionManager.h"
 #import "BCTBookChapterModel.h"
 #import "BCTBookModel.h"
+#import "BCTBookAnalyzer.h"
 
 @implementation DuanTianEngine
 -(void)downloadplist:(BMBaseParam*)baseParam
@@ -194,7 +195,7 @@
 {
     NSString *strContent = @"";
     NSString *strPattern = @"id=\"bookContent\"\>.*?\<\/div\>";
-    strContent = [self getStr:strSource pattern:strPattern];
+    strContent = [BCTBookAnalyzer getStr:strSource pattern:strPattern];
     
     strContent = [strContent stringByReplacingOccurrencesOfString:@"id=\"bookContent\">" withString:@""];
     strContent = [strContent stringByReplacingOccurrencesOfString:@"</div>" withString:@""];

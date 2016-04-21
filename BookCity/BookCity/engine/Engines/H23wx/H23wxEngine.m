@@ -12,6 +12,8 @@
 
 #import "BCTBookModel.h"
 #import "BCTBookChapterModel.h"
+#import "BCTBookAnalyzer.h"
+
 @implementation H23wxEngine
 
 
@@ -92,7 +94,7 @@
 {
     NSString *strPattern = @"<div class=\"result-item result-game-item\">[\\s\\S]*?</p>\\s*?</div>";
     
-    NSArray* arySource = [self getBookListBaseStr:strSource pattern:strPattern];
+    NSArray* arySource = [BCTBookAnalyzer getBookListBaseStr:strSource pattern:strPattern];
     NSMutableArray *bookList = [[NSMutableArray alloc]init];
     
     for (NSString* subStrSource in arySource) {
@@ -109,22 +111,22 @@
     
     //    NSString *strPattern = @"\<a href=\"[^\"]*\"\\s*>([^<]*)\<\/a\>";
     
-    book.title = [self getStrGroup1:strSource pattern:@"<a cpos=\"title\" href=\"\[^\"]*\" title=\"([^\"]*)\""];
+    book.title = [BCTBookAnalyzer getStrGroup1:strSource pattern:@"<a cpos=\"title\" href=\"\[^\"]*\" title=\"([^\"]*)\""];
 //    book.title = [book.title stringByReplacingOccurrencesOfString:@"<em>" withString:@""];
 //    book.title = [book.title stringByReplacingOccurrencesOfString:@"</em>" withString:@""];
 //    book.title = [book.title stringByReplacingOccurrencesOfString:@"\r\n" withString:@""];
 //     book.title = [book.title stringByReplacingOccurrencesOfString:@" " withString:@""];
    // <img src=\"([^\"]*)\"
-    book.imgSrc = [self getStrGroup1:strSource pattern:@"\<img src=\"([^\"]*)\""];
-    book.bookLink = [self getStrGroup1:strSource pattern:@"<a cpos=\"img\" href=\"([^\"]*)\""];
+    book.imgSrc = [BCTBookAnalyzer getStrGroup1:strSource pattern:@"\<img src=\"([^\"]*)\""];
+    book.bookLink = [BCTBookAnalyzer getStrGroup1:strSource pattern:@"<a cpos=\"img\" href=\"([^\"]*)\""];
     
     //    <td class=\"odd\">([^<]*)</td>
-    book.author = [self getStrGroup1:strSource pattern:@"<a cpos=\"author\"[^>]*>([^<]*)</a>"];
+    book.author = [BCTBookAnalyzer getStrGroup1:strSource pattern:@"<a cpos=\"author\"[^>]*>([^<]*)</a>"];
     book.author = [book.author stringByReplacingOccurrencesOfString:@" " withString:@""];
     book.author = [book.author stringByReplacingOccurrencesOfString:@"\r\n" withString:@""];
     
     
-    book.memo = [self getStrGroup1:strSource pattern:@"<p class=\"result-game-item-desc\">[^.]*..([\\s\\S]*?)</p>"];
+    book.memo = [BCTBookAnalyzer getStrGroup1:strSource pattern:@"<p class=\"result-game-item-desc\">[^.]*..([\\s\\S]*?)</p>"];
     book.memo = [book.memo stringByReplacingOccurrencesOfString:@"<em>" withString:@""];
     book.memo = [book.memo stringByReplacingOccurrencesOfString:@"</em>" withString:@""];
     //    NSRegularExpression *regular = [[NSRegularExpression alloc]initWithPattern:strPattern options:NSRegularExpressionCaseInsensitive error:nil];
@@ -275,7 +277,7 @@
 {
     NSString *strContent = @"";
     NSString *strPattern = @"<dd id=\"contents\">([\\s\\S]*?)</dd>";
-    strContent = [self getStrGroup1:strSource pattern:strPattern];
+    strContent = [BCTBookAnalyzer getStrGroup1:strSource pattern:strPattern];
 //    strContent = [strContent stringByReplacingOccurrencesOfString:@"(四库书www.sikushu.com)" withString:@""];
 //    
 //    NSString *strScriptPattern = @"\\[最快的更新.*?\\]";
@@ -310,7 +312,7 @@
 //    return strContent;
     
     NSString *strContent = @"";
-    strContent = [super getChapterContentText:strSource];
+    strContent = [BCTBookAnalyzer getChapterContentText:strSource];
     return strContent;
     
 }
@@ -530,7 +532,7 @@
     NSMutableArray *retAry = [NSMutableArray new];
     
     NSString *strPattern = @"<tr bgcolor=\"#FFFFFF\">[\\s\\S]*?</tr>";
-    NSArray *ary = [self getBookListBase:strSource pattern:strPattern];
+    NSArray *ary = [BCTBookAnalyzer getBookListBase:strSource pattern:strPattern];
     for (NSTextCheckingResult *match in ary) {
         NSString* substringForMatch = [strSource substringWithRange:match.range];
         NSLog(@"Extracted URL: %@",substringForMatch);
@@ -555,10 +557,10 @@
 {
     BCTBookModel *bookmodel = [BCTBookModel new];
 
-    bookmodel.bookLink = [self getStrGroup1:strSource pattern:@"<a href=\"([^\"]*)\" target=\"_blank\">"];
-    bookmodel.title = [self getStrGroup1:strSource pattern:@"<a href=\"[^\"]*\">(.*?)</a>"];
+    bookmodel.bookLink = [BCTBookAnalyzer getStrGroup1:strSource pattern:@"<a href=\"([^\"]*)\" target=\"_blank\">"];
+    bookmodel.title = [BCTBookAnalyzer getStrGroup1:strSource pattern:@"<a href=\"[^\"]*\">(.*?)</a>"];
     //bookmodel.memo = [self getStrGroup1:strSource pattern:@"<p>([\\S\\s]*?)</p>"];
-    bookmodel.author = [self getStrGroup1:strSource pattern:@"<td class=\"C\">(.*?)</td>[\\s\\S]*?<td class=\"R\">"];
+    bookmodel.author = [BCTBookAnalyzer getStrGroup1:strSource pattern:@"<td class=\"C\">(.*?)</td>[\\s\\S]*?<td class=\"R\">"];
     
     
 //        bookmodel.imgSrc = [self getStrGroup1:strSource pattern:@"<img src=\"([^\"]*)\""];
