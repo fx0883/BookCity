@@ -39,44 +39,22 @@ DEF_SINGLETON(EngineManager)
     return self;
 }
 
--(void)loadData
-{
+-(void)loadData {
     if (_dicEngine == nil) {
         _dicEngine = [[NSMutableDictionary alloc]initWithCapacity:3];
-        //[self registerEngine:[DuanTianEngine new] key:EDUANTIAN];
+        
         [self registerEngine:[XiaoShuo7788Engine new] key:E7788];
-
         [self registerEngine:[SiKushuEngine new] key:ESIKUSHU];
         [self registerEngine:[H23wxEngine new] key:H23WX];
-        
-    }
-    
-//    if (_aryEngine == nil) {
-//        _aryEngine = [[NSMutableArray alloc]initWithCapacity:5];
-//        
-//        [self registerEngine: [XiaoShuo7788Engine new]];
-//    }
-}
-
--(void)registerEngine:(id<BCIBookEngine>)bookEngine
-                  key:(NSString*)strKey
-{
-    
-//    if (_aryEngine != nil && ![_aryEngine containsObject:bookEngine])
-//    {
-//        [_aryEngine addObject:bookEngine];
-//    }
-    if (_dicEngine == nil) {
-        return;
-    }
-    if(_dicEngine[strKey] == nil)
-    {
-        [_dicEngine setObject:bookEngine forKey:strKey];
     }
 }
 
--(void)registerEngine:(id<BCIBookEngine>)bookEngine
-{
+-(void)registerEngine:(id<BCIBookEngine>)bookEngine key:(NSString*)strKey {
+
+    [_dicEngine setObject:bookEngine forKey:strKey];
+}
+
+-(void)registerEngine:(id<BCIBookEngine>)bookEngine {
     
     if (_aryEngine != nil && ![_aryEngine containsObject:bookEngine])
     {

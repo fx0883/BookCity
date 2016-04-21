@@ -27,61 +27,6 @@
     
     bookmodel.finishChapterNumber = 0;
     
-    //一次请求过多会超时，必须控制请求数
-    
-//    for (NSInteger i = 0 ; i < [bookmodel.aryChapterList count]; i++) {
-//        
-//        BookChapterModel* bookchaptermodel = [bookmodel.aryChapterList objectAtIndex:i];
-//        
-//        usleep(100);
-//        
-//        NSString *strUrl = bookchaptermodel.url;
-//        
-//        strUrl = [strUrl stringByReplacingOccurrencesOfString:[DuanTianSessionManager getBaseUrl] withString:@""];
-//        __weak DuanTianEngine *weakSelf = self;
-//        [[DuanTianSessionManager sharedClient] GET:strUrl parameters:nil progress:nil success:^(NSURLSessionDataTask * __unused task, id responseObject) {
-//            
-//            NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:0x80000632];
-//            
-//            NSLog(@"%@",responseStr);
-//            bookchaptermodel.htmlContent = [weakSelf getChapterContent:responseStr];
-//            bookchaptermodel.content = [weakSelf getChapterContentText:bookchaptermodel.htmlContent];
-//            bookmodel.finishChapterNumber++;
-//            if (baseParam.withresultobjectblock) {
-//                NSString* strStatus = @"";
-//                if (bookmodel.finishChapterNumber == [bookmodel.aryChapterList count]) {
-//                    
-//                    strStatus = @"finished";
-//                    
-//                    [bookmodel savePlist];
-//                }
-//                else
-//                {
-//                    strStatus = @"downloading";
-//                }
-//                baseParam.withresultobjectblock(0,strStatus,nil);
-//            }
-//            
-//        } failure:^(NSURLSessionDataTask *__unused task, NSError *error)
-//         {
-//             NSLog(@"%@",[error userInfo]);
-//             NSString* strStatus = @"";
-//             if (bookmodel.finishChapterNumber == [bookmodel.aryChapterList count]) {
-//                 strStatus = @"finished";
-//                 [bookmodel savePlist];
-//             }
-//             else
-//             {
-//                 strStatus = @"downloading";
-//                 
-//             }
-//             baseParam.withresultobjectblock(-1,strStatus,nil);
-//             
-//         }];
-//        
-//        
-//    }
-    
     [self downloadChapterOnePage:baseParam book:bookmodel];
     
 }
