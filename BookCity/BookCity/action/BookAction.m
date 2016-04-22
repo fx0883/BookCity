@@ -11,31 +11,31 @@
 
 @implementation BookAction
 
--(void)getSearchBookResult:(BMBaseParam*)baseParam
-{
-    [[EngineManager sharedInstance]getSearchBookResult:baseParam];
+-(void)getSearchBookResult:(BMBaseParam*)baseParam {
+    [self executeSelector:_cmd param:baseParam];
 }
 
-
--(void)getCategoryBooksResult:(BMBaseParam*)baseParam
-{
-    [[EngineManager sharedInstance]getCategoryBooksResult:baseParam];
+-(void)getCategoryBooksResult:(BMBaseParam*)baseParam {
+    [self executeSelector:_cmd param:baseParam];
 }
 
--(void)getBookChapterList:(BMBaseParam*)baseParam
-{
-    [[EngineManager sharedInstance]getBookChapterList:baseParam];
+-(void)getBookChapterList:(BMBaseParam*)baseParam {
+    [self executeSelector:_cmd param:baseParam];
 }
 
--(void)getBookChapterDetail:(BMBaseParam*)baseParam
-{
-    [[EngineManager sharedInstance] getBookChapterDetail:baseParam];
+-(void)getBookChapterDetail:(BMBaseParam*)baseParam {
+    [self executeSelector:_cmd param:baseParam];
 }
 
+-(void)downloadplist:(BMBaseParam*)baseParam {
+    [self executeSelector:_cmd param:baseParam];
+}
 
--(void)downloadplist:(BMBaseParam*)baseParam
-{
-    [[EngineManager sharedInstance] downloadplist:baseParam];
+-(void)executeSelector:(SEL)selector param:(BMBaseParam *)param {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+    [[EngineManager sharedInstance] performSelector:selector withObject:param];
+#pragma clang diagnostic pop
 }
 
 @end

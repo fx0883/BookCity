@@ -7,13 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "BMFramework.h"
+#import "BCIBookEngine.h"
 
-@interface BookAction : NSObject
+@interface BookAction : NSObject <BCIBookEngine>
 
--(void)getSearchBookResult:(BMBaseParam*)baseParam;
--(void)getCategoryBooksResult:(BMBaseParam*)baseParam;
-
--(void)getBookChapterDetail:(BMBaseParam*)baseParam;
--(void)downloadplist:(BMBaseParam*)baseParam;
 @end

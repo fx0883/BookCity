@@ -37,32 +37,8 @@ DEF_SINGLETON(BMControl)
     
 }
 
--(void)excute:(NSMutableDictionary*)dicparam
-{
-//    NSNumber *numberType = [SharedBMContext getContextDicForKey:DEFACTIONINVOKETYPE];
-//    NSInteger intType = [numberType integerValue];
-//    
-//    switch (intType) {
-//        case 0:
-//        {
-//            NSString* aId =   [dicparam getActionID];
-//            BMBaseAction* baseaction=[[BMActionManager sharedInstance] getAction:aId];
-//            [baseaction excute:dicparam];
-//        }
-//            break;
-//        case 1:
-//        {
-//            [SharedActionManager excute:dicparam];
-//        }
-//            
-//            break;
-//        default:
-//            break;
-//    }
-//    
+-(void)excute:(NSMutableDictionary*)dicparam {
     [SharedActionManager excute:dicparam];
-  
-    
 }
 
 
