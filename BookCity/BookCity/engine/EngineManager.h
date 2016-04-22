@@ -13,6 +13,4 @@
 @interface EngineManager : NSObject <BCIBookEngine>
 AS_SINGLETON(EngineManager)
 
--(void)registerEngine:(id<BCIBookEngine>)bookEngine;
-
 @end
