@@ -11,18 +11,20 @@
 #import "DuanTianEngine.h"
 #import "SiKushuEngine.h"
 #import "H23wxEngine.h"
+#import "BCTBookAnalyzer.h"
 
 
-#define E7788 @"7788"
-#define EDUANTIAN @"DuanTian"
-#define ESIKUSHU @"SiKuShu"
-#define H23WX @"H23Wx"
+typedef NS_ENUM(NSInteger, BCTBookEngineType) {
+    kBCTBookEngine7788 = 100
+    , kBCTBookEngineDuantian
+    , kBCTBookEngineSiKuShu
+    , kBCTBookEngineH23Wx
+};
 
-@interface EngineManager()
-{
-    NSMutableArray *_aryEngine;
+@interface EngineManager() {
     NSMutableDictionary *_dicEngine;
 }
+@property (nonatomic, strong) NSMutableDictionary *dicEnginePatterns;
 @end
 
 
@@ -30,9 +32,9 @@
 
 DEF_SINGLETON(EngineManager)
 
--(id)init
-{
+-(id)init {
     self=[super init];
+    
     if (self) {
         [self loadData];
     }
@@ -40,39 +42,21 @@ DEF_SINGLETON(EngineManager)
 }
 
 -(void)loadData {
-    if (_dicEngine == nil) {
-        _dicEngine = [[NSMutableDictionary alloc]initWithCapacity:3];
-        
-        [self registerEngine:[XiaoShuo7788Engine new] key:E7788];
-        [self registerEngine:[SiKushuEngine new] key:ESIKUSHU];
-        [self registerEngine:[H23wxEngine new] key:H23WX];
-    }
+    
+    _dicEngine = [[NSMutableDictionary alloc]initWithCapacity:3];
+    [_dicEngine setObject:[XiaoShuo7788Engine new] forKey:@(kBCTBookEngine7788).stringValue];
+    [_dicEngine setObject:[SiKushuEngine new] forKey:@(kBCTBookEngineSiKuShu).stringValue];
+    [_dicEngine setObject:[H23wxEngine new] forKey:@(kBCTBookEngineH23Wx).stringValue];
+    
+    _dicEnginePatterns = [NSMutableDictionary dictionary];
+    [_dicEnginePatterns setObject:@"^http://www.7788xiaoshuo.com/" forKey:@(kBCTBookEngine7788).stringValue];
+    [_dicEnginePatterns setObject:@"^http://www.duantian.com/" forKey:@(kBCTBookEngineDuantian).stringValue];
+    [_dicEnginePatterns setObject:@"^http://www.sikushu.com/" forKey:@(kBCTBookEngineSiKuShu).stringValue];
+    [_dicEnginePatterns setObject:@"^http://www.23wx.com/" forKey:@(kBCTBookEngineH23Wx).stringValue];
 }
 
--(void)registerEngine:(id<BCIBookEngine>)bookEngine key:(NSString*)strKey {
 
-    [_dicEngine setObject:bookEngine forKey:strKey];
-}
-
--(void)registerEngine:(id<BCIBookEngine>)bookEngine {
-    
-    if (_aryEngine != nil && ![_aryEngine containsObject:bookEngine])
-    {
-        [_aryEngine addObject:bookEngine];
-    }
-    
-    
-}
-
--(void)getSearchBookResult:(BMBaseParam*)baseParam
-{
-    if (_dicEngine == nil) {
-        return;
-    }
-//    for (BookEngine* bookengine in _aryEngine)
-//    {
-//        [bookengine getSearchBookResult:baseParam];
-//    }
+-(void)getSearchBookResult:(BMBaseParam*)baseParam {
     for (NSString *strKey in [_dicEngine allKeys]) {
         [_dicEngine[strKey] getSearchBookResult:baseParam];
          usleep(100);
@@ -80,135 +64,43 @@ DEF_SINGLETON(EngineManager)
     
 }
 
--(void)getCategoryBooksResult:(BMBaseParam*)baseParam
-{
-    
+- (void)getCategoryBooksResult:(BMBaseParam*)baseParam {
     for (NSString *strUrl in baseParam.paramArray) {
-        //利用正则判断是哪个网站，
-//        NSString* strResult = [self getStr:baseParam.paramString pattern:@"^http://www.7788xiaoshuo.com/"];
-//        if (strResult.length > 0) {
-//            [_dicEngine[@"7788"] getCategoryBooksResult:baseParam];
-//        }
+        
         baseParam.paramString = strUrl;
         
-    
-        if ([self getStr:baseParam.paramString pattern:@"^http://www.7788xiaoshuo.com/"].length > 0) {
-            if ([_dicEngine objectForKey:E7788]) {
-                [_dicEngine[E7788] getCategoryBooksResult:baseParam];
-            }
-            
-        }
-        else if([self getStr:baseParam.paramString pattern:@"^http://www.duantian.com/"].length>0)
-        {
-            if ([_dicEngine objectForKey:EDUANTIAN]) {
-                [_dicEngine[EDUANTIAN] getCategoryBooksResult:baseParam];
-            }
-
-        }
-        else if([self getStr:baseParam.paramString pattern:@"^http://www.sikushu.com/"].length>0)
-        {
-            if ([_dicEngine objectForKey:ESIKUSHU]) {
-                [_dicEngine[ESIKUSHU] getCategoryBooksResult:baseParam];
-            }
-        }
-        else if([self getStr:baseParam.paramString pattern:@"^http://www.23wx.com/"].length>0)
-        {
-            if ([_dicEngine objectForKey:H23WX]) {
-                [_dicEngine[H23WX] getCategoryBooksResult:baseParam];
-            }
-        }
+        [self executeSelector:_cmd param:baseParam];
+        
         usleep(100);
     }
-    
-//    //利用正则判断是哪个网站，
-//    NSString* strResult = [self getStr:baseParam.paramString pattern:@"^http://www.7788xiaoshuo.com/"];
-//    if (strResult.length > 0) {
-//        [_dicEngine[@"7788"] getCategoryBooksResult:baseParam];
-//    }
 }
 
--(NSString*)getStr:(NSString*)strSource
-           pattern:(NSString*)strPattern
-{
-    NSString* strResult = @"";
-    NSRegularExpression *regularexpression1 = [[NSRegularExpression alloc]initWithPattern:strPattern options:NSRegularExpressionCaseInsensitive error:nil];
-    
-    
-    NSTextCheckingResult *match1 = [regularexpression1 firstMatchInString:strSource
-                                                                  options:0
-                                                                    range:NSMakeRange(0, [strSource length])];
-    if (match1) {
-        strResult = [strSource substringWithRange:match1.range];
-    }
-    return strResult;
+- (void)getBookChapterList:(BMBaseParam*)baseParam {
+    [self executeSelector:_cmd param:baseParam];
 }
 
--(void)getBookChapterList:(BMBaseParam*)baseParam
-{
-    //利用正则判断是哪个网站，
-    NSString* strResult = [self getStr:baseParam.paramString pattern:@"^http://www.7788xiaoshuo.com/"];
-    if (strResult.length > 0) {
-        [_dicEngine[E7788] getBookChapterList:baseParam];
-    }
-    else if([self getStr:baseParam.paramString pattern:@"^http://www.duantian.com/"].length>0)
-    {
-        [_dicEngine[EDUANTIAN] getBookChapterList:baseParam];
-    }
-    else if([self getStr:baseParam.paramString pattern:@"^http://www.sikushu.com/"].length>0)
-    {
-        [_dicEngine[ESIKUSHU] getBookChapterList:baseParam];
-    }
-    else if([self getStr:baseParam.paramString pattern:@"^http://www.23wx.com/"].length>0)
-    {
-        [_dicEngine[H23WX] getBookChapterList:baseParam];
-    }
-    
-    //http://www.23wx.com/
-    
+- (void)getBookChapterDetail:(BMBaseParam*)baseParam {
+    [self executeSelector:_cmd param:baseParam];
 }
 
--(void)getBookChapterDetail:(BMBaseParam*)baseParam
-{
-    //利用正则判断是哪个网站，
-    NSString* strResult = [self getStr:baseParam.paramString pattern:@"^http://www.7788xiaoshuo.com/"];
-    if (strResult.length > 0) {
-        [_dicEngine[E7788] getBookChapterDetail:baseParam];
-    }
-    else if([self getStr:baseParam.paramString pattern:@"^http://www.duantian.com/"].length>0)
-    {
-        [_dicEngine[EDUANTIAN] getBookChapterDetail:baseParam];
-    }
-    else if([self getStr:baseParam.paramString pattern:@"^http://www.sikushu.com/"].length>0)
-    {
-        [_dicEngine[ESIKUSHU] getBookChapterDetail:baseParam];
-    }
-    
-    else if([self getStr:baseParam.paramString pattern:@"^http://www.23wx.com/"].length>0)
-    {
-        [_dicEngine[H23WX] getBookChapterDetail:baseParam];
-    }
+- (void)downloadplist:(BMBaseParam*)baseParam {
+    [self executeSelector:_cmd param:baseParam];
 }
 
-
--(void)downloadplist:(BMBaseParam*)baseParam
-{
-    //利用正则判断是哪个网站，
-    NSString* strResult = [self getStr:baseParam.paramString pattern:@"^http://www.7788xiaoshuo.com/"];
-    if (strResult.length > 0) {
-        [_dicEngine[E7788] downloadplist:baseParam];
-    }
-    else if([self getStr:baseParam.paramString pattern:@"^http://www.duantian.com/"].length>0)
-    {
-        [_dicEngine[EDUANTIAN] downloadplist:baseParam];
-    }
-    else if([self getStr:baseParam.paramString pattern:@"^http://www.sikushu.com/"].length>0)
-    {
-        [_dicEngine[ESIKUSHU] downloadplist:baseParam];
-    }
-    else if([self getStr:baseParam.paramString pattern:@"^http://www.23wx.com/"].length>0)
-    {
-        [_dicEngine[H23WX] downloadplist:baseParam];
-    }
+-(void)executeSelector:(SEL)selector param:(BMBaseParam *)param {
+    [_dicEnginePatterns enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
+        if ([BCTBookAnalyzer getStr:param.paramString pattern:obj].length > 0) {
+            
+            id<BCIBookEngine> engine = _dicEngine[key];
+            if ([engine respondsToSelector:selector]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+                [engine performSelector:selector withObject:param];
+#pragma clang diagnostic pop
+                
+            }
+        }
+    }];
 }
 
 
