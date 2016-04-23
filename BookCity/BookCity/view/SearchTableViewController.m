@@ -18,7 +18,6 @@
 @interface SearchTableViewController ()
 {
     MBProgressHUD* progressTest;
-//    __weak NSURLSessionTask* _task;
     NSMutableArray *_aryBook;
     NSInteger _pageIndex;
     NSString *_searchKey;
@@ -33,44 +32,27 @@
     [super viewDidLoad];
 
     _aryBook = [NSMutableArray new];
-    [self registCell];
-    [self addPullRefresh];
-
-}
-
-
--(void)addPullRefresh
-{
+    
+    UINib *nib = [UINib nibWithNibName:@"BookCell" bundle:nil];
+    [self.tableView registerNib:nib forCellReuseIdentifier:BOOKCELLID];
+    
     __weak SearchTableViewController *weakSelf = self;
-    // setup infinite scrolling
     [self.tableView addInfiniteScrollingWithActionHandler:^{
         [weakSelf insertRowAtBottom];
     }];
 }
-
 
 - (void)insertRowAtBottom {
 
     if ([_searchKey length] > 0) {
         _pageIndex++;
         [self searchBook:_searchKey];
-        
-        
     }
 }
 
--(void)registCell {
-
-    UINib *nib = [UINib nibWithNibName:@"BookCell" bundle:nil];
-    
-    [self.tableView registerNib:nib forCellReuseIdentifier:BOOKCELLID];
-}
 
 //点击键盘上的search按钮时调用
-
-- (void) searchBarSearchButtonClicked:(UISearchBar *)searchBar
-
-{
+- (void) searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     
     NSString *searchTerm = searchBar.text;
     
@@ -80,8 +62,6 @@
     [self searchBook:_searchKey];
     
 
-    
-
     [self.searchDisplayController setActive:NO animated:YES];
     
     [_aryBook removeAllObjects];
@@ -89,37 +69,26 @@
 }
 
 -(void)searchBook:(NSString*)strKey {
-//    if (!_task) {
-//        [_task cancel];
-//    }
-    
     //实例化一个传入传出参数
-    BMBaseParam* baseparam=[BMBaseParam new];
+    BMBaseParam* baseparam = [BMBaseParam new];
     
     //参数
-    baseparam.paramString=strKey;
+    baseparam.paramString = strKey;
     baseparam.paramInt = _pageIndex;
     
     __weak SearchTableViewController *weakSelf=self;
     __weak BMBaseParam *weakBaseParam = baseparam;
 
-    baseparam.withresultobjectblock=^(int intError,NSString* strMsg,id obj)
-    {
-        if (intError == 0)
-        {
-            if (weakBaseParam.paramInt == 1) {
-                
-            }
+    baseparam.withresultobjectblock=^(int intError,NSString* strMsg,id obj) {
+        if (intError == 0) {
             [_aryBook addObjectsFromArray:weakBaseParam.resultArray];
             [weakSelf.tableView reloadData];
-
-        }
-        else
-        {
+        } else {
             NSLog(@"获取数据失败");
         }
         [weakSelf.tableView.infiniteScrollingView stopAnimating];
     };
+    
     NSMutableDictionary* dicParam=[NSMutableDictionary createParamDic];
     [dicParam setActionID:DEF_ACTIONID_BOOKACTION strcmd:DEF_ACTIONIDCMD_GETSEARCHBOOKRESULT];
     [dicParam setParam:baseparam];
@@ -146,9 +115,7 @@
     return 0;
 }
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-
-{
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     UIViewController *destination = [segue destinationViewController];
     
@@ -157,7 +124,6 @@
         [destination setValue:sender forKey:@"bookModel"];
         
     }
-   
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -166,9 +132,6 @@
     
     [self performSegueWithIdentifier:@"searchBookToChapterList" sender:bookmodel];
 }
-
-
-
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

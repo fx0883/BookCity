@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "BCIBookEngine.h"
+#import "BCTBookEngine.h"
 
-@interface XiaoShuo7788Engine : NSObject <BCIBookEngine>
+@interface XiaoShuo7788Engine : BCTBookEngine
 
 @end

@@ -7,10 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BCTSessionManager.h"
 
-@interface So23wxSessionManager : AFHTTPSessionManager
+@interface So23wxSessionManager : BCTSessionManager
 
-+ (instancetype)sharedClient;
-
-+ (NSString*)getBaseUrl;
 @end

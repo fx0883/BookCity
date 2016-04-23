@@ -34,7 +34,7 @@ static NSString * const BaseURLString = @"http://www.7788xiaoshuo.com/";
     return _sharedClient;
 }
 
-+ (NSString*)getBaseUrl
+- (NSString*)getBaseUrl
 {
     return BaseURLString;
 }

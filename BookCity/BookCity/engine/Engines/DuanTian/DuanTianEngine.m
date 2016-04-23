@@ -13,6 +13,15 @@
 #import "BCTBookAnalyzer.h"
 
 @implementation DuanTianEngine
+
+- (BCTSessionManager *)sessionManager {
+    return [DuanTianSessionManager sharedClient];
+}
+
+-(void)getCategoryBooksResult:(BMBaseParam *)baseParam {
+#warning Not implemented!
+}
+
 -(void)downloadplist:(BMBaseParam*)baseParam
 {
     BCTBookModel *bookmodel = (BCTBookModel*)baseParam.paramObject;
@@ -31,76 +40,76 @@
     
 }
 
--(void)downloadChapterOnePage:(BMBaseParam*)baseParam
-                         book:(BCTBookModel*)bookmodel
-{
-    NSInteger pageSize = 10;
-    NSInteger curPageEnd = bookmodel.finishChapterNumber + pageSize;
-    __weak DuanTianEngine *weakSelf = self;
-    NSInteger i = bookmodel.finishChapterNumber;
-    while (i < curPageEnd && i < [bookmodel.aryChapterList count])
-    {
-        
-        BCTBookChapterModel* bookchaptermodel = [bookmodel.aryChapterList objectAtIndex:i];
-        i++;
-        usleep(100);
-        
-        NSString *strUrl = bookchaptermodel.url;
-        
-        strUrl = [strUrl stringByReplacingOccurrencesOfString:[DuanTianSessionManager getBaseUrl] withString:@""];
-        __weak DuanTianEngine *weakSelf = self;
-        [[DuanTianSessionManager sharedClient] GET:strUrl parameters:nil progress:nil success:^(NSURLSessionDataTask * __unused task, id responseObject) {
-            
-            NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:0x80000632];
-            
-//            NSLog(@"%@",responseStr);
-            bookchaptermodel.htmlContent = [weakSelf getChapterContent:responseStr];
-            bookchaptermodel.content = [weakSelf getChapterContentText:bookchaptermodel.htmlContent];
-            bookmodel.finishChapterNumber++;
-            if (baseParam.withresultobjectblock) {
-                NSString* strStatus = @"";
-                if (bookmodel.finishChapterNumber == [bookmodel.aryChapterList count]) {
-                    
-                    strStatus = @"finished";
-                    
-                    [bookmodel savePlist];
-                }
-                else
-                {
-                    strStatus = @"downloading";
-                    
-                    if(bookmodel.finishChapterNumber == curPageEnd)
-                    {
-                        [weakSelf downloadChapterOnePage:baseParam book:bookmodel];
-                    }
-                }
-                baseParam.withresultobjectblock(0,strStatus,nil);
-            }
-            
-        } failure:^(NSURLSessionDataTask *__unused task, NSError *error)
-         {
-             NSLog(@"%@",[error userInfo]);
-             NSString* strStatus = @"";
-             if (bookmodel.finishChapterNumber == [bookmodel.aryChapterList count]) {
-                 strStatus = @"finished";
-                 [bookmodel savePlist];
-             }
-             else
-             {
-                 strStatus = @"downloading";
-                 if(bookmodel.finishChapterNumber == curPageEnd)
-                 {
-                     [weakSelf downloadChapterOnePage:baseParam book:bookmodel];
-                 }
-             }
-             baseParam.withresultobjectblock(-1,strStatus,nil);
-             
-         }];
-        
-        
-    }
-
-}
+//-(void)downloadChapterOnePage:(BMBaseParam*)baseParam
+//                         book:(BCTBookModel*)bookmodel
+//{
+//    NSInteger pageSize = 10;
+//    NSInteger curPageEnd = bookmodel.finishChapterNumber + pageSize;
+//    __weak DuanTianEngine *weakSelf = self;
+//    NSInteger i = bookmodel.finishChapterNumber;
+//    while (i < curPageEnd && i < [bookmodel.aryChapterList count])
+//    {
+//        
+//        BCTBookChapterModel* bookchaptermodel = [bookmodel.aryChapterList objectAtIndex:i];
+//        i++;
+//        usleep(100);
+//        
+//        NSString *strUrl = bookchaptermodel.url;
+//        
+//        strUrl = [strUrl stringByReplacingOccurrencesOfString:[DuanTianSessionManager getBaseUrl] withString:@""];
+//        __weak DuanTianEngine *weakSelf = self;
+//        [[DuanTianSessionManager sharedClient] GET:strUrl parameters:nil progress:nil success:^(NSURLSessionDataTask * __unused task, id responseObject) {
+//            
+//            NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:0x80000632];
+//            
+////            NSLog(@"%@",responseStr);
+//            bookchaptermodel.htmlContent = [weakSelf getChapterContent:responseStr];
+//            bookchaptermodel.content = [weakSelf getChapterContentText:bookchaptermodel.htmlContent];
+//            bookmodel.finishChapterNumber++;
+//            if (baseParam.withresultobjectblock) {
+//                NSString* strStatus = @"";
+//                if (bookmodel.finishChapterNumber == [bookmodel.aryChapterList count]) {
+//                    
+//                    strStatus = @"finished";
+//                    
+//                    [bookmodel savePlist];
+//                }
+//                else
+//                {
+//                    strStatus = @"downloading";
+//                    
+//                    if(bookmodel.finishChapterNumber == curPageEnd)
+//                    {
+//                        [weakSelf downloadChapterOnePage:baseParam book:bookmodel];
+//                    }
+//                }
+//                baseParam.withresultobjectblock(0,strStatus,nil);
+//            }
+//            
+//        } failure:^(NSURLSessionDataTask *__unused task, NSError *error)
+//         {
+//             NSLog(@"%@",[error userInfo]);
+//             NSString* strStatus = @"";
+//             if (bookmodel.finishChapterNumber == [bookmodel.aryChapterList count]) {
+//                 strStatus = @"finished";
+//                 [bookmodel savePlist];
+//             }
+//             else
+//             {
+//                 strStatus = @"downloading";
+//                 if(bookmodel.finishChapterNumber == curPageEnd)
+//                 {
+//                     [weakSelf downloadChapterOnePage:baseParam book:bookmodel];
+//                 }
+//             }
+//             baseParam.withresultobjectblock(-1,strStatus,nil);
+//             
+//         }];
+//        
+//        
+//    }
+//
+//}
 
 
 
@@ -109,7 +118,7 @@
     //paramString2 保存chapterDetail url
     NSString *strUrl = baseParam.paramString2;
     
-    strUrl = [strUrl stringByReplacingOccurrencesOfString:[DuanTianSessionManager getBaseUrl] withString:@""];
+    strUrl = [strUrl stringByReplacingOccurrencesOfString:[self.sessionManager getBaseUrl] withString:@""];
 //    __weak BMBaseParam *weakBaseParam = baseParam;
     __weak DuanTianEngine *weakSelf = self;
     [[DuanTianSessionManager sharedClient] GET:strUrl parameters:nil progress:nil success:^(NSURLSessionDataTask * __unused task, id responseObject) {
@@ -192,7 +201,7 @@
 {
     NSString *strUrl = [NSString stringWithFormat:baseParam.paramString ,(long)baseParam.paramInt];
     
-    strUrl = [strUrl stringByReplacingOccurrencesOfString:[DuanTianSessionManager getBaseUrl] withString:@""];
+    strUrl = [strUrl stringByReplacingOccurrencesOfString:[self.sessionManager getBaseUrl] withString:@""];
     
     [[DuanTianSessionManager sharedClient] GET:strUrl parameters:nil progress:nil success:^(NSURLSessionDataTask * __unused task, id responseObject) {
         
@@ -272,7 +281,7 @@
             
         }
         
-        bookchaptermodel.hostUrl = [DuanTianSessionManager getBaseUrl];
+        bookchaptermodel.hostUrl = [self.sessionManager getBaseUrl];
         
         [aryChapterList addObject:bookchaptermodel];
     }

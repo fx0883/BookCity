@@ -14,6 +14,10 @@
 
 @implementation SiKushuEngine
 
+- (BCTSessionManager *)sessionManager {
+    return [SiKushuSessionManager sharedClient];
+}
+
 -(void)getSearchBookResult:(BMBaseParam*)baseParam
 {
     
@@ -284,7 +288,7 @@
     
     NSString *strUrlParam = baseParam.paramString;
     
-    NSString *strUrl = [strUrlParam stringByReplacingOccurrencesOfString:[SiKushuSessionManager getBaseUrl] withString:@""];
+    NSString *strUrl = [strUrlParam stringByReplacingOccurrencesOfString:[self.sessionManager getBaseUrl] withString:@""];
     
     [[SiKushuSessionManager sharedClient] GET:strUrl parameters:nil progress:nil success:^(NSURLSessionDataTask * __unused task, id responseObject) {
         
@@ -339,7 +343,7 @@
                 
                 bookchaptermodel.title = [substringForMatch substringWithRange:[match2 rangeAtIndex:2]];
             }
-        bookchaptermodel.hostUrl = [SiKushuSessionManager getBaseUrl];
+        bookchaptermodel.hostUrl = [self.sessionManager getBaseUrl];
         [aryChapterList addObject:bookchaptermodel];
     }
     
@@ -361,7 +365,7 @@
     //paramString2 保存chapterDetail url
     NSString *strUrl = baseParam.paramString2;
     
-    strUrl = [strUrl stringByReplacingOccurrencesOfString:[SiKushuSessionManager getBaseUrl] withString:@""];
+    strUrl = [strUrl stringByReplacingOccurrencesOfString:[self.sessionManager getBaseUrl] withString:@""];
     //    __weak BMBaseParam *weakBaseParam = baseParam;
     __weak SiKushuEngine *weakSelf = self;
     [[SiKushuSessionManager sharedClient] GET:strUrl parameters:nil progress:nil success:^(NSURLSessionDataTask * __unused task, id responseObject) {
@@ -524,77 +528,77 @@
     
 }
 
--(void)downloadChapterOnePage:(BMBaseParam*)baseParam
-                         book:(BCTBookModel*)bookmodel
-{
-    NSInteger pageSize = 10;
-    NSInteger curPageEnd = bookmodel.finishChapterNumber + pageSize;
-    __weak SiKushuEngine *weakSelf = self;
-    NSInteger i = bookmodel.finishChapterNumber;
-    while (i < curPageEnd && i < [bookmodel.aryChapterList count])
-    {
-        
-        BCTBookChapterModel* bookchaptermodel = [bookmodel.aryChapterList objectAtIndex:i];
-        i++;
-        usleep(100);
-        
-        NSString *strUrl = bookchaptermodel.url;
-        
-        strUrl = [strUrl stringByReplacingOccurrencesOfString:[SiKushuSessionManager getBaseUrl] withString:@""];
-//        __weak XiaoShuo7788Engine *weakSelf = self;
-        [[SiKushuSessionManager sharedClient] GET:strUrl parameters:nil progress:nil success:^(NSURLSessionDataTask * __unused task, id responseObject) {
-            
-            NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:0x80000632];
-            
-//            NSLog(@"%@",responseStr);
-            bookchaptermodel.htmlContent = [weakSelf getChapterContent:responseStr];
-            bookchaptermodel.content = [weakSelf getChapterContentText:bookchaptermodel.htmlContent];
-            bookmodel.finishChapterNumber++;
-            if (baseParam.withresultobjectblock) {
-                NSString* strStatus = @"";
-                if (bookmodel.finishChapterNumber == [bookmodel.aryChapterList count]) {
-                    
-                    strStatus = @"finished";
-                    
-                    [bookmodel savePlist];
-                }
-                else
-                {
-                    strStatus = @"downloading";
-                    
-                    if(bookmodel.finishChapterNumber == curPageEnd)
-                    {
-                        [weakSelf downloadChapterOnePage:baseParam book:bookmodel];
-                    }
-                }
-                baseParam.withresultobjectblock(0,strStatus,nil);
-            }
-            
-        } failure:^(NSURLSessionDataTask *__unused task, NSError *error)
-         {
-             bookmodel.finishChapterNumber++;
-             NSLog(@"%@",[error userInfo]);
-             NSString* strStatus = @"";
-             if (bookmodel.finishChapterNumber == [bookmodel.aryChapterList count]) {
-                 strStatus = @"finished";
-                 [bookmodel savePlist];
-             }
-             else
-             {
-                 strStatus = @"downloading";
-                 if(bookmodel.finishChapterNumber == curPageEnd)
-                 {
-                     [weakSelf downloadChapterOnePage:baseParam book:bookmodel];
-                 }
-             }
-             baseParam.withresultobjectblock(-1,strStatus,nil);
-             
-         }];
-        
-        
-    }
-    
-}
+//-(void)downloadChapterOnePage:(BMBaseParam*)baseParam
+//                         book:(BCTBookModel*)bookmodel
+//{
+//    NSInteger pageSize = 10;
+//    NSInteger curPageEnd = bookmodel.finishChapterNumber + pageSize;
+//    __weak SiKushuEngine *weakSelf = self;
+//    NSInteger i = bookmodel.finishChapterNumber;
+//    while (i < curPageEnd && i < [bookmodel.aryChapterList count])
+//    {
+//        
+//        BCTBookChapterModel* bookchaptermodel = [bookmodel.aryChapterList objectAtIndex:i];
+//        i++;
+//        usleep(100);
+//        
+//        NSString *strUrl = bookchaptermodel.url;
+//        
+//        strUrl = [strUrl stringByReplacingOccurrencesOfString:[SiKushuSessionManager getBaseUrl] withString:@""];
+////        __weak XiaoShuo7788Engine *weakSelf = self;
+//        [[SiKushuSessionManager sharedClient] GET:strUrl parameters:nil progress:nil success:^(NSURLSessionDataTask * __unused task, id responseObject) {
+//            
+//            NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:0x80000632];
+//            
+////            NSLog(@"%@",responseStr);
+//            bookchaptermodel.htmlContent = [weakSelf getChapterContent:responseStr];
+//            bookchaptermodel.content = [weakSelf getChapterContentText:bookchaptermodel.htmlContent];
+//            bookmodel.finishChapterNumber++;
+//            if (baseParam.withresultobjectblock) {
+//                NSString* strStatus = @"";
+//                if (bookmodel.finishChapterNumber == [bookmodel.aryChapterList count]) {
+//                    
+//                    strStatus = @"finished";
+//                    
+//                    [bookmodel savePlist];
+//                }
+//                else
+//                {
+//                    strStatus = @"downloading";
+//                    
+//                    if(bookmodel.finishChapterNumber == curPageEnd)
+//                    {
+//                        [weakSelf downloadChapterOnePage:baseParam book:bookmodel];
+//                    }
+//                }
+//                baseParam.withresultobjectblock(0,strStatus,nil);
+//            }
+//            
+//        } failure:^(NSURLSessionDataTask *__unused task, NSError *error)
+//         {
+//             bookmodel.finishChapterNumber++;
+//             NSLog(@"%@",[error userInfo]);
+//             NSString* strStatus = @"";
+//             if (bookmodel.finishChapterNumber == [bookmodel.aryChapterList count]) {
+//                 strStatus = @"finished";
+//                 [bookmodel savePlist];
+//             }
+//             else
+//             {
+//                 strStatus = @"downloading";
+//                 if(bookmodel.finishChapterNumber == curPageEnd)
+//                 {
+//                     [weakSelf downloadChapterOnePage:baseParam book:bookmodel];
+//                 }
+//             }
+//             baseParam.withresultobjectblock(-1,strStatus,nil);
+//             
+//         }];
+//        
+//        
+//    }
+//    
+//}
 
 
 #pragma mark-  getCategoryBooksResult
@@ -603,7 +607,7 @@
 {
     NSString *strUrl = [NSString stringWithFormat:baseParam.paramString ,(long)baseParam.paramInt];
     
-    strUrl = [strUrl stringByReplacingOccurrencesOfString:[SiKushuSessionManager getBaseUrl] withString:@""];
+    strUrl = [strUrl stringByReplacingOccurrencesOfString:[self.sessionManager getBaseUrl] withString:@""];
     
     [[SiKushuSessionManager sharedClient] GET:strUrl parameters:nil progress:nil success:^(NSURLSessionDataTask * __unused task, id responseObject) {
         

@@ -83,6 +83,8 @@
 		83A0DDBF1C377EDF00F7C663 /* ServiceInspector_Border.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A0DDBA1C377EDF00F7C663 /* ServiceInspector_Border.m */; };
 		83A0DDC01C377EDF00F7C663 /* ServiceInspector_Indicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A0DDBC1C377EDF00F7C663 /* ServiceInspector_Indicator.m */; };
 		83A0DDC11C377EDF00F7C663 /* ServiceInspector_WindowHook.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A0DDBE1C377EDF00F7C663 /* ServiceInspector_WindowHook.m */; };
+		EA27A5831CCB1138005078AD /* BCTBookEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = EA27A5821CCB1138005078AD /* BCTBookEngine.m */; };
+		EA27A5871CCB18FB005078AD /* BCTSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EA27A5861CCB18FB005078AD /* BCTSessionManager.m */; };
 		EA9465211CC91911009BFB78 /* DuanTianEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = EA94650F1CC91911009BFB78 /* DuanTianEngine.m */; };
 		EA9465221CC91911009BFB78 /* DuanTianSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9465111CC91911009BFB78 /* DuanTianSessionManager.m */; };
 		EA9465231CC91911009BFB78 /* H23wxEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9465141CC91911009BFB78 /* H23wxEngine.m */; };
@@ -251,6 +253,11 @@
 		83A0DDBC1C377EDF00F7C663 /* ServiceInspector_Indicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceInspector_Indicator.m; sourceTree = "<group>"; };
 		83A0DDBD1C377EDF00F7C663 /* ServiceInspector_WindowHook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceInspector_WindowHook.h; sourceTree = "<group>"; };
 		83A0DDBE1C377EDF00F7C663 /* ServiceInspector_WindowHook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceInspector_WindowHook.m; sourceTree = "<group>"; };
+		EA27A5811CCB1138005078AD /* BCTBookEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCTBookEngine.h; sourceTree = "<group>"; };
+		EA27A5821CCB1138005078AD /* BCTBookEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCTBookEngine.m; sourceTree = "<group>"; };
+		EA27A5841CCB1219005078AD /* BCISessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCISessionManager.h; sourceTree = "<group>"; };
+		EA27A5851CCB18FB005078AD /* BCTSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCTSessionManager.h; sourceTree = "<group>"; };
+		EA27A5861CCB18FB005078AD /* BCTSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCTSessionManager.m; sourceTree = "<group>"; };
 		EA94650E1CC91911009BFB78 /* DuanTianEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DuanTianEngine.h; sourceTree = "<group>"; };
 		EA94650F1CC91911009BFB78 /* DuanTianEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DuanTianEngine.m; sourceTree = "<group>"; };
 		EA9465101CC91911009BFB78 /* DuanTianSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DuanTianSessionManager.h; sourceTree = "<group>"; };
@@ -300,6 +307,11 @@
 				183A04CD1C3A0A0200DE7CDA /* BCTBookAnalyzer.h */,
 				183A04CE1C3A0A0200DE7CDA /* BCTBookAnalyzer.m */,
 				EA9465291CC91AB1009BFB78 /* BCIBookEngine.h */,
+				EA27A5811CCB1138005078AD /* BCTBookEngine.h */,
+				EA27A5821CCB1138005078AD /* BCTBookEngine.m */,
+				EA27A5841CCB1219005078AD /* BCISessionManager.h */,
+				EA27A5851CCB18FB005078AD /* BCTSessionManager.h */,
+				EA27A5861CCB18FB005078AD /* BCTSessionManager.m */,
 				18019BDC1C3B5D9700F6F679 /* EngineManager.h */,
 				18019BDD1C3B5D9700F6F679 /* EngineManager.m */,
 			);
@@ -825,6 +837,7 @@
 				834D80061C36AC21003A5366 /* AppDelegate.m in Sources */,
 				83981A801C37F02A0053B102 /* UIImageView+AFNetworking.m in Sources */,
 				83981A211C37CFB00053B102 /* BMUIApplication.m in Sources */,
+				EA27A5871CCB18FB005078AD /* BCTSessionManager.m in Sources */,
 				834D80511C36AE94003A5366 /* MainTableViewController.m in Sources */,
 				182205641C44CB08005A47E2 /* BCTBookCategoryModel.m in Sources */,
 				83981A901C37F02A0053B102 /* UIImage+GIF.m in Sources */,
@@ -842,6 +855,7 @@
 				83981A931C37F02A0053B102 /* UIImageView+WebCache.m in Sources */,
 				18C0FD481C3C0A98002A7D45 /* SearchTableViewController.m in Sources */,
 				83981A731C37F02A0053B102 /* AFHTTPSessionManager.m in Sources */,
+				EA27A5831CCB1138005078AD /* BCTBookEngine.m in Sources */,
 				83A0DDBF1C377EDF00F7C663 /* ServiceInspector_Border.m in Sources */,
 				83A0DDB51C37707F00F7C663 /* BMBaseAction.m in Sources */,
 				83A0DDC11C377EDF00F7C663 /* ServiceInspector_WindowHook.m in Sources */,

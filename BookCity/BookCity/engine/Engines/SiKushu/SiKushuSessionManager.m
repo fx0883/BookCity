@@ -32,7 +32,7 @@ static NSString * const BaseURLString = @"http://www.sikushu.com/";
     return _sharedClient;
 }
 
-+ (NSString*)getBaseUrl
+- (NSString*)getBaseUrl
 {
     return BaseURLString;
 }

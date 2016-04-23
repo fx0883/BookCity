@@ -9,17 +9,28 @@
 #import <Foundation/Foundation.h>
 
 @class BMBaseParam;
+@class BCTSessionManager;
+@class BCTBookModel;
 
 @protocol BCIBookEngine <NSObject>
 
--(void)getSearchBookResult:(BMBaseParam*)baseParam;
+- (BCTSessionManager *)sessionManager;
 
--(void)getCategoryBooksResult:(BMBaseParam*)baseParam;
+- (NSString*)getChapterContent:(NSString*)strSource;
 
--(void)getBookChapterList:(BMBaseParam*)baseParam;
+- (NSString*)getChapterContentText:(NSString*)strSource;
 
--(void)getBookChapterDetail:(BMBaseParam*)baseParam;
+- (void)getSearchBookResult:(BMBaseParam*)baseParam;
 
--(void)downloadplist:(BMBaseParam*)baseParam;
+- (void)getCategoryBooksResult:(BMBaseParam*)baseParam;
+
+- (void)getBookChapterList:(BMBaseParam*)baseParam;
+
+- (void)getBookChapterDetail:(BMBaseParam*)baseParam;
+
+- (void)downloadplist:(BMBaseParam*)baseParam;
+
+- (void)downloadChapterOnePage:(BMBaseParam*)baseParam
+                         book:(BCTBookModel*)bookmodel;
 
 @end

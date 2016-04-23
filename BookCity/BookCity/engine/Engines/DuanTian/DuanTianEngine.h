@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "BCIBookEngine.h"
+#import "BCTBookEngine.h"
 
-@interface DuanTianEngine : NSObject <BCIBookEngine>
+@interface DuanTianEngine : BCTBookEngine
 
 @end

@@ -44,7 +44,7 @@ static NSString * const BaseURLString = @"http://so.23wx.com/";
     return _sharedClient;
 }
 
-+ (NSString*)getBaseUrl
+- (NSString*)getBaseUrl
 {
     return BaseURLString;
 }
