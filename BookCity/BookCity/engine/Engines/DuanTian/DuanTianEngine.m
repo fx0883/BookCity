@@ -57,7 +57,7 @@
 -(NSString*)getChapterContent:(NSString*)strSource
 {
     NSString *strContent = @"";
-    NSString *strPattern = @"id=\"bookContent\"\>.*?\<\/div\>";
+    NSString *strPattern = @"id=\"bookContent\">.*?</div>";
     strContent = [BCTBookAnalyzer getStr:strSource pattern:strPattern];
     
     strContent = [strContent stringByReplacingOccurrencesOfString:@"id=\"bookContent\">" withString:@""];
@@ -80,8 +80,7 @@
     return strContent;
 }
 
--(void)getSearchBookResult:(BMBaseParam*)baseParam
-{
+-(void)getSearchBookResult:(BMBaseParam*)baseParam {
 //    NSString *strUrl = [NSString stringWithFormat:baseParam.paramString ,(long)baseParam.paramInt];
 //    
 //    strUrl = [strUrl stringByReplacingOccurrencesOfString:[DuanTianSessionManager getBaseUrl] withString:@""];
@@ -155,9 +154,6 @@
                                                                                 options:0
                                                                                   range:NSMakeRange(0, [substringForMatch length])];
         if (matchChapterLink) {
-            //            NSRange matchRange = [match2 range];
-            //            NSRange firstHalfRange = [match2 rangeAtIndex:1];
-            //            NSRange secondHalfRange = [match rangeAtIndex:2];
             NSString* strChapterLink = [substringForMatch substringWithRange:matchChapterLink.range];
             strChapterLink = [strChapterLink stringByReplacingOccurrencesOfString:@"href=\"" withString:@""];
             strChapterLink = [strChapterLink stringByReplacingOccurrencesOfString:@"\"" withString:@""];
@@ -177,9 +173,6 @@
                                                                                   options:0
                                                                                     range:NSMakeRange(0, [substringForMatch length])];
         if (matchChapterTitle) {
-            //            NSRange matchRange = [match2 range];
-            //            NSRange firstHalfRange = [match2 rangeAtIndex:1];
-            //            NSRange secondHalfRange = [match rangeAtIndex:2];
             NSString* strChapterTitle = [substringForMatch substringWithRange:matchChapterTitle.range];
             strChapterTitle = [strChapterTitle stringByReplacingOccurrencesOfString:@"\"" withString:@""];
             strChapterTitle = [strChapterTitle stringByReplacingOccurrencesOfString:@">" withString:@""];
@@ -195,18 +188,7 @@
         [aryChapterList addObject:bookchaptermodel];
     }
     
-    
-    
-    
     return aryChapterList;
-    
-    
-    
-    
 }
-
-
-
-
 
 @end

@@ -25,17 +25,13 @@
     NSString *strUrl = baseParam.paramString2;
     
     strUrl = [strUrl stringByReplacingOccurrencesOfString:[self.sessionManager getBaseUrl] withString:@""];
-    //    __weak BMBaseParam *weakBaseParam = baseParam;
+
     __weak XiaoShuo7788Engine *weakSelf = self;
     [[XiaoShuo7788SessionManager sharedClient] GET:strUrl parameters:nil progress:nil success:^(NSURLSessionDataTask * __unused task, id responseObject) {
         
         NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:0x80000632];
         
-//        NSLog(@"%@",responseStr);
         baseParam.resultString = [weakSelf getChapterContent:responseStr];
-        
-       // BookChapterModel* bookchaptermodel = (BookChapterModel*)baseParam.paramObject;
-//       ((BookChapterModel*)baseParam.paramObject).content = [weakSelf getChapterContentText:baseParam.resultString];
         
         BCTBookChapterModel* bookchaptermodel = (BCTBookChapterModel*)baseParam.paramObject;
         bookchaptermodel.content = [weakSelf getChapterContentText:baseParam.resultString];
@@ -57,14 +53,14 @@
 -(NSString*)getChapterContent:(NSString*)strSource
 {
     NSString *strContent = @"";
-    NSString *strPattern = @"<div id=\\\"bookContent\\\" ondblclick=\\\"scrollRun\\(\\)\\\" onclick=\\\"scrollStop\\(\\)\\\" class=\\\"ic13\\\"\>.*?\<\/div\>";
+    NSString *strPattern = @"<div id=\\\"bookContent\\\" ondblclick=\\\"scrollRun\\(\\)\\\" onclick=\\\"scrollStop\\(\\)\\\" class=\\\"ic13\\\">.*?</div>";
     strContent = [BCTBookAnalyzer getStr:strSource pattern:strPattern];
     
     strContent = [strContent stringByReplacingOccurrencesOfString:@"<div id=\"bookContent\" ondblclick=\"scrollRun()\" onclick=\"scrollStop()\" class=\"ic13\">" withString:@""];
     strContent = [strContent stringByReplacingOccurrencesOfString:@"</div>" withString:@""];
     
     
-    NSString *strScriptPattern = @"\<script\>.*\<\/script\>";
+    NSString *strScriptPattern = @"<script>.*</script>";
     NSString *strScript = [BCTBookAnalyzer getStr:strContent pattern:strScriptPattern];
 
     
@@ -77,32 +73,8 @@
     return strContent;
 }
 
-//-(NSString*)getChapterContentText:(NSString*)strSource
-//{
-//    NSString *strContent = @"";
-//    strContent = [strSource stringByReplacingOccurrencesOfString:@"<p>" withString:@""];
-//    strContent = [strContent stringByReplacingOccurrencesOfString:@"</p>" withString:@"\r\n"];
-//    strContent = [strContent stringByReplacingOccurrencesOfString:@"<br/>" withString:@"\r\n"];
-//    strContent = [strContent stringByReplacingOccurrencesOfString:@"<br />" withString:@"\r\n"];
-//    return strContent;
-//}
--(NSString*)getChapterContentText:(NSString*)strSource
-{
-    //&nbsp;&nbsp;&nbsp;&nbsp;
-    
-//    NSString *strContent = @"";
-//    strContent = [strSource stringByReplacingOccurrencesOfString:@"<p>" withString:@""];
-//    strContent = [strContent stringByReplacingOccurrencesOfString:@"&nbsp;&nbsp;" withString:@" "];
-//    strContent = [strContent stringByReplacingOccurrencesOfString:@"<br>" withString:@""];
-//    strContent = [strContent stringByReplacingOccurrencesOfString:@"</p>" withString:@"\r\n"];
-//    
-//    strContent = [self replace:strContent aimSource:@"\r\n" pattern:@"<br />[\\s]*?<br />"];
-//    strContent = [self replace:strContent aimSource:@"\r\n" pattern:@"<br/>[\\s]*?<br/>"];
-//    strContent = [strContent stringByReplacingOccurrencesOfString:@"<br/>" withString:@"\r\n"];
-//    strContent = [strContent stringByReplacingOccurrencesOfString:@"<br />" withString:@"\r\n"];
-//    strContent = [strContent stringByReplacingOccurrencesOfString:@"\r\n\r\n" withString:@"\r\n"];
-//    return strContent;
-    
+
+-(NSString*)getChapterContentText:(NSString*)strSource {
     NSString *strContent = @"";
     strContent = [BCTBookAnalyzer getChapterContentText:strSource];
     return strContent;
@@ -110,49 +82,16 @@
 }
 
 
-
-
--(void)getCategoryBooksResult:(BMBaseParam*)baseParam
-{
-//    NSString *strUrl = baseParam.paramString;
-////    NSString *strKeyWord = [strSource ConvertUTF16Big];
-//    
-//    
-//    NSDictionary *dict = @{ @"Search":strKeyWord};
-    
-//    XiaoShuo7788SessionManager BaseURLString
-    
+-(void)getCategoryBooksResult:(BMBaseParam*)baseParam {
     NSString *strUrl = [NSString stringWithFormat:baseParam.paramString ,(long)baseParam.paramInt];
     
     strUrl = [strUrl stringByReplacingOccurrencesOfString:[self.sessionManager getBaseUrl] withString:@""];
     
     [[XiaoShuo7788SessionManager sharedClient] GET:strUrl parameters:nil progress:nil success:^(NSURLSessionDataTask * __unused task, id responseObject) {
         
-        //NSString *string = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-        
         NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:0x80000632];
-        
-
-        
         NSMutableArray *bookList = [[NSMutableArray alloc]init];
         
-        
-        //段天小说网的小说
-//        NSArray *ary = [self getBookList:responseStr];
-//        for (NSTextCheckingResult *match in ary) {
-//            NSString* substringForMatch = [responseStr substringWithRange:match.range];
-//            NSLog(@"Extracted URL: %@",substringForMatch);
-//            //            [arrayOfURLs addObject:substringForMatch];
-//            BookModel *bookModel = [self getBookModel:substringForMatch];
-//            [bookList addObject:bookModel];
-//            
-//            NSLog(@"========================================");
-//            NSLog(@"%@",bookModel.title);
-//            NSLog(@"%@",bookModel.imgSrc);
-//            NSLog(@"%@",bookModel.bookLink);
-//            NSLog(@"%@",bookModel.memo);
-//        }
-        //7788小说网的小说
         NSArray *ary7788 = [self getBookList7788:responseStr];
         for (NSTextCheckingResult *match in ary7788) {
             NSString* substringForMatch = [responseStr substringWithRange:match.range];
@@ -173,12 +112,8 @@
         if (baseParam.withresultobjectblock) {
             baseParam.withresultobjectblock(0,@"",nil);
         }
-        //
-        //        NSLog(ary);
-        //        NSLog(responseStr);
-        //        NSLog(string);
-    } failure:^(NSURLSessionDataTask *__unused task, NSError *error)
-     {
+
+    } failure:^(NSURLSessionDataTask *__unused task, NSError *error) {
          NSLog(@"%@",[error userInfo]);
          if (baseParam.withresultobjectblock) {
              baseParam.withresultobjectblock(-1,@"",nil);
@@ -210,22 +145,6 @@ strUrl = [strUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacter
 
         NSMutableArray *bookList = [[NSMutableArray alloc]init];
         
-        //段天小说网
-//        NSArray *ary = [self getBookList:responseStr];
-//        for (NSTextCheckingResult *match in ary) {
-//            NSString* substringForMatch = [responseStr substringWithRange:match.range];
-//            NSLog(@"Extracted URL: %@",substringForMatch);
-//            //            [arrayOfURLs addObject:substringForMatch];
-//            BookModel *bookModel = [self getBookModel:substringForMatch];
-//            [bookList addObject:bookModel];
-//            
-//            NSLog(@"========================================");
-//            NSLog(@"%@",bookModel.title);
-//            NSLog(@"%@",bookModel.imgSrc);
-//            NSLog(@"%@",bookModel.bookLink);
-//            NSLog(@"%@",bookModel.memo);
-//        }
-                //7788小说网
         NSArray *ary7788 = [self getBookList7788:responseStr];
         for (NSTextCheckingResult *match in ary7788) {
             NSString* substringForMatch = [responseStr substringWithRange:match.range];
@@ -246,27 +165,13 @@ strUrl = [strUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacter
         if (baseParam.withresultobjectblock) {
             baseParam.withresultobjectblock(0,@"",nil);
         }
-//
-        //        NSLog(ary);
-//        NSLog(responseStr);
-        //        NSLog(string);
-    } failure:^(NSURLSessionDataTask *__unused task, NSError *error)
-     {
+
+    } failure:^(NSURLSessionDataTask *__unused task, NSError *error) {
          NSLog(@"%@",[error userInfo]);
         
 
     }];
 }
-
-
-
-//-(NSArray*)getBookListBase:(NSString*)strSource
-//                pattern:(NSString*)strPattern
-//{
-//    NSRegularExpression *regular = [[NSRegularExpression alloc]initWithPattern:strPattern options:NSRegularExpressionCaseInsensitive error:nil];
-//    NSArray *results = [regular matchesInString:strSource options:0 range:NSMakeRange(0, strSource.length)];
-//    return results;
-//}
 
 -(NSArray*)getBookList7788:(NSString*)strSource
 {
@@ -275,24 +180,6 @@ strUrl = [strUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacter
 }
 
 
-//-(NSString*)getStr:(NSString*)strSource
-//            pattern:(NSString*)strPattern
-//{
-////    NSString *strPattern = @"ShowIdtoItem\\(.*?\\)";
-//    NSString* strResult = @"";
-//    NSRegularExpression *regularexpression1 = [[NSRegularExpression alloc]initWithPattern:strPattern options:NSRegularExpressionCaseInsensitive error:nil];
-//    
-//    
-//    NSTextCheckingResult *match1 = [regularexpression1 firstMatchInString:strSource
-//                                                                  options:0
-//                                                                    range:NSMakeRange(0, [strSource length])];
-//    if (match1) {
-//        strResult = [strSource substringWithRange:match1.range];
-//    }
-//    return strResult;
-//}
-
-//getBookImg
 -(NSString*)getBookImgStr7788:(NSString*)strSource
 {
     NSString *strPattern1 = @"\<img alt=\".*?\" src=\".*?\" \/\>";

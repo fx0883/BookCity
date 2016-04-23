@@ -65,6 +65,7 @@ DEF_SINGLETON(EngineManager)
 }
 
 - (void)getCategoryBooksResult:(BMBaseParam*)baseParam {
+    
     for (NSString *strUrl in baseParam.paramArray) {
         
         baseParam.paramString = strUrl;

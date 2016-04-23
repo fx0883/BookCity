@@ -53,11 +53,10 @@
     return retDic;
 }
 
--(Boolean)savePlist
-{
+-(Boolean)savePlist {
     NSString *plistFile = [NSString stringWithFormat:@"%@/%@.plist",DocumentsDir,self.title];
     NSLog(@"plist Adress==================================>");
-    NSLog(plistFile);
+    NSLog(@"%@", plistFile);
     NSMutableDictionary *bookDic = [self toDic];
     
     [self saveImgSrc];

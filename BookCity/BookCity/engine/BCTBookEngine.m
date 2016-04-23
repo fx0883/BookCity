@@ -47,7 +47,7 @@
         
         BCTBookChapterModel* bookchaptermodel = [bookmodel.aryChapterList objectAtIndex:i];
         i++;
-        usleep(100);
+//        usleep(100);
         
         // Get chapter url
         NSString *strUrl = bookchaptermodel.url;

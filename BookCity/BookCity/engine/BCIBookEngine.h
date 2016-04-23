@@ -14,6 +14,7 @@
 
 @protocol BCIBookEngine <NSObject>
 
+@optional
 - (BCTSessionManager *)sessionManager;
 
 - (NSString*)getChapterContent:(NSString*)strSource;
