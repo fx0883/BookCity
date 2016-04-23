@@ -18,49 +18,25 @@
     return [SiKushuSessionManager sharedClient];
 }
 
--(void)getSearchBookResult:(BMBaseParam*)baseParam
-{
-    
-    //    NSString *strSource = @"校花";
+-(void)getSearchBookResult:(BMBaseParam*)baseParam {
     NSString *strSource = baseParam.paramString;
     NSString *strKeyWord = [strSource URLEncodedStringGB_18030_2000];
 
-    
-    
-//    NSString *stringPage = [NSString stringWithFormat:@"%ld",(long)baseParam.paramInt];
-    
-    //NSStringEncoding gbkEncoding = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_2312_80);
-    
-
-    
-    
-   // NSDictionary *dict = @{ @"searchkey":strKeyWord,@"searchtype":@"articlename",@"submit":@"搜索",@"page":stringPage};
-    
-
-    
     NSString *strUrl = [NSString stringWithFormat:@"/modules/article/search.php?searchkey=%@&searchtype=articlename&submit=%@&page=%ld",strKeyWord,@"%CB%D1%CB%F7",(long)baseParam.paramInt];
     
     
     [[SiKushuSessionManager sharedClient] GET:strUrl parameters:nil progress:nil success:^(NSURLSessionDataTask * __unused task, id responseObject) {
         
-        //NSString *string = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-        
         NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:0x80000632];
         
         NSMutableArray *bookList = nil;
         
-        //<tr>[\s\S]*?</tr>
-        
-//        <h1 class="f20h">
-        
-        if([BCTBookAnalyzer getStr:responseStr pattern:@"<h1 class=\"f20h\">"].length>0)
+        if([BCTBookAnalyzer getStr:responseStr pattern:@"<h1 class=\"f20h\">"].length > 0)
         {
             BCTBookModel *oneBook = [self getBookModeSiKuShuForOne:responseStr];
             bookList = [[NSMutableArray alloc]initWithCapacity:2];
             [bookList addObject:oneBook];
-        }
-        else
-        {
+        } else {
             NSArray *boollistSiKuShu = [self getBookListSiKuShu:responseStr];
             
             if ([boollistSiKuShu count]>0) {
@@ -68,31 +44,20 @@
             }
         }
         
-
-        
-        
         baseParam.resultArray = bookList;
         if (baseParam.withresultobjectblock) {
             baseParam.withresultobjectblock(0,@"",nil);
         }
-        //
-        //        NSLog(ary);
-        //        NSLog(responseStr);
-        //        NSLog(string);
-    } failure:^(NSURLSessionDataTask *__unused task, NSError *error)
-     {
+        
+    } failure:^(NSURLSessionDataTask *__unused task, NSError *error) {
          NSLog(@"%@",[error userInfo]);
-         
-         
      }];
 }
 
 //整个HTML一本书
--(BCTBookModel*)getBookModeSiKuShuForOne:(NSString*)strSource
-{
+-(BCTBookModel*)getBookModeSiKuShuForOne:(NSString*)strSource {
     BCTBookModel *book = [BCTBookModel new];
     
-//    <h1 class=\"f20h\">([^<]*)<em>([^<]*)</em></h1>
     NSString *strPatternAuthorAndTitle = @"<h1 class=\"f20h\">([^<]*)<em>([^<]*)</em></h1>";
     NSRegularExpression *regular = [[NSRegularExpression alloc]initWithPattern:strPatternAuthorAndTitle options:NSRegularExpressionCaseInsensitive error:nil];
         NSArray *matchs = [regular matchesInString:strSource options:0 range:NSMakeRange(0, strSource.length)];
@@ -417,21 +382,6 @@
     return strContent;
 }
 
-//-(NSString*)getChapterContentText:(NSString*)strSource
-//{
-////    &nbsp;&nbsp;&nbsp;&nbsp;
-//    
-//    NSString *strContent = @"";
-//    strContent = [strSource stringByReplacingOccurrencesOfString:@"<p>" withString:@""];
-//    strContent = [strContent stringByReplacingOccurrencesOfString:@"&nbsp;&nbsp;" withString:@" "];
-//    strContent = [strContent stringByReplacingOccurrencesOfString:@"<br>" withString:@""];
-//    strContent = [strContent stringByReplacingOccurrencesOfString:@"</p>" withString:@"\r\n"];
-//    strContent = [strContent stringByReplacingOccurrencesOfString:@"<br/>" withString:@"\r\n"];
-//    strContent = [strContent stringByReplacingOccurrencesOfString:@"<br />" withString:@"\r\n"];
-//    
-//    
-//    return strContent;
-//}
 -(NSString*)getChapterContentText:(NSString*)strSource
 {
     //&nbsp;&nbsp;&nbsp;&nbsp;
@@ -453,154 +403,6 @@
     
 }
 
-#pragma mark-  downloadplist
-
--(void)downloadplist:(BMBaseParam*)baseParam
-{
-    BCTBookModel *bookmodel = (BCTBookModel*)baseParam.paramObject;
-    
-    if (bookmodel == nil || bookmodel.aryChapterList == nil || [bookmodel.aryChapterList count] == 0 ) {
-        
-        if (baseParam.withresultobjectblock) {
-            baseParam.withresultobjectblock(-1,@"数据没有准备好，不要下载",nil);
-        }
-        
-    }
-    
-    bookmodel.finishChapterNumber = 0;
-    
-    //一次请求过多会超时，必须控制请求数
-    
-    //    for (NSInteger i = 0 ; i < [bookmodel.aryChapterList count]; i++) {
-    //
-    //        BookChapterModel* bookchaptermodel = [bookmodel.aryChapterList objectAtIndex:i];
-    //
-    //        usleep(100);
-    //
-    //        NSString *strUrl = bookchaptermodel.url;
-    //
-    //        strUrl = [strUrl stringByReplacingOccurrencesOfString:[DuanTianSessionManager getBaseUrl] withString:@""];
-    //        __weak DuanTianEngine *weakSelf = self;
-    //        [[DuanTianSessionManager sharedClient] GET:strUrl parameters:nil progress:nil success:^(NSURLSessionDataTask * __unused task, id responseObject) {
-    //
-    //            NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:0x80000632];
-    //
-    //            NSLog(@"%@",responseStr);
-    //            bookchaptermodel.htmlContent = [weakSelf getChapterContent:responseStr];
-    //            bookchaptermodel.content = [weakSelf getChapterContentText:bookchaptermodel.htmlContent];
-    //            bookmodel.finishChapterNumber++;
-    //            if (baseParam.withresultobjectblock) {
-    //                NSString* strStatus = @"";
-    //                if (bookmodel.finishChapterNumber == [bookmodel.aryChapterList count]) {
-    //
-    //                    strStatus = @"finished";
-    //
-    //                    [bookmodel savePlist];
-    //                }
-    //                else
-    //                {
-    //                    strStatus = @"downloading";
-    //                }
-    //                baseParam.withresultobjectblock(0,strStatus,nil);
-    //            }
-    //
-    //        } failure:^(NSURLSessionDataTask *__unused task, NSError *error)
-    //         {
-    //             NSLog(@"%@",[error userInfo]);
-    //             NSString* strStatus = @"";
-    //             if (bookmodel.finishChapterNumber == [bookmodel.aryChapterList count]) {
-    //                 strStatus = @"finished";
-    //                 [bookmodel savePlist];
-    //             }
-    //             else
-    //             {
-    //                 strStatus = @"downloading";
-    //
-    //             }
-    //             baseParam.withresultobjectblock(-1,strStatus,nil);
-    //
-    //         }];
-    //
-    //
-    //    }
-    
-    [self downloadChapterOnePage:baseParam book:bookmodel];
-    
-}
-
-//-(void)downloadChapterOnePage:(BMBaseParam*)baseParam
-//                         book:(BCTBookModel*)bookmodel
-//{
-//    NSInteger pageSize = 10;
-//    NSInteger curPageEnd = bookmodel.finishChapterNumber + pageSize;
-//    __weak SiKushuEngine *weakSelf = self;
-//    NSInteger i = bookmodel.finishChapterNumber;
-//    while (i < curPageEnd && i < [bookmodel.aryChapterList count])
-//    {
-//        
-//        BCTBookChapterModel* bookchaptermodel = [bookmodel.aryChapterList objectAtIndex:i];
-//        i++;
-//        usleep(100);
-//        
-//        NSString *strUrl = bookchaptermodel.url;
-//        
-//        strUrl = [strUrl stringByReplacingOccurrencesOfString:[SiKushuSessionManager getBaseUrl] withString:@""];
-////        __weak XiaoShuo7788Engine *weakSelf = self;
-//        [[SiKushuSessionManager sharedClient] GET:strUrl parameters:nil progress:nil success:^(NSURLSessionDataTask * __unused task, id responseObject) {
-//            
-//            NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:0x80000632];
-//            
-////            NSLog(@"%@",responseStr);
-//            bookchaptermodel.htmlContent = [weakSelf getChapterContent:responseStr];
-//            bookchaptermodel.content = [weakSelf getChapterContentText:bookchaptermodel.htmlContent];
-//            bookmodel.finishChapterNumber++;
-//            if (baseParam.withresultobjectblock) {
-//                NSString* strStatus = @"";
-//                if (bookmodel.finishChapterNumber == [bookmodel.aryChapterList count]) {
-//                    
-//                    strStatus = @"finished";
-//                    
-//                    [bookmodel savePlist];
-//                }
-//                else
-//                {
-//                    strStatus = @"downloading";
-//                    
-//                    if(bookmodel.finishChapterNumber == curPageEnd)
-//                    {
-//                        [weakSelf downloadChapterOnePage:baseParam book:bookmodel];
-//                    }
-//                }
-//                baseParam.withresultobjectblock(0,strStatus,nil);
-//            }
-//            
-//        } failure:^(NSURLSessionDataTask *__unused task, NSError *error)
-//         {
-//             bookmodel.finishChapterNumber++;
-//             NSLog(@"%@",[error userInfo]);
-//             NSString* strStatus = @"";
-//             if (bookmodel.finishChapterNumber == [bookmodel.aryChapterList count]) {
-//                 strStatus = @"finished";
-//                 [bookmodel savePlist];
-//             }
-//             else
-//             {
-//                 strStatus = @"downloading";
-//                 if(bookmodel.finishChapterNumber == curPageEnd)
-//                 {
-//                     [weakSelf downloadChapterOnePage:baseParam book:bookmodel];
-//                 }
-//             }
-//             baseParam.withresultobjectblock(-1,strStatus,nil);
-//             
-//         }];
-//        
-//        
-//    }
-//    
-//}
-
-
 #pragma mark-  getCategoryBooksResult
 
 -(void)getCategoryBooksResult:(BMBaseParam*)baseParam
@@ -619,21 +421,6 @@
         
         NSMutableArray *bookList = nil;
 
-        //7788小说网的小说
-//        NSArray *ary7788 = [self getBookList7788:responseStr];
-//        for (NSTextCheckingResult *match in ary7788) {
-//            NSString* substringForMatch = [responseStr substringWithRange:match.range];
-//            NSLog(@"Extracted URL: %@",substringForMatch);
-//            //            [arrayOfURLs addObject:substringForMatch];
-//            BookModel *bookModel = [self getBookModel7788:substringForMatch];
-//            [bookList addObject:bookModel];
-//            
-//            NSLog(@"========================================");
-//            NSLog(@"%@",bookModel.title);
-//            NSLog(@"%@",bookModel.imgSrc);
-//            NSLog(@"%@",bookModel.bookLink);
-//            NSLog(@"%@",bookModel.memo);
-//        }
         NSString *strListMain = [self getMainListContent:responseStr];
         
         bookList = [self getBookListFromCategorySiku:strListMain];
@@ -642,10 +429,7 @@
         if (baseParam.withresultobjectblock) {
             baseParam.withresultobjectblock(0,@"",nil);
         }
-        //
-        //        NSLog(ary);
-        //        NSLog(responseStr);
-        //        NSLog(string);
+        
     } failure:^(NSURLSessionDataTask *__unused task, NSError *error)
      {
          NSLog(@"%@",[error userInfo]);
@@ -673,16 +457,7 @@
     for (NSTextCheckingResult *match in arySiku) {
         NSString* substringForMatch = [strSource substringWithRange:match.range];
         NSLog(@"Extracted URL: %@",substringForMatch);
-        //            [arrayOfURLs addObject:substringForMatch];
-//        BookModel *bookModel = [self getBookModel7788:substringForMatch];
-//        [bookList addObject:bookModel];
-//        
-//        NSLog(@"========================================");
-//        NSLog(@"%@",bookModel.title);
-//        NSLog(@"%@",bookModel.imgSrc);
-//        NSLog(@"%@",bookModel.bookLink);
-//        NSLog(@"%@",bookModel.memo);
-        
+
         BCTBookModel *bookModel = [self getBookModelFromCategory:substringForMatch];
         [retAry addObject:bookModel];
     }

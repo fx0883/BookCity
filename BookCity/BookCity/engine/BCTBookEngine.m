@@ -19,6 +19,22 @@
     return nil;
 }
 
+-(void)downloadplist:(BMBaseParam*)baseParam {
+    BCTBookModel *bookmodel = (BCTBookModel*)baseParam.paramObject;
+    
+    if (bookmodel == nil || bookmodel.aryChapterList.count == 0 ) {
+        
+        if (baseParam.withresultobjectblock) {
+            baseParam.withresultobjectblock(-1,@"数据没有准备好，不要下载",nil);
+        }
+        
+    }
+    
+    // Start downloading book
+    bookmodel.finishChapterNumber = 0;
+    [self downloadChapterOnePage:baseParam book:bookmodel];
+}
+
 -(void)downloadChapterOnePage:(BMBaseParam*)baseParam
                          book:(BCTBookModel*)bookmodel {
     NSInteger pageSize = 10;

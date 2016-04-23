@@ -9,6 +9,7 @@
 #import "BookChapterListVC.h"
 #import "BCTBookChapterModel.h"
 #import "MBProgressHUD.h"
+#import "ChapterDetailViewController.h"
 
 @interface BookChapterListVC () {
     NSMutableArray *_aryBook;
@@ -116,50 +117,26 @@
     if (_aryBook) {
         rowCount = [_aryBook count];
     }
-
-    
     return rowCount;
 }
 
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-
-{
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
-    //    NSString *strKey = [_aryCategory objectAtIndex:indexPath.row];
-//    BookChapterModel* bookChapterModel = [_aryBook objectAtIndex:indexPath.row];
-    
     [_bookModel setCurChapter:indexPath.row];
-    UIViewController *destination = [segue destinationViewController];
-    
-    if ([destination respondsToSelector:@selector(setBookChapterModel:)]) {
-        
-//        [destination setValue:bookChapterModel forKey:@"bookChapterModel"];
-        
-        [destination setValue:_bookModel forKey:@"bookModel"];
-        
-    }
-    
-
-    
-    
-    
+    ChapterDetailViewController *destination = [segue destinationViewController];
+    destination.bookModel = _bookModel;
 }
 
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"chapterNameCell" forIndexPath:indexPath];
-    //    if (cell == nil) {
-    //        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"categoryCell"];
-    //
-    //    }
-    //    cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
+
     BCTBookChapterModel *bookchaptermodel = [_aryBook objectAtIndex:indexPath.row];
     
-    cell.text = bookchaptermodel.title;
+    cell.textLabel.text = bookchaptermodel.title;
     return cell;
-
 }
 
 @end
